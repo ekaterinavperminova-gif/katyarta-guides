@@ -13,8 +13,10 @@ img{max-width:100%}
 
 /* было: .pg = фиксированная страница A4 (210mm x 297mm, position:absolute внутри).
    стало: обычная секция сайта, та же ширина колонки текста (~210mm), без фиксированной высоты */
-.pg{max-width:210mm;margin:0 auto;position:relative;background:var(--cream) url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC45IiBudW1PY3RhdmVzPSIyIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PGZlQ29sb3JNYXRyaXggdmFsdWVzPSIwIDAgMCAwIDAuMzUgMCAwIDAgMCAwLjI1IDAgMCAwIDAgMC4xNSAwIDAgMCAwLjA2IDAiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgZmlsdGVyPSJ1cmwoI24pIi8+PC9zdmc+");padding:16mm 17mm 14mm;border-bottom:1px solid rgba(87,14,28,.08)}
-.pg:last-child{border-bottom:none}
+.pg{max-width:210mm;margin:0 auto;position:relative;padding:12mm 17mm}
+.pg + .pg{border-top:1px solid rgba(87,14,28,.10);padding-top:16mm}
+.pg.cover{padding:0;border-top:none}
+.pg.cover + .pg{border-top:none}
 .num-top{font-family:"Playfair Display",Georgia,serif;margin-bottom:8mm}
 .n1{font-size:24pt;color:var(--gold);font-style:italic} .n2{font-size:12pt;color:var(--moss)}
 .nline{width:22mm;height:1px;background:var(--gold);margin-top:1mm}
