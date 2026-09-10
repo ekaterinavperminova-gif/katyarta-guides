@@ -1,21 +1,25 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>Инструкция: как создать свой скилл в Claude</title><style>
-@font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-VariableFont_wght.ttf");font-weight:100 900;font-style:normal}
-@font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf");font-weight:100 900;font-style:italic}
-@font-face{font-family:"Inter";src:url("assets/fonts/Inter-Regular.otf");font-weight:400}
-@font-face{font-family:"Inter";src:url("assets/fonts/Inter-Light.otf");font-weight:300}
-@font-face{font-family:"Inter";src:url("assets/fonts/Inter-Medium.otf");font-weight:500}
-@font-face{font-family:"Inter";src:url("assets/fonts/Inter-SemiBold.otf");font-weight:600}
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Инструкция: как создать свой скилл в Claude</title><style>
 @page{size:A4;margin:0}
+@font-face{font-family:"Playfair Display";src:url("file:///Users/katyarta/Desktop/Катерина Арта/блог/Визуал для моего блога/Шрифты/Inter,Playfair_Display,Playfair_Display_SC/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf");font-weight:100 900;font-style:normal}
+@font-face{font-family:"Playfair Display";src:url("file:///Users/katyarta/Desktop/Катерина Арта/блог/Визуал для моего блога/Шрифты/Inter,Playfair_Display,Playfair_Display_SC/Playfair_Display/PlayfairDisplay-Italic-VariableFont_wght.ttf");font-weight:100 900;font-style:italic}
+@font-face{font-family:"Inter";src:url("file:///Users/katyarta/Desktop/Катерина Арта/блог/Визуал для моего блога/Шрифты/Inter/Inter-Regular.otf");font-weight:400}
+@font-face{font-family:"Inter";src:url("file:///Users/katyarta/Desktop/Катерина Арта/блог/Визуал для моего блога/Шрифты/Inter/Inter-Light.otf");font-weight:300}
+@font-face{font-family:"Inter";src:url("file:///Users/katyarta/Desktop/Катерина Арта/блог/Визуал для моего блога/Шрифты/Inter/Inter-Medium.otf");font-weight:500}
+@font-face{font-family:"Inter";src:url("file:///Users/katyarta/Desktop/Катерина Арта/блог/Визуал для моего блога/Шрифты/Inter/Inter-SemiBold.otf");font-weight:600}
 :root{--cream:#F2E8D9;--wine:#570E1C;--bordeaux:#82091B;--soft:#8A3542;--gold:#C9A96E;--taupe:#B8A995;--olive:#6F7358;--moss:#8A8B73;--graphite:#20201E}
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--cream);color:var(--wine);font-family:"Inter",Arial,sans-serif;font-size:12.6pt;line-height:1.48;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.pg{width:210mm;height:297mm;position:relative;overflow:hidden;break-after:page;background:var(--cream) url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC45IiBudW1PY3RhdmVzPSIyIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PGZlQ29sb3JNYXRyaXggdmFsdWVzPSIwIDAgMCAwIDAuMzUgMCAwIDAgMCAwLjI1IDAgMCAwIDAgMC4xNSAwIDAgMCAwLjA2IDAiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgZmlsdGVyPSJ1cmwoI24pIi8+PC9zdmc+");padding:16mm 17mm 14mm}
-.pg:last-child{break-after:auto}
-.num-top{font-family:"Playfair Display",Georgia,serif;position:absolute;top:13mm;left:17mm}
+html,body{margin:0;padding:0;background:var(--cream);color:var(--wine);font-family:"Inter",Arial,sans-serif;font-size:12.6pt;line-height:1.48}
+img{max-width:100%}
+
+/* было: .pg = фиксированная страница A4 (210mm x 297mm, position:absolute внутри).
+   стало: обычная секция сайта, та же ширина колонки текста (~210mm), без фиксированной высоты */
+.pg{max-width:210mm;margin:0 auto;position:relative;background:var(--cream) url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC45IiBudW1PY3RhdmVzPSIyIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PGZlQ29sb3JNYXRyaXggdmFsdWVzPSIwIDAgMCAwIDAuMzUgMCAwIDAgMCAwLjI1IDAgMCAwIDAgMC4xNSAwIDAgMCAwLjA2IDAiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgZmlsdGVyPSJ1cmwoI24pIi8+PC9zdmc+");padding:16mm 17mm 14mm;border-bottom:1px solid rgba(87,14,28,.08)}
+.pg:last-child{border-bottom:none}
+.num-top{font-family:"Playfair Display",Georgia,serif;margin-bottom:8mm}
 .n1{font-size:24pt;color:var(--gold);font-style:italic} .n2{font-size:12pt;color:var(--moss)}
 .nline{width:22mm;height:1px;background:var(--gold);margin-top:1mm}
-.content{position:absolute;top:34mm;left:17mm;right:17mm;bottom:20mm}
-.foot{position:absolute;left:17mm;right:17mm;bottom:11mm;display:flex;justify-content:space-between;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:10.5pt;color:var(--graphite)}
+.content{position:relative}
+.foot{margin-top:14mm;display:flex;justify-content:space-between;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:10.5pt;color:var(--graphite)}
 .foot .next{color:var(--moss)}
 h2{font-family:"Playfair Display",Georgia,serif;font-weight:400;font-size:27pt;line-height:1.14;margin:0 0 7mm;color:var(--wine);max-width:160mm}
 h2 i{font-style:italic;color:var(--gold)}
@@ -25,10 +29,10 @@ a{color:inherit;text-decoration:none;border-bottom:1px solid var(--gold)}
 b{font-weight:600}
 .quote{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:16pt;line-height:1.35;color:var(--bordeaux);margin:8mm 0 4mm;max-width:145mm}
 .quote.small{font-size:12.5pt;color:var(--graphite);background:rgba(184,169,149,.35);padding:5mm 6mm;border-left:2px solid var(--gold);margin:4mm 0}
-.hand{position:absolute;width:38mm;height:20mm;fill:none;stroke:var(--gold);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.hand-arrow{right:6mm;top:118mm}
+.hand{display:none}
 .cards2{display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin:2mm 0 10mm}
-.card{border:1px solid var(--gold);border-radius:4mm;padding:7mm 6mm;background:rgba(242,232,217,.6);min-height:52mm}
+@media(max-width:620px){.cards2{grid-template-columns:1fr}}
+.card{border:1px solid var(--gold);border-radius:4mm;padding:7mm 6mm;background:rgba(242,232,217,.6)}
 .card-k{font-family:"Playfair Display",Georgia,serif;font-size:19pt;color:var(--wine);margin-bottom:3mm} .card-k::first-letter{text-transform:uppercase}
 .card-t{font-size:11.5pt;font-weight:300}
 .route{border-top:1px solid var(--gold);padding-top:5mm}
@@ -41,12 +45,13 @@ ol.rules li{border-bottom:1px solid rgba(201,169,110,.5);padding-bottom:4mm;marg
 .pill-note,.tail{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:14pt;color:var(--bordeaux);margin-top:6mm}
 .triples{margin-top:2mm}
 .triple{display:grid;grid-template-columns:30mm 1fr;gap:4mm;padding:3.4mm 0;border-top:1px solid rgba(201,169,110,.55)}
+@media(max-width:520px){.triple{grid-template-columns:1fr}}
 .triples .triple:last-child{border-bottom:1px solid rgba(201,169,110,.55)}
 .tlabel{font-size:9.5pt;letter-spacing:.14em;text-transform:uppercase;color:var(--olive);padding-top:1mm}
 .tbody{font-size:12pt}
 .step.has-shot .tbody{font-size:11.2pt} .step.has-shot .triple{padding:2.6mm 0} .step.has-shot h2{font-size:24pt;margin-bottom:4mm} .step.has-shot .quote.small{font-size:11pt;padding:3.5mm 5mm}
 .shot{margin:5mm 0 0;padding:3mm;border:1px solid var(--gold);border-radius:3.5mm;background:#fff;max-width:176mm}
-.shot img{display:block;width:100%;height:auto;max-height:118mm;object-fit:contain;border-radius:2mm}
+.shot img{display:block;width:100%;height:auto;border-radius:2mm}
 .shot.bar{max-width:120mm;background:var(--cream);padding:0;border:none} .shot.bar img{border-radius:0}
 .shot-cap{font-size:9.5pt;color:var(--moss);text-align:center;margin-top:2mm;font-style:italic;font-family:"Playfair Display",Georgia,serif}
 .skill{display:grid;grid-template-columns:20mm 1fr;gap:4mm;border:1px solid var(--gold);border-radius:4mm;padding:6mm 6mm 5mm;background:rgba(242,232,217,.55);margin-bottom:6mm}
@@ -58,18 +63,19 @@ ol.rules li{border-bottom:1px solid rgba(201,169,110,.5);padding-bottom:4mm;marg
 .pill{display:inline-block;border-radius:20mm;padding:1.8mm 5mm;font-size:10.5pt;letter-spacing:.02em;margin-bottom:2.5mm}
 .pill.bad{background:var(--taupe);color:var(--graphite)} .pill.good{background:var(--bordeaux);color:var(--cream);margin-top:4mm}
 .grab-t{font-size:11.8pt;max-width:165mm}
-.num-row{display:flex;align-items:baseline;gap:6mm;margin:6mm 0 8mm;border-top:1px solid var(--gold);border-bottom:1px solid var(--gold);padding:5mm 0}
+.num-row{display:flex;align-items:baseline;gap:6mm;margin:6mm 0 8mm;border-top:1px solid var(--gold);border-bottom:1px solid var(--gold);padding:5mm 0;flex-wrap:wrap}
 .num{font-family:"Playfair Display",Georgia,serif;font-size:46pt;color:var(--gold);line-height:1} .num span{font-size:16pt;color:var(--wine)}
 .num-t{font-size:12.5pt;max-width:90mm}
 .cta{margin:7mm 0 0}
 .cta-l,.cta-r{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:15pt;color:var(--wine)}
-.code{position:relative;font-family:"Playfair Display",Georgia,serif;font-size:27pt;letter-spacing:.06em;color:var(--bordeaux);padding:4mm 9mm;border:none}
+.code{position:relative;display:inline-block;font-family:"Playfair Display",Georgia,serif;font-size:27pt;letter-spacing:.06em;color:var(--bordeaux);padding:4mm 9mm;border:none}
 .oval{position:absolute;inset:-2mm -3mm;width:calc(100% + 6mm);height:calc(100% + 4mm);fill:none;stroke:var(--gold);stroke-width:2.4;stroke-linecap:round}
 .btns{display:grid;grid-template-columns:1fr 1fr;gap:4mm;max-width:150mm}
+@media(max-width:480px){.btns{grid-template-columns:1fr}}
 .btn{display:block;text-align:center;background:var(--bordeaux);color:var(--cream);border-radius:20mm;padding:4.2mm 6mm;font-size:12pt;font-weight:500;border:none}
 .btn-main{display:inline-block;text-align:center;background:var(--gold);color:var(--graphite);border-radius:20mm;padding:3.6mm 12mm;font-size:13pt;font-weight:600;border:none}
-.cta-row1{display:flex;align-items:center;gap:5mm;margin-bottom:3mm}
-.cta-row2{display:flex;align-items:center;gap:7mm;margin-bottom:9mm}
+.cta-row1{display:flex;align-items:center;gap:5mm;margin-bottom:3mm;flex-wrap:wrap}
+.cta-row2{display:flex;align-items:center;gap:7mm;margin-bottom:9mm;flex-wrap:wrap}
 .btns-label{font-size:9.5pt;letter-spacing:.16em;text-transform:uppercase;color:var(--olive);margin-bottom:3mm}
 .stats{margin-top:2mm}
 .stat{margin:0 0 4mm;padding:2.5mm;border:1px solid var(--gold);border-radius:3.5mm;background:#fff}
@@ -77,24 +83,21 @@ ol.rules li{border-bottom:1px solid rgba(201,169,110,.5);padding-bottom:4mm;marg
 .stat figcaption{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:9.5pt;color:var(--moss);text-align:center;margin-top:1.5mm}
 .stat.wide{max-width:150mm}
 .stat-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4mm;max-width:150mm}
+@media(max-width:520px){.stat-row{grid-template-columns:1fr}}
 .stat-cap{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:13.5pt;color:var(--bordeaux);max-width:150mm;margin-top:3mm}
-.cover{padding:0;background:var(--graphite)}
-.cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
-.cover-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(32,32,30,.10) 0%,rgba(32,32,30,.05) 35%,rgba(32,32,30,.55) 62%,rgba(32,32,30,.88) 100%)}
-.cover-in{position:absolute;inset:0;padding:20mm 18mm 18mm;display:flex;flex-direction:column;justify-content:space-between}
+
+/* обложка: было - фото на всю печатную страницу 297mm, лицо перекрывало заголовок.
+   стало - невысокая полоса, заголовок виден сразу, без прокрутки */
+.cover{padding:0;background:var(--graphite);height:min(74vh,620px);min-height:420px;overflow:hidden}
+.cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 15%}
+.cover-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(32,32,30,.15) 0%,rgba(32,32,30,.08) 30%,rgba(32,32,30,.62) 64%,rgba(32,32,30,.93) 100%)}
+.cover-in{position:absolute;inset:0;padding:16mm 18mm 14mm;display:flex;flex-direction:column;justify-content:space-between}
 .kicker{font-size:11pt;letter-spacing:.18em;text-transform:uppercase;color:var(--cream)}
-h1{font-family:"Playfair Display",Georgia,serif;font-weight:400;font-size:44pt;line-height:1.08;margin:0 0 7mm;color:var(--cream)}
+h1{font-family:"Playfair Display",Georgia,serif;font-weight:400;font-size:clamp(28pt,6vw,44pt);line-height:1.08;margin:0 0 7mm;color:var(--cream)}
 h1 i{font-style:italic;color:var(--gold)}
 .lead{font-size:14.5pt;font-weight:300;max-width:125mm;color:var(--cream);margin:0 0 9mm}
-.cover-foot{font-size:10.5pt;color:var(--taupe);border-top:1px solid var(--gold);padding-top:5mm;letter-spacing:.04em}
-</style>
-<style>
-/* Растяжка страниц под экран (17.09 правка: было плохо, вернули оригинал + масштаб) */
-html,body{overflow-x:hidden}
-.pg-scaler{width:100%;overflow:hidden}
-.pg{transform-origin:top left}
-</style>
-</head><body><section class="pg cover"><img class="cover-img" src="assets/cover.png" alt="">
+.cover-foot{display:none}
+</style></head><body><section class="pg cover"><img class="cover-img" src="assets/cover.png" alt="">
 <div class="cover-shade"></div>
 <div class="cover-in">
 <div class="kicker">Катерина Арта · @katyarta</div>
@@ -102,13 +105,15 @@ html,body{overflow-x:hidden}
 <h1>Инструкция: как создать <i>свой скилл</i> в Claude</h1>
 <p class="lead">Record a skill: показываешь задачу один раз, дальше Claude повторяет её сам</p>
 <div class="cover-foot"></div>
-</div></div></section><section class="pg "><div class="num-top"><span class="n1">02</span><span class="n2"> / 19</span><div class="nline"></div></div>
+</div></div></section>
+<section class="pg "><div class="num-top"><span class="n1">02</span><span class="n2"> / 19</span><div class="nline"></div></div>
 <div class="content"><h2>Claude посмотрел, как ты работаешь. <i>Теперь делает это сам</i></h2>
 <p class="big">В приложении Claude есть кнопка Record a skill. Ты включаешь запись, делаешь свою обычную задачу и проговариваешь вслух, что делаешь и зачем</p>
 <p class="big">Claude смотрит на экран, слушает и собирает из этого навык: инструкцию, которую потом запускает снова и снова одинаково</p>
 <div class="quote">Это как новая помощница в первый день. Один раз показала и объяснила логику, дальше она делает сама</div>
 <svg class="hand hand-arrow" viewBox="0 0 120 60"><path d="M4 8 C 30 52, 70 56, 112 30" /><path d="M100 26 l14 4 -8 12"/></svg></div>
-<div class="foot"><span>AI Producer @katyarta</span><span class="next">листай дальше →</span></div></section><section class="pg "><div class="num-top"><span class="n1">03</span><span class="n2"> / 19</span><div class="nline"></div></div>
+</section>
+<section class="pg "><div class="num-top"><span class="n1">03</span><span class="n2"> / 19</span><div class="nline"></div></div>
 <div class="content"><h2>Два слова <i>и маршрут</i></h2>
 <div class="cards2">
 <div class="card"><div class="card-k">навык · skill</div><div class="card-t">Сохранённая инструкция для Claude: когда включаться, что делать по шагам, чего не делать</div></div>
@@ -119,7 +124,8 @@ html,body{overflow-x:hidden}
 <div class="route-i"><b>1-7</b> запись первого навыка по экрану: куда нажать, что увидишь, что это даёт</div>
 <div class="route-i"><b>+</b> как говорить вслух · 6 задач эксперта и блогера · где застревают почти все · если у тебя Windows</div>
 </div></div>
-<div class="foot"><span>AI Producer @katyarta</span><span class="next">листай дальше →</span></div></section><section class="pg "><div class="num-top"><span class="n1">04</span><span class="n2"> / 19</span><div class="nline"></div></div>
+</section>
+<section class="pg "><div class="num-top"><span class="n1">04</span><span class="n2"> / 19</span><div class="nline"></div></div>
 <div class="content"><div class="stepnum">Шаг 0</div>
 <h2>Что нужно <i>до старта</i></h2>
 <ol class="list">
@@ -130,7 +136,8 @@ html,body{overflow-x:hidden}
 <li><b>Одна задача,</b> которую делаешь регулярно и руками. Для первого раза короткая: 3-7 минут. Например, превратить голосовое из заметок в пост</li>
 </ol>
 <div class="pill-note">Через 20 минут у тебя первый навык, а не «когда-нибудь разберусь»</div></div>
-<div class="foot"><span>AI Producer @katyarta</span><span class="next">листай дальше →</span></div></section><section class="pg step has-shot"><div class="num-top"><span class="n1">05</span><span class="n2"> / 19</span><div class="nline"></div></div>
+</section>
+<section class="pg step has-shot"><div class="num-top"><span class="n1">05</span><span class="n2"> / 19</span><div class="nline"></div></div>
 <div class="content"><div class="stepnum">Шаг 1</div>
 <h2>Выбери режим <i>Cowork</i></h2>
 <div class="triples">
@@ -138,7 +145,8 @@ html,body{overflow-x:hidden}
 <div class="triple"><div class="tlabel">Что увидишь</div><div class="tbody">Под полем ввода подсветился Cowork, слева от него значок плюса, ниже строка «Project or folder»</div></div>
 <div class="triple"><div class="tlabel">Что это даёт</div><div class="tbody">Ты в том режиме, где Claude умеет смотреть на экран и работать в программах. В обычном чате записи навыка нет</div></div>
 </div><figure class="shot"><img src="assets/step1.png" alt=""><div class="shot-cap">Главный экран приложения Claude, выбран Cowork</div></figure></div>
-<div class="foot"><span>AI Producer @katyarta</span><span class="next">листай дальше →</span></div></section><section class="pg step has-shot"><div class="num-top"><span class="n1">06</span><span class="n2"> / 19</span><div class="nline"></div></div>
+</section>
+<section class="pg step has-shot"><div class="num-top"><span class="n1">06</span><span class="n2"> / 19</span><div class="nline"></div></div>
 <div class="content"><div class="stepnum">Шаг 2</div>
 <h2>Нажми плюс и выбери <i>Record a skill</i></h2>
 <div class="triples">
@@ -146,7 +154,8 @@ html,body{overflow-x:hidden}
 <div class="triple"><div class="tlabel">Что увидишь</div><div class="tbody">Окно «Record a skill»: записываются экран, клики, набор текста и голос, потом это превращается в повторяемый навык. Ниже предупреждение: не вводить пароли и не показывать личную переписку. Внизу кнопки «Cancel» и «Start recording», справа микрофон «System default»</div></div>
 <div class="triple"><div class="tlabel">Что это даёт</div><div class="tbody">Ты точно знаешь, что именно записывается, и можешь закрыть лишние окна до старта</div></div>
 </div><figure class="shot"><img src="assets/step2.png" alt=""><div class="shot-cap">Слева меню плюса, справа окно Record a skill</div></figure></div>
-<div class="foot"><span>AI Producer @katyarta</span><span class="next">листай дальше →</span></div></section><section class="pg step has-shot"><div class="num-top"><span class="n1">07</span><span class="n2"> / 19</span><div class="nline"></div></div>
+</section>
+<section class="pg step has-shot"><div class="num-top"><span class="n1">07</span><span class="n2"> / 19</span><div class="nline"></div></div>
 <div class="content"><div class="stepnum">Шаг 3</div>
 <h2>Проверь микрофон и нажми <i>Start recording</i></h2>
 <div class="triples">
@@ -154,7 +163,8 @@ html,body{overflow-x:hidden}
 <div class="triple"><div class="tlabel">Что увидишь</div><div class="tbody">Окно закроется, появится маленькая панель записи: «Capturing», счётчик шагов «step», микрофон с полоской громкости и кнопки «Discard» и «Done»</div></div>
 <div class="triple"><div class="tlabel">Что это даёт</div><div class="tbody">Запись пошла. Каждое действие на экране считается шагом, счётчик растёт</div></div>
 </div><figure class="shot bar"><img src="assets/step3.png" alt=""><div class="shot-cap">Панель записи: Capturing, счётчик шагов, микрофон, Discard и Done</div></figure></div>
-<div class="foot"><span>AI Producer @katyarta</span><span class="next">листай дальше →</span></div></section><section class="pg step has-shot"><div class="num-top"><span class="n1">08</span><span class="n2"> / 19</span><div class="nline"></div></div>
+</section>
+<section class="pg step has-shot"><div class="num-top"><span class="n1">08</span><span class="n2"> / 19</span><div class="nline"></div></div>
 <div class="content"><div class="stepnum">Шаг 4</div>
 <h2>Делай задачу <i>и говори вслух</i></h2>
 <div class="triples">
@@ -162,7 +172,8 @@ html,body{overflow-x:hidden}
 <div class="triple"><div class="tlabel">Что увидишь</div><div class="tbody">Счётчик шагов растёт, полоска микрофона дёргается от голоса</div></div>
 <div class="triple"><div class="tlabel">Что это даёт</div><div class="tbody">Claude получает не набор кликов, а логику: почему ты делаешь именно так. Это и превращается в навык</div></div>
 </div><div class="quote small">Открываю заметки. Беру сегодняшнее голосовое, это черновик поста. Копирую текст в Claude. Прошу написать пост в моём стиле: короткие фразы, без воды, без вопроса в начале. Длиннее полутора тысяч знаков, режу. Сохраняю в папку «Посты» файлом с сегодняшней датой</div><figure class="shot bar"><img src="assets/step4.png" alt=""><div class="shot-cap">Счётчик шагов растёт, полоска микрофона реагирует на голос</div></figure></div>
-<div class="foot"><span>AI Producer @katyarta</span><span class="next">листай дальше →</span></div></section><section class="pg step has-shot"><div class="num-top"><span class="n1">09</span><span class="n2"> / 19</span><div class="nline"></div></div>
+</section>
+<section class="pg step has-shot"><div class="num-top"><span class="n1">09</span><span class="n2"> / 19</span><div class="nline"></div></div>
 <div class="content"><div class="stepnum">Шаг 5</div>
 <h2>Нажми <i>Done</i></h2>
 <div class="triples">
@@ -170,7 +181,8 @@ html,body{overflow-x:hidden}
 <div class="triple"><div class="tlabel">Что увидишь</div><div class="tbody">На панели «Processing». Потом в чате Cowork Claude пересказывает, что увидел, может задать один-три уточняющих вопроса и показывает черновик навыка: название, когда включать, что делать по шагам</div></div>
 <div class="triple"><div class="tlabel">Что это даёт</div><div class="tbody">Навык ещё не сохранён, это черновик. Самый удобный момент поправить то, что Claude понял не так</div></div>
 </div><figure class="shot bar"><img src="assets/step5.png" alt=""><div class="shot-cap">После Done панель показывает Processing</div></figure></div>
-<div class="foot"><span>AI Producer @katyarta</span><span class="next">листай дальше →</span></div></section><section class="pg step has-shot"><div class="num-top"><span class="n1">10</span><span class="n2"> / 19</span><div class="nline"></div></div>
+</section>
+<section class="pg step has-shot"><div class="num-top"><span class="n1">10</span><span class="n2"> / 19</span><div class="nline"></div></div>
 <div class="content"><div class="stepnum">Шаг 6</div>
 <h2>Раскрой Content, проверь <i>и нажми Save</i></h2>
 <div class="triples">
@@ -178,7 +190,8 @@ html,body{overflow-x:hidden}
 <div class="triple"><div class="tlabel">Что увидишь</div><div class="tbody">Навык появился в Customize → Skills → Yours. Оттуда его можно править, выключать, удалять и делиться. Кнопка Add там же: Upload skill, Create a skill, Create with Claude, Record your screen</div></div>
 <div class="triple"><div class="tlabel">Что это даёт</div><div class="tbody">Навык сохранён и живёт отдельно от чата, в котором ты его записала</div></div>
 </div><figure class="shot"><img src="assets/step6.png" alt=""><div class="shot-cap">Customize → Skills → Yours и меню Add</div></figure></div>
-<div class="foot"><span>AI Producer @katyarta</span><span class="next">листай дальше →</span></div></section><section class="pg step has-shot"><div class="num-top"><span class="n1">11</span><span class="n2"> / 19</span><div class="nline"></div></div>
+</section>
+<section class="pg step has-shot"><div class="num-top"><span class="n1">11</span><span class="n2"> / 19</span><div class="nline"></div></div>
 <div class="content"><div class="stepnum">Шаг 7</div>
 <h2>Запусти <i>на новом примере</i></h2>
 <div class="triples">
@@ -186,7 +199,8 @@ html,body{overflow-x:hidden}
 <div class="triple"><div class="tlabel">Что увидишь</div><div class="tbody">Claude идёт по шагам навыка и показывает, что делает. Если задача проходит через браузер, приложение попросит доступ: включи, иначе всё остановится</div></div>
 <div class="triple"><div class="tlabel">Что это даёт</div><div class="tbody">Первая задача, которая теперь повторяется без тебя. Отработал правильно два-три раза, попроси «поставь этот навык по расписанию». Компьютер в это время должен быть включён и не спать</div></div>
 </div><figure class="shot"><img src="assets/step7.png" alt=""><div class="shot-cap">Новый чат: плюс → Skills, подсказка «Type / for skills»</div></figure></div>
-<div class="foot"><span>AI Producer @katyarta</span><span class="next">листай дальше →</span></div></section><section class="pg "><div class="num-top"><span class="n1">12</span><span class="n2"> / 19</span><div class="nline"></div></div>
+</section>
+<section class="pg "><div class="num-top"><span class="n1">12</span><span class="n2"> / 19</span><div class="nline"></div></div>
 <div class="content"><h2>Как говорить вслух, <i>чтобы навык получился</i></h2>
 <ol class="rules">
 <li><b>Что делаю и зачем.</b> Не «нажимаю сюда», а «открываю комментарии под последним постом, потому что ищу вопросы для новой темы»</li>
@@ -196,7 +210,8 @@ html,body{overflow-x:hidden}
 <li><b>Пароли и личное - за кадром.</b> Закрой чужую переписку и банковские вкладки до нажатия Start recording</li>
 </ol>
 <div class="tail">Убери любой пункт - получишь навык, который надо переписывать</div></div>
-<div class="foot"><span>AI Producer @katyarta</span><span class="next">листай дальше →</span></div></section><section class="pg "><div class="num-top"><span class="n1">13</span><span class="n2"> / 19</span><div class="nline"></div></div>
+</section>
+<section class="pg "><div class="num-top"><span class="n1">13</span><span class="n2"> / 19</span><div class="nline"></div></div>
 <div class="content"><h2>Шесть навыков <i>для эксперта и блогера</i></h2><p class="sub">У каждого: что делать на экране во время записи, что сказать вслух, что получишь потом</p><div class="skill"><div class="skill-n">01</div><div class="skill-body"><div class="skill-t">Идеи постов из комментариев и сохранённого</div>
 <div class="mini"><span class="mlabel">на экране</span>Открываешь комментарии под тремя последними постами и папку сохранённого. Выписываешь вопросы и повторы в заметку</div>
 <div class="mini"><span class="mlabel">вслух</span><i>«Ищу вопросы, которые задают чаще одного раза. Реклама и «спасибо» не считаются. Из каждого вопроса делаю тему поста одной строкой»</i></div>
@@ -204,7 +219,8 @@ html,body{overflow-x:hidden}
 <div class="mini"><span class="mlabel">на экране</span>Копируешь текст голосового или заметку, вставляешь в Claude, просишь пост, правишь, сохраняешь</div>
 <div class="mini"><span class="mlabel">вслух</span><i>«Пишу в своём стиле: короткие фразы, без воды, без вопроса в начале. Без длинных тире. До полутора тысяч знаков. Сохраняю в папку «Посты» файлом с датой»</i></div>
 <div class="mini"><span class="mlabel">получишь</span>Черновик поста в твоём голосе из любой надиктовки. Правишь пять минут вместо тридцати</div></div></div></div>
-<div class="foot"><span>AI Producer @katyarta</span><span class="next">листай дальше →</span></div></section><section class="pg "><div class="num-top"><span class="n1">14</span><span class="n2"> / 19</span><div class="nline"></div></div>
+</section>
+<section class="pg "><div class="num-top"><span class="n1">14</span><span class="n2"> / 19</span><div class="nline"></div></div>
 <div class="content"><h2>Ещё два навыка</h2><div class="skill"><div class="skill-n">03</div><div class="skill-body"><div class="skill-t">Разбор комментариев под постом</div>
 <div class="mini"><span class="mlabel">на экране</span>Открываешь пост, читаешь комментарии, раскладываешь на три колонки: вопросы, боли, возражения</div>
 <div class="mini"><span class="mlabel">вслух</span><i>«Каждый комментарий отношу к одной колонке. Цитаты сохраняю дословно. В конце пишу, какие три темы просят чаще всего»</i></div>
@@ -212,7 +228,8 @@ html,body{overflow-x:hidden}
 <div class="mini"><span class="mlabel">на экране</span>Открываешь статистику, выписываешь просмотры, подписки, охват лучшего поста и рилса в таблицу</div>
 <div class="mini"><span class="mlabel">вслух</span><i>«Беру только эти пять цифр. Сравниваю с прошлой неделей. Пишу одной строкой, что выросло, что упало»</i></div>
 <div class="mini"><span class="mlabel">получишь</span>Понедельничная сводка за минуту, а не «потом посмотрю»</div></div></div></div>
-<div class="foot"><span>AI Producer @katyarta</span><span class="next">листай дальше →</span></div></section><section class="pg "><div class="num-top"><span class="n1">15</span><span class="n2"> / 19</span><div class="nline"></div></div>
+</section>
+<section class="pg "><div class="num-top"><span class="n1">15</span><span class="n2"> / 19</span><div class="nline"></div></div>
 <div class="content"><h2>И ещё два</h2><div class="skill"><div class="skill-n">05</div><div class="skill-body"><div class="skill-t">Карусель из готового поста</div>
 <div class="mini"><span class="mlabel">на экране</span>Берёшь пост, режешь на 8 слайдов: обложка, мысль на слайд, последний слайд с призывом</div>
 <div class="mini"><span class="mlabel">вслух</span><i>«Обложка - самая сильная фраза поста. На слайде одна мысль, не больше трёх строк. Последний слайд - что сделать дальше. Сохраняю текст слайдов файлом»</i></div>
@@ -220,13 +237,15 @@ html,body{overflow-x:hidden}
 <div class="mini"><span class="mlabel">на экране</span>Открываешь план недели, расставляешь публикации по дням, ставишь напоминания, в конце недели заполняешь короткий отчёт</div>
 <div class="mini"><span class="mlabel">вслух</span><i>«Три поста в неделю: понедельник, среда, пятница. Рилс в четверг. В воскресенье вечером сводка: что вышло, что перенеслось и почему»</i></div>
 <div class="mini"><span class="mlabel">получишь</span>План и отчёт, которые собираются сами. Ты открываешь готовое и решаешь</div></div></div></div>
-<div class="foot"><span>AI Producer @katyarta</span><span class="next">листай дальше →</span></div></section><section class="pg "><div class="num-top"><span class="n1">16</span><span class="n2"> / 19</span><div class="nline"></div></div>
+</section>
+<section class="pg "><div class="num-top"><span class="n1">16</span><span class="n2"> / 19</span><div class="nline"></div></div>
 <div class="content"><h2>Где застревают <i>почти все</i></h2>
 <div class="grab"><div class="pill bad">Нет пункта Record a skill</div><div class="grab-t">Проверь по порядку: в поле ввода выбран Cowork, а не Chat · приложение на Mac, не в браузере и не на Windows · версия обновлена · тариф платный. Первым делом обнови версию, потом проверяй остальное</div></div>
 <div class="grab"><div class="pill bad">Навык размытый и включается не тогда</div><div class="grab-t">В одну запись попало несколько задач, или ты не сказала вслух, чего не делать. Перезапиши короче: одна задача, три-семь минут, с запретами вслух. Старый навык удали в Customize → Skills</div></div>
 <div class="grab"><div class="pill bad">Сохранила, а при запуске ничего не происходит</div><div class="grab-t">Три причины: не даны разрешения на экран и универсальный доступ · навык идёт через браузер, а доступ к нему не включён · задача сформулирована не теми словами, что в навыке. Открой Customize → Skills, посмотри в Content, при каких словах он включается, и напиши задачу ими</div></div>
 <div class="pill good">Все три лечатся порядком действий, не переделкой навыка</div></div>
-<div class="foot"><span>AI Producer @katyarta</span><span class="next">листай дальше →</span></div></section><section class="pg "><div class="num-top"><span class="n1">17</span><span class="n2"> / 19</span><div class="nline"></div></div>
+</section>
+<section class="pg "><div class="num-top"><span class="n1">17</span><span class="n2"> / 19</span><div class="nline"></div></div>
 <div class="content"><h2>Если у тебя <i>Windows</i></h2>
 <p class="big">Кнопки записи в приложении для Windows пока нет, но навык собирается текстом, и работает он так же</p>
 <ol class="list">
@@ -234,7 +253,8 @@ html,body{overflow-x:hidden}
 <li>В тексте навыка напиши то же, что проговорила бы вслух: когда включаться, что делать по шагам, чего не делать, в каком виде результат. Образец - пример из шага 4</li>
 <li>Сохрани и проверь на новом примере, как в шаге 7</li>
 </ol></div>
-<div class="foot"><span>AI Producer @katyarta</span><span class="next">листай дальше →</span></div></section><section class="pg "><div class="num-top"><span class="n1">18</span><span class="n2"> / 19</span><div class="nline"></div></div>
+</section>
+<section class="pg "><div class="num-top"><span class="n1">18</span><span class="n2"> / 19</span><div class="nline"></div></div>
 <div class="content"><h2>Что происходит с блогом, <i>когда рутину забирает система</i></h2>
 <p class="big">Годами мой блог стоял на месте: рилс еле добирался до 500 просмотров. Навыки забрали производство, и впервые появилось время на то, что растит блог по-настоящему: смыслы, ритм, истории. Цифры ниже пришли после этого</p>
 <div class="stats">
@@ -247,7 +267,8 @@ html,body{overflow-x:hidden}
 </div>
 <div class="stat-cap">Три рилса по миллиону и больше. Без рекламы и без команды: производство занимает минуты, время уходит на смысл</div>
 </div></div>
-<div class="foot"><span>AI Producer @katyarta</span><span class="next">листай дальше →</span></div></section><section class="pg offer"><div class="num-top"><span class="n1">19</span><span class="n2"> / 19</span><div class="nline"></div></div>
+</section>
+<section class="pg offer"><div class="num-top"><span class="n1">19</span><span class="n2"> / 19</span><div class="nline"></div></div>
 <div class="content"><h2>Один навык - <i>первый кирпич</i></h2>
 <p class="big">Я одна, в декрете, без команды, строю свои проекты на нейросетях. Код я не пишу. Вместо команды у меня система: Claude и навыки под каждую рутину, которую раньше делала руками или отдавала людям</p>
 <div class="num-row"><div class="num">1.5 <span>млн ₽</span></div><div class="num-t">оборота проектов за год, с нуля и из декрета</div></div>
@@ -259,34 +280,4 @@ html,body{overflow-x:hidden}
 </div>
 <div class="btns-label">Мои каналы и страницы</div>
 <div class="btns"><a class="btn" href="https://t.me/+CNtsc57EWnQzZTk6">Канал в Telegram</a><a class="btn" href="https://max.ru/join/7j3M_9BFNWEfFMFmVd6DDz227jGaAVLpVvy3mObA93o">Канал в MAX</a><a class="btn" href="https://instagram.com/katyarta">Instagram</a><a class="btn" href="https://vk.ru/katyarta">ВКонтакте</a></div></div>
-<div class="foot"><span>AI Producer @katyarta</span><span class="next"></span></div></section>
-<script>
-(function(){
-  var W = 793.7; // 210mm в px по спецификации CSS (96dpi), не зависит от физического экрана
-  var H = 1122.52; // 297mm в px
-  function wrapAndFit(){
-    var pages = document.querySelectorAll('.pg');
-    pages.forEach(function(pg){
-      if(!pg.parentElement.classList.contains('pg-scaler')){
-        var wrap = document.createElement('div');
-        wrap.className = 'pg-scaler';
-        pg.parentNode.insertBefore(wrap, pg);
-        wrap.appendChild(pg);
-      }
-    });
-  }
-  function fit(){
-    document.querySelectorAll('.pg-scaler').forEach(function(wrap){
-      var scale = wrap.clientWidth / W;
-      var pg = wrap.querySelector('.pg');
-      pg.style.transform = 'scale(' + scale + ')';
-      wrap.style.height = (H * scale) + 'px';
-    });
-  }
-  wrapAndFit();
-  fit();
-  window.addEventListener('resize', fit);
-  window.addEventListener('orientationchange', fit);
-})();
-</script>
-</body></html>
+<div class="foot"><span>AI Producer @katyarta</span><span class="next"></span></div></section></body></html>
