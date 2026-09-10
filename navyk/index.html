@@ -30,15 +30,13 @@ a{color:var(--bordeaux)}
 .installbar{background:var(--wine);color:var(--cream);font-size:14px;text-align:center;padding:10px 16px}
 .installbar a{color:var(--gold);border-bottom:1px solid var(--gold)}
 
-.hero{position:relative;width:100%;height:clamp(280px,46vh,440px);overflow:hidden;color:var(--cream)}
-.hero img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}
-.hero::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(32,32,30,.10) 0%,rgba(32,32,30,.04) 30%,rgba(32,32,30,.55) 66%,rgba(32,32,30,.90) 100%)}
-.hero-in{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:20px}
-.kicker{font-family:var(--sans);font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;margin-bottom:10px}
-.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(26px,6vw,38px);line-height:1.14;margin:0 0 8px}
-.hero h1 i{font-style:italic;color:var(--gold)}
-.hero p{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--taupe);margin:0}
+.hero{position:relative;width:100%}
+.hero img{width:100%;height:auto}
+.hero-title{background:var(--cream);padding:22px 20px 8px;text-align:left}
+.kicker{font-family:var(--sans);font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;color:var(--olive);margin-bottom:10px}
+.hero-title h1{font-family:var(--serif);font-weight:600;color:var(--wine);font-size:clamp(26px,6vw,38px);line-height:1.14;margin:0 0 8px}
+.hero-title h1 i{font-style:italic;color:var(--bordeaux)}
+.hero-title p{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--olive);margin:0}
 
 main{padding:0 0 8px}
 .sec{padding:34px 0}
@@ -131,7 +129,7 @@ footer{padding:26px 0 40px;text-align:center;color:var(--olive);font-family:var(
 
 <div class="hero">
   <img src="assets/cover-web.jpg" alt="Катерина Арта">
-  <div class="hero-in">
+  <div class="hero-title">
     <div class="kicker">Катерина Арта · @katyarta</div>
     <h1>Инструкция: как создать <i>свой скилл</i> в Claude</h1>
     <p>Record a skill: показываешь задачу один раз, дальше Claude повторяет её сам</p>
