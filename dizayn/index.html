@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Отдай Claude готовую дизайн-систему бренда за пять минут - Катерина Арта</title>
+<meta name="description" content="Библиотека DESIGN.md: готовые файлы визуального языка реальных брендов для Claude Code. Пошаговая инструкция от Катерины Арта.">
+<style>
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-VariableFont_wght.ttf");font-weight:100 900;font-style:normal}
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf");font-weight:100 900;font-style:italic}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Light.otf");font-weight:300}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Regular.otf");font-weight:400}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Medium.otf");font-weight:500}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-SemiBold.otf");font-weight:600}
+  :root{
+    --cream:#F2E8D9;
+    --wine:#570E1C;
+    --bordeaux:#82091B;
+    --soft-bordeaux:#8A3542;
+    --gold:#C9A96E;
+    --taupe:#B8A995;
+    --graphite:#20201E;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--wine);
+    font-family:'Inter',-apple-system,sans-serif;
+    font-weight:300;
+    line-height:1.65;
+    font-size:18px;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px;}
+  .cover{position:relative;width:100%;overflow:hidden;background:var(--graphite);}
+  .cover img{display:block;width:100%;height:auto;max-height:78vh;object-fit:cover;object-position:center 30%;}
+  .cover-caption{
+    position:absolute;left:24px;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--cream);
+    font-size:14px;
+    letter-spacing:.04em;
+    opacity:.85;
+  }
+  header.hero{padding:40px 0 8px;}
+  h1{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:36px;
+    line-height:1.2;
+    margin:0 0 14px;
+    color:var(--wine);
+  }
+  .subtitle{
+    font-size:18px;
+    color:var(--soft-bordeaux);
+    margin:0 0 6px;
+  }
+  .byline{
+    font-size:14px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin:0 0 32px;
+  }
+  section{padding:8px 0 32px;}
+  h2{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:24px;
+    color:var(--bordeaux);
+    margin:0 0 16px;
+    padding-top:8px;
+  }
+  p{margin:0 0 16px;}
+  .divider{border:none;border-top:1px solid var(--taupe);opacity:.5;margin:0;}
+  .stat-row{
+    display:flex;gap:16px;flex-wrap:wrap;
+    margin:24px 0 8px;
+  }
+  .stat{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 20px;
+    flex:1;
+    min-width:140px;
+  }
+  .stat .num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--wine);
+    font-size:32px;
+    display:block;
+    line-height:1;
+    margin-bottom:6px;
+  }
+  .stat .label{font-size:14px;color:var(--wine);opacity:.85;}
+  .note{
+    font-size:15px;
+    color:var(--soft-bordeaux);
+    font-style:italic;
+    margin-top:10px;
+  }
+  .step{
+    counter-increment:step;
+    position:relative;
+    padding:24px 0 24px 56px;
+    border-bottom:1px solid rgba(87,14,28,.12);
+  }
+  .step:last-of-type{border-bottom:none;}
+  .step::before{
+    content:counter(step);
+    position:absolute;
+    left:0;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:34px;
+    color:var(--gold);
+    line-height:1;
+  }
+  .steps{counter-reset:step;}
+  .step h3{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:20px;
+    margin:0 0 12px;
+    color:var(--wine);
+  }
+  .tri{margin:0 0 10px;}
+  .tri b{color:var(--bordeaux);}
+  code{
+    background:rgba(87,14,28,.08);
+    padding:2px 7px;
+    border-radius:4px;
+    font-size:.92em;
+    color:var(--wine);
+  }
+  .code-line{
+    display:block;
+    background:var(--graphite);
+    color:var(--cream);
+    padding:14px 18px;
+    border-radius:6px;
+    font-family:ui-monospace,Menlo,monospace;
+    font-size:15px;
+    margin:12px 0 16px;
+    overflow-x:auto;
+  }
+  .grabli-list{margin:0;padding-left:22px;}
+  .grabli-list li{margin-bottom:12px;}
+  .altlinks{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 22px;
+    margin-top:8px;
+  }
+  .altlinks a{color:var(--bordeaux);}
+  .altlinks ul{margin:8px 0 0;padding-left:20px;}
+  a{color:var(--bordeaux);}
+  .offer{
+    background:var(--graphite);
+    color:var(--cream);
+    border-radius:10px;
+    padding:32px 28px;
+    margin-top:8px;
+  }
+  .offer h2{color:var(--gold);}
+  .offer p{color:var(--cream);opacity:.92;}
+  .offer .word{
+    display:inline-block;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:22px;
+    color:var(--gold);
+    margin:6px 0;
+  }
+  .offer a{color:var(--gold);text-decoration:underline;}
+  .channels{
+    margin-top:18px;
+    font-size:15px;
+    opacity:.85;
+  }
+  .channels a{display:block;color:var(--cream);margin-bottom:4px;}
+  footer{
+    text-align:center;
+    padding:32px 0 48px;
+    color:var(--taupe);
+    font-size:13px;
+  }
+  @media (max-width:480px){
+    body{font-size:16.5px;}
+    h1{font-size:29px;}
+    .cover img{max-height:62vh;}
+    .step{padding-left:44px;}
+    .step::before{font-size:28px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <img src="assets/cover.jpg" alt="Катерина Арта" loading="eager">
+  <div class="cover-caption">DESIGN.md</div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Отдай Claude готовую дизайн-систему бренда за пять минут</h1>
+    <p class="subtitle">Библиотека DESIGN.md: готовые файлы визуального языка реальных брендов, которые Claude Code читает напрямую</p>
+    <p class="byline">Катерина Арта · @katyarta · сентябрь 2026</p>
+  </header>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Что это и зачем</h2>
+    <p>Claude отлично верстает: сетку, код, адаптивность под телефон. А вот дизайн придумывает сам, и почти всегда мимо. Просишь «сделай красиво», получаешь то, что выглядит как шаблон из конструктора десять лет назад</p>
+    <p>Промпт это не лечит: у агента просто нет твоего вкуса и готового визуального языка. Есть один рабочий способ - отдать ему этот язык готовым файлом</p>
+    <p>Кто-то разобрал сайты десятков реальных брендов и сложил их визуальный язык в файлы формата <code>DESIGN.md</code>: точные цвета, шрифты, отступы, сетка, состояния кнопок и правила «что можно, а что нельзя». Один такой файл кладёшь в свой проект, и агент собирает интерфейс в этом стиле, а не придумывает свой</p>
+
+    <div class="stat-row">
+      <div class="stat"><span class="num">759</span><span class="label">готовых файлов на designmd.app</span></div>
+      <div class="stat"><span class="num">40</span><span class="label">разборов реальных брендов: Vercel, Atlassian, Nubank и другие</span></div>
+    </div>
+    <p class="note">Цифры на день сборки этой страницы (12.09.2026). Библиотека живая и растёт каждую неделю: если у тебя на экране цифра больше, это нормально, не ошибка</p>
+
+    <p>Дальше - семь шагов, как взять готовый файл и отдать его агенту</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Шаг 0. Что нужно до старта</h2>
+    <p>Только одно: открытый Claude Code в папке твоего проекта (сайт, лендинг, приложение - неважно что именно верстаешь)</p>
+    <p>Что это даёт: больше ничего покупать и настраивать не нужно, начинаешь прямо сейчас</p>
+  </section>
+
+  <hr class="divider">
+
+  <section class="steps">
+
+    <div class="step">
+      <h3>Выбери бренд под свой проект</h3>
+      <p class="tri"><b>Куда нажать.</b> Открой <code>designmd.app/library</code> (весь каталог с фильтрами по стилю и эпохе) или сразу <code>designmd.app/brands</code> (только разборы реальных компаний)</p>
+      <p class="tri"><b>Что увидишь.</b> Карточки: имя, категория стиля, три коротких тега и маленькое превью. На <code>/brands</code> - список настоящих брендов: Vercel, Atlassian, Nubank, Clerk, Mintlify, Resend, Nuxt и другие</p>
+      <p class="tri"><b>Что это даёт.</b> Выбираешь не абстрактный «красивый стиль», а конкретный визуальный язык, уже проверенный на живом продукте</p>
+    </div>
+
+    <div class="step">
+      <h3>Скачай или скопируй файл</h3>
+      <p class="tri"><b>Куда нажать.</b> Открой карточку выбранного бренда. На странице - палитра цветов, шрифты и блок с двумя кнопками: <b>Download DESIGN.md</b> и <b>Copy DESIGN.md</b></p>
+      <p class="tri"><b>Что увидишь.</b> Либо файл сохранится на компьютер, либо весь текст файла скопируется в буфер обмена - выбирай что удобнее</p>
+      <p class="tri"><b>Что это даёт.</b> У тебя на руках готовый текстовый файл с полным описанием стиля бренда: не картинка и не референс на глаз, а инструкция, которую агент читает буквально</p>
+    </div>
+
+    <div class="step">
+      <h3>Положи файл в корень проекта</h3>
+      <p class="tri"><b>Куда нажать.</b> Сохрани файл под именем <code>DESIGN.md</code> в главной папке проекта, там же, где лежит файл <code>CLAUDE.md</code> (если такого файла ещё нет, создай пустой рядом)</p>
+      <p class="tri"><b>Что увидишь.</b> В списке файлов проекта появился <code>DESIGN.md</code> на одном уровне с <code>CLAUDE.md</code>, не внутри вложенных папок</p>
+      <p class="tri"><b>Что это даёт.</b> Claude Code читает файлы из корня проекта в первую очередь. Файл, спрятанный глубоко в подпапках, агент может не найти сам</p>
+    </div>
+
+    <div class="step">
+      <h3>Впиши одну строку в CLAUDE.md</h3>
+      <p class="tri"><b>Куда нажать.</b> Открой <code>CLAUDE.md</code> и добавь строку:</p>
+      <span class="code-line">Строго следуй правилам из @DESIGN.md при любой вёрстке интерфейса</span>
+      <p class="tri"><b>Что увидишь.</b> Обычная строка текста в файле, который Claude Code читает при старте каждой сессии</p>
+      <p class="tri"><b>Что это даёт.</b> Значок <code>@</code> перед именем файла не украшение, это прямая ссылка на файл. Без него агент прочитает «DESIGN.md» как случайные буквы, а не как команду открыть файл</p>
+    </div>
+
+    <div class="step">
+      <h3>Дай агенту обычную задачу</h3>
+      <p class="tri"><b>Куда нажать.</b> Попроси то, что просил бы всегда: «сделай главный экран», «собери карточку товара», «сверстай форму регистрации» - без напоминаний про стиль</p>
+      <p class="tri"><b>Что увидишь.</b> Агент сам подтягивает цвета, шрифты и отступы из <code>DESIGN.md</code>, не спрашивая, какой дизайн ты хочешь</p>
+      <p class="tri"><b>Что это даёт.</b> Интерфейс в выбранном стиле за минуты, а не за вечер правок и споров «нет, не то, попробуй ещё»</p>
+    </div>
+
+    <div class="step">
+      <h3>Проверь, что стиль реально подхватился</h3>
+      <p class="tri"><b>Куда нажать.</b> Открой готовый экран рядом с файлом <code>DESIGN.md</code> и сверь на глаз: тот ли шрифт заголовков, тот ли фон кнопки, те ли отступы</p>
+      <p class="tri"><b>Что увидишь.</b> Совпадение или явное расхождение: цвет кнопки не из палитры файла, шрифт стандартный вместо указанного</p>
+      <p class="tri"><b>Что это даёт.</b> Уверенность, что дизайн-система реально работает, а не просто лежит в проекте мёртвым файлом</p>
+    </div>
+
+    <div class="step">
+      <h3>Если стиль не подхватился</h3>
+      <p>Три вещи, которые проверить по порядку:</p>
+      <ol class="grabli-list">
+        <li>Файл лежит не в корне проекта, а в подпапке - перенеси в корень, рядом с <code>CLAUDE.md</code></li>
+        <li>В строке ссылки забыт значок <code>@</code> перед именем файла - без него ссылка не работает</li>
+        <li>Задача была дана агенту до того, как ты добавила строку в <code>CLAUDE.md</code> - начни новый диалог с агентом после правки файла</li>
+      </ol>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Где ещё взять такие файлы</h2>
+    <p>Основная витрина - <code>designmd.app</code>. Если она недоступна или хочется больше вариантов:</p>
+    <div class="altlinks">
+      <ul>
+        <li><code>designmd.directory</code> - другой каталог того же формата, больше готовых наборов и шаблонов</li>
+        <li><code>github.com/VoltAgent/awesome-design-md</code> - открытый список файлов на GitHub, тоже просто скачиваешь нужный файл</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Библиотека сейчас бесплатная</h2>
+    <p>Пользоваться можно уже сегодня, без подписок и оплат. Единственное ограничение - твоё время на выбор бренда под свой проект</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Один файл - это только начало</h2>
+    <p>Я одна, в декрете, без команды и без дизайнера строю проекты на нейросетях: за год с нуля из декрета больше миллиона оборота, сейчас уже ближе к полутора. Сайты, карусели, обложки - всё собираю сама, через готовые визуальные референсы вроде этого файла, а не через свой вкус с нуля</p>
+
+    <div class="offer">
+      <h2>Если с визуалом у тебя каждый раз ступор</h2>
+      <p>Продукт готов, а как оформить - непонятно. Разбираю на консультации, как собрать себе рабочий набор дизайн-файлов под твои форматы (лендинг, карусель, презентация) и не зависеть от настроения «нравится - не нравится»</p>
+      <p>Напиши слово <span class="word">КОНСУЛЬТАЦИЯ</span><br>мне в Telegram: <a href="https://t.me/katyartaa" target="_blank" rel="noopener">t.me/katyartaa</a></p>
+      <div class="channels">
+        <a href="https://t.me/+CNtsc57EWnQzZTk6" target="_blank" rel="noopener">Канал в Telegram</a>
+        <a href="https://max.ru/join/7j3M_9BFNWEfFMFmVd6DDz227jGaAVLpVvy3mObA93o" target="_blank" rel="noopener">Канал в MAX</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>@katyarta · Отдай Claude готовую дизайн-систему бренда за пять минут</footer>
+
+</body>
+</html>
