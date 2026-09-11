@@ -159,30 +159,69 @@
   .altlinks a{color:var(--bordeaux);}
   .altlinks ul{margin:8px 0 0;padding-left:20px;}
   a{color:var(--bordeaux);}
-  .offer{
-    background:var(--graphite);
-    color:var(--cream);
-    border-radius:10px;
-    padding:32px 28px;
-    margin-top:8px;
+  .stat-block{
+    display:flex;align-items:baseline;gap:16px;
+    padding:22px 0;margin:24px 0;
+    border-top:1px solid var(--taupe);
+    border-bottom:1px solid var(--taupe);
   }
-  .offer h2{color:var(--gold);}
-  .offer p{color:var(--cream);opacity:.92;}
-  .offer .word{
-    display:inline-block;
+  .stat-num{
     font-family:'Playfair Display',serif;
     font-style:italic;
-    font-size:22px;
     color:var(--gold);
-    margin:6px 0;
+    font-size:48px;
+    line-height:1;
+    flex:0 0 auto;
   }
-  .offer a{color:var(--gold);text-decoration:underline;}
-  .channels{
-    margin-top:18px;
-    font-size:15px;
-    opacity:.85;
+  .stat-text{font-size:16px;color:var(--wine);line-height:1.4;}
+  .say-word{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--soft-bordeaux);
+    margin:24px 0 10px;
   }
-  .channels a{display:block;color:var(--cream);margin-bottom:4px;}
+  .pill-outline{
+    display:inline-block;
+    border:2px solid var(--gold);
+    border-radius:999px;
+    padding:14px 32px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:26px;
+    color:var(--bordeaux);
+    letter-spacing:.03em;
+    margin-bottom:8px;
+  }
+  .pill-gold{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--graphite);
+    border-radius:999px;
+    padding:15px 34px;
+    font-weight:600;
+    font-size:16px;
+    text-decoration:none;
+    border:none;
+  }
+  .eyebrow-label{
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--taupe);margin:32px 0 12px;
+  }
+  .channel-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  }
+  .pill-dark{
+    display:flex;align-items:center;justify-content:center;
+    background:var(--wine);color:var(--cream);
+    border-radius:999px;
+    padding:15px 12px;
+    font-size:15px;font-weight:500;
+    text-decoration:none;text-align:center;
+  }
+  @media (max-width:480px){
+    .channel-grid{grid-template-columns:1fr;}
+    .pill-outline{font-size:21px;padding:12px 24px;display:block;text-align:center;}
+  }
   footer{
     text-align:center;
     padding:32px 0 48px;
@@ -208,8 +247,8 @@
 <div class="wrap">
 
   <header class="hero">
-    <h1>Отдай Claude готовую дизайн-систему бренда за пять минут</h1>
-    <p class="subtitle">Библиотека DESIGN.md: готовые файлы визуального языка реальных брендов, которые Claude Code читает напрямую</p>
+    <h1>Один файл - и Claude верстает в стиле настоящего бренда, а не как получится</h1>
+    <p class="subtitle">Библиотека готовых файлов: цвета, шрифты и правила разных брендов (Vercel, Atlassian, Nubank и другие), которые Claude Code берёт и использует напрямую при вёрстке</p>
     <p class="byline">Катерина Арта · @katyarta · сентябрь 2026</p>
   </header>
 
@@ -321,22 +360,33 @@
 
   <section>
     <h2>Один файл - это только начало</h2>
-    <p>Я одна, в декрете, без команды и без дизайнера строю проекты на нейросетях: за год с нуля из декрета больше миллиона оборота, сейчас уже ближе к полутора. Сайты, карусели, обложки - всё собираю сама, через готовые визуальные референсы вроде этого файла, а не через свой вкус с нуля</p>
+    <p>Я одна, в декрете, без команды и без дизайнера строю проекты на нейросетях. Сайты, карусели, обложки - всё собираю сама, через готовые визуальные референсы вроде этого файла, а не через свой вкус с нуля</p>
 
-    <div class="offer">
-      <h2>Если с визуалом у тебя каждый раз ступор</h2>
-      <p>Продукт готов, а как оформить - непонятно. Разбираю на консультации, как собрать себе рабочий набор дизайн-файлов под твои форматы (лендинг, карусель, презентация) и не зависеть от настроения «нравится - не нравится»</p>
-      <p>Напиши слово <span class="word">КОНСУЛЬТАЦИЯ</span><br>мне в Telegram: <a href="https://t.me/katyartaa" target="_blank" rel="noopener">t.me/katyartaa</a></p>
-      <div class="channels">
-        <a href="https://t.me/+CNtsc57EWnQzZTk6" target="_blank" rel="noopener">Канал в Telegram</a>
-        <a href="https://max.ru/join/7j3M_9BFNWEfFMFmVd6DDz227jGaAVLpVvy3mObA93o" target="_blank" rel="noopener">Канал в MAX</a>
-      </div>
+    <div class="stat-block">
+      <span class="stat-num">1.5</span>
+      <span class="stat-text">млн ₽ оборота проектов за год, с нуля и из декрета</span>
+    </div>
+
+    <p>Если с визуалом у тебя каждый раз ступор - продукт готов, а как оформить, непонятно - разбираю на консультации, как собрать себе рабочий набор дизайн-файлов под твои форматы (лендинг, карусель, презентация) и не зависеть от настроения «нравится - не нравится»</p>
+
+    <p class="say-word">Напиши слово</p>
+    <div class="pill-outline">КОНСУЛЬТАЦИЯ</div>
+
+    <p class="say-word">мне в личку Telegram</p>
+    <a class="pill-gold" href="https://t.me/katyartaa" target="_blank" rel="noopener">Написать</a>
+
+    <p class="eyebrow-label">Мои каналы и страницы</p>
+    <div class="channel-grid">
+      <a class="pill-dark" href="https://t.me/+CNtsc57EWnQzZTk6" target="_blank" rel="noopener">Канал в Telegram</a>
+      <a class="pill-dark" href="https://max.ru/join/7j3M_9BFNWEfFMFmVd6DDz227jGaAVLpVvy3mObA93o" target="_blank" rel="noopener">Канал в MAX</a>
+      <a class="pill-dark" href="https://instagram.com/katyarta" target="_blank" rel="noopener">Instagram</a>
+      <a class="pill-dark" href="https://vk.ru/katyarta" target="_blank" rel="noopener">ВКонтакте</a>
     </div>
   </section>
 
 </div>
 
-<footer>@katyarta · Отдай Claude готовую дизайн-систему бренда за пять минут</footer>
+<footer>@katyarta · Один файл - и Claude верстает в стиле настоящего бренда</footer>
 
 </body>
 </html>
