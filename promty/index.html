@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Библиотека из 2169 промптов подключается к Claude Code - Катерина Арта</title>
+<meta name="description" content="prompts.chat - бесплатная открытая библиотека готовых промптов для нейросетей. Пошаговое подключение к Claude Code от Катерины Арта.">
+<style>
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-VariableFont_wght.ttf");font-weight:100 900;font-style:normal}
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf");font-weight:100 900;font-style:italic}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Light.otf");font-weight:300}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Regular.otf");font-weight:400}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Medium.otf");font-weight:500}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-SemiBold.otf");font-weight:600}
+  :root{
+    --cream:#F2E8D9;
+    --wine:#570E1C;
+    --bordeaux:#82091B;
+    --soft-bordeaux:#8A3542;
+    --gold:#C9A96E;
+    --taupe:#B8A995;
+    --graphite:#20201E;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--wine);
+    font-family:'Inter',-apple-system,sans-serif;
+    font-weight:300;
+    line-height:1.65;
+    font-size:18px;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px;}
+  .cover{position:relative;width:100%;overflow:hidden;background:var(--graphite);}
+  .cover img{display:block;width:100%;height:auto;max-height:78vh;object-fit:cover;object-position:center 22%;}
+  .cover-caption{
+    position:absolute;left:24px;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--cream);
+    font-size:14px;
+    letter-spacing:.04em;
+    opacity:.85;
+  }
+  header.hero{padding:40px 0 8px;}
+  h1{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:36px;
+    line-height:1.2;
+    margin:0 0 14px;
+    color:var(--wine);
+  }
+  .subtitle{
+    font-size:18px;
+    color:var(--soft-bordeaux);
+    margin:0 0 6px;
+  }
+  .byline{
+    font-size:14px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin:0 0 32px;
+  }
+  section{padding:8px 0 32px;}
+  h2{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:24px;
+    color:var(--bordeaux);
+    margin:0 0 16px;
+    padding-top:8px;
+  }
+  p{margin:0 0 16px;}
+  .divider{border:none;border-top:1px solid var(--taupe);opacity:.5;margin:0;}
+  .stat-row{
+    display:flex;gap:16px;flex-wrap:wrap;
+    margin:24px 0 8px;
+  }
+  .stat{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 20px;
+    flex:1;
+    min-width:140px;
+  }
+  .stat .num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--wine);
+    font-size:32px;
+    display:block;
+    line-height:1;
+    margin-bottom:6px;
+  }
+  .stat .label{font-size:14px;color:var(--wine);opacity:.85;}
+  .note{
+    font-size:15px;
+    color:var(--soft-bordeaux);
+    font-style:italic;
+    margin-top:10px;
+  }
+  .step{
+    counter-increment:step;
+    position:relative;
+    padding:24px 0 24px 56px;
+    border-bottom:1px solid rgba(87,14,28,.12);
+  }
+  .step:last-of-type{border-bottom:none;}
+  .step::before{
+    content:counter(step);
+    position:absolute;
+    left:0;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:34px;
+    color:var(--gold);
+    line-height:1;
+  }
+  .steps{counter-reset:step;}
+  .step h3{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:20px;
+    margin:0 0 12px;
+    color:var(--wine);
+  }
+  .tri{margin:0 0 10px;}
+  .tri b{color:var(--bordeaux);}
+  code{
+    background:rgba(87,14,28,.08);
+    padding:2px 7px;
+    border-radius:4px;
+    font-size:.92em;
+    color:var(--wine);
+  }
+  .code-line{
+    display:block;
+    background:var(--graphite);
+    color:var(--cream);
+    padding:14px 18px;
+    border-radius:6px;
+    font-family:ui-monospace,Menlo,monospace;
+    font-size:15px;
+    margin:12px 0 16px;
+    overflow-x:auto;
+  }
+  .grabli-list{margin:0;padding-left:22px;}
+  .grabli-list li{margin-bottom:12px;}
+  .altlinks{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 22px;
+    margin-top:8px;
+  }
+  .altlinks a{color:var(--bordeaux);}
+  .altlinks ul{margin:8px 0 0;padding-left:20px;}
+  a{color:var(--bordeaux);}
+  .stat-block{
+    display:flex;align-items:baseline;gap:16px;
+    padding:22px 0;margin:24px 0;
+    border-top:1px solid var(--taupe);
+    border-bottom:1px solid var(--taupe);
+  }
+  .stat-num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:48px;
+    line-height:1;
+    flex:0 0 auto;
+  }
+  .stat-text{font-size:16px;color:var(--wine);line-height:1.4;}
+  .say-word{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--soft-bordeaux);
+    margin:24px 0 10px;
+  }
+  .pill-outline{
+    display:inline-block;
+    border:2px solid var(--gold);
+    border-radius:999px;
+    padding:14px 32px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:26px;
+    color:var(--bordeaux);
+    letter-spacing:.03em;
+    margin-bottom:8px;
+  }
+  .pill-gold{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--graphite);
+    border-radius:999px;
+    padding:15px 34px;
+    font-weight:600;
+    font-size:16px;
+    text-decoration:none;
+    border:none;
+  }
+  .eyebrow-label{
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--taupe);margin:32px 0 12px;
+  }
+  .channel-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  }
+  .pill-dark{
+    display:flex;align-items:center;justify-content:center;
+    background:var(--wine);color:var(--cream);
+    border-radius:999px;
+    padding:15px 12px;
+    font-size:15px;font-weight:500;
+    text-decoration:none;text-align:center;
+  }
+  @media (max-width:480px){
+    .channel-grid{grid-template-columns:1fr;}
+    .pill-outline{font-size:21px;padding:12px 24px;display:block;text-align:center;}
+  }
+  footer{
+    text-align:center;
+    padding:32px 0 48px;
+    color:var(--taupe);
+    font-size:13px;
+  }
+  @media (max-width:480px){
+    body{font-size:16.5px;}
+    h1{font-size:29px;}
+    .cover img{max-height:62vh;}
+    .step{padding-left:44px;}
+    .step::before{font-size:28px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <img src="assets/cover.jpg" alt="Катерина Арта" loading="eager">
+  <div class="cover-caption">ПРОМПТЫ</div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Библиотека из двух тысяч готовых промптов сама подбирает нужный под твою задачу прямо в Claude Code</h1>
+    <p class="subtitle">prompts.chat - открытая бесплатная библиотека промптов (готовых текстов-инструкций для нейросети): не пишешь запрос с нуля, а берёшь проверенный и подключаешь всю библиотеку к Claude Code парой команд</p>
+    <p class="byline">Катерина Арта · @katyarta · сентябрь 2026</p>
+  </header>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Что это и зачем</h2>
+    <p>Хороший запрос к нейросети обычно собираешь по кусочкам: что-то из чужого поста, что-то на ходу переписываешь под себя. prompts.chat решает это иначе - это открытая база, куда сообщество годами добавляло готовые формулировки под конкретные задачи: тексты, картинки, код, исследования</p>
+    <p>Раньше проект назывался Awesome ChatGPT Prompts, сейчас у него новое имя и свой сайт <code>prompts.chat</code>. В ролике, с которого мы начали, звучит цифра «больше 10 000 промптов» - в реальном списке проекта их <b>2169</b>, я сверила это напрямую по файлу на странице проекта на GitHub, а не поверила ролику на слово</p>
+
+    <div class="stat-row">
+      <div class="stat"><span class="num">2169</span><span class="label">промптов в библиотеке, страница проекта f/prompts.chat</span></div>
+      <div class="stat"><span class="num">170 667+</span><span class="label">звёзд на GitHub у проекта</span></div>
+    </div>
+    <p class="note">Цифры сверены напрямую на странице проекта 18.09.2026. Библиотека живая и постоянно пополняется, число у тебя на экране может быть больше</p>
+
+    <p>Отдельно открывать сайт и копировать текст промпта вручную не обязательно: библиотека подключается прямо к Claude Code, и он сам предлагает подходящий промпт под задачу, которую ты пишешь</p>
+    <p>Дальше - шаги от подключения до первого готового промпта в разговоре с Claude Code</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Шаг 0. Что нужно до старта</h2>
+    <p>Только открытый Claude Code - программа, в которой ты обычно пишешь задачи текстом. Отдельно ничего скачивать не нужно: всё подключение происходит внутри неё самой, командами, которые вставляешь в то же поле, где обычно пишешь свои задачи</p>
+    <p>Что это даёт: строки из шагов ниже можно вставлять прямо сейчас, ничего заранее не готовя</p>
+  </section>
+
+  <hr class="divider">
+
+  <section class="steps">
+
+    <div class="step">
+      <h3>Добавь prompts.chat в Claude Code</h3>
+      <p class="tri"><b>Куда нажать.</b> В поле, где ты обычно пишешь задачи Claude Code, вставь строку - она добавляет prompts.chat в список готовых расширений (их ставят одной командой, без сайтов и загрузок):</p>
+      <code class="code-line">/plugin marketplace add f/prompts.chat</code>
+      <p class="tri"><b>Что увидишь.</b> Подтверждение, что адрес <code>f/prompts.chat</code> добавлен в Claude Code</p>
+      <p class="tri"><b>Что это даёт.</b> Claude Code теперь знает, где взять саму библиотеку - на следующем шаге останется её включить</p>
+    </div>
+
+    <div class="step">
+      <h3>Включи саму библиотеку</h3>
+      <p class="tri"><b>Куда нажать.</b> В том же поле следующей строкой вставь:</p>
+      <code class="code-line">/plugin install prompts.chat@prompts.chat</code>
+      <p class="tri"><b>Что увидишь.</b> Сообщение, что prompts.chat подключён, а вместе с ним появилась MCP-связка - способ, которым внешний инструмент становится виден Claude Code как один из его собственных</p>
+      <p class="tri"><b>Что это даёт.</b> 2169 промптов теперь доступны прямо из разговора, без отдельной вкладки в браузере и без ручного копирования</p>
+    </div>
+
+    <div class="step">
+      <h3>Попроси Claude Code найти готовый промпт под задачу</h3>
+      <p class="tri"><b>Куда нажать.</b> Напиши команду со своей темой вместо примера:</p>
+      <code class="code-line">/prompts.chat:prompts ревью кода</code>
+      <p class="tri"><b>Что увидишь.</b> Список подходящих промптов из библиотеки с коротким описанием, что каждый делает</p>
+      <p class="tri"><b>Что это даёт.</b> Не сочиняешь запрос с нуля - берёшь готовую формулировку, которую уже проверило на своих задачах сообщество из 170 000+ человек, поставивших проекту звезду на GitHub</p>
+    </div>
+
+    <div class="step">
+      <h3>Пользуйся библиотекой без Claude Code (по желанию)</h3>
+      <p class="tri"><b>Куда нажать.</b> Если не хочешь ничего подключать, просто открой в браузере <code>prompts.chat/prompts</code> и найди нужный промпт через поиск на странице</p>
+      <p class="tri"><b>Что увидишь.</b> Тот же список из 2169 промптов с фильтрами по теме: тексты, картинки, код, исследования</p>
+      <p class="tri"><b>Что это даёт.</b> Библиотекой можно пользоваться и без единой команды - как обычным сайтом: текст промпта копируешь и вставляешь в любую нейросеть, не только в Claude</p>
+    </div>
+
+    <div class="step">
+      <h3>Если что-то не подключилось</h3>
+      <p>Три вещи, которые проверить по порядку:</p>
+      <ol class="grabli-list">
+        <li>Строка <code>/plugin marketplace add</code> ничего не находит - проверь, что Claude Code обновлён до последней версии, команда для подключения расширений появилась не в самых старых версиях</li>
+        <li>Плагин установлен, но команда <code>/prompts.chat:prompts</code> не запускается - начни в Claude Code новый диалог, старый ещё не знает о добавлении</li>
+        <li>Хочешь не только искать, а ещё и сохранять свои промпты в личный аккаунт - для этого на сайте <code>prompts.chat/settings</code> есть отдельный ключ доступа, но для поиска и использования готовых промптов он вообще не нужен</li>
+      </ol>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Где смотреть подробности</h2>
+    <p>Основной источник - сама страница проекта на GitHub:</p>
+    <div class="altlinks">
+      <ul>
+        <li><code>github.com/f/prompts.chat</code> - код, документация, вся история проекта</li>
+        <li><code>prompts.chat/prompts</code> - сама библиотека в браузере, без Claude Code</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Инструмент сейчас бесплатный</h2>
+    <p>Код инструмента открыт по лицензии MIT, а сами промпты - в общественном достоянии по лицензии CC0: пользоваться, копировать и переиспользовать можно свободно, без разрешений и оплаты. Платишь только по своей обычной подписке Claude - библиотека работает поверх неё бесплатно</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Готовый промпт - это только начало</h2>
+    <p>Я одна, в декрете, без команды разработки строю системы на нейросетях сама. Одна хорошая библиотека промптов экономит время на одной задаче, но собрать из промптов, инструментов и своих готовых цепочек команд рабочую систему под конкретный проект - это уже не одна строка в поле чата</p>
+
+    <div class="stat-block">
+      <span class="stat-num">1.5</span>
+      <span class="stat-text">млн ₽ оборота проектов за год, с нуля и из декрета</span>
+    </div>
+
+    <p>prompts.chat закрывает вопрос одного точного промпта на одной задаче. Если строишь целую систему - контент-завод, автоматизацию, продукт на нейросетях - одного инструмента мало, нужна архитектура под твою конкретную задачу</p>
+    <p>На консультации разбираю, как выстроить такую систему у тебя</p>
+
+    <p class="say-word">Напиши слово</p>
+    <div class="pill-outline">КОНСУЛЬТАЦИЯ</div>
+
+    <p class="say-word">мне в личку Telegram</p>
+    <a class="pill-gold" href="https://t.me/katyartaa" target="_blank" rel="noopener">Написать</a>
+
+    <p class="eyebrow-label">Мои каналы и страницы</p>
+    <div class="channel-grid">
+      <a class="pill-dark" href="https://t.me/+CNtsc57EWnQzZTk6" target="_blank" rel="noopener">Канал в Telegram</a>
+      <a class="pill-dark" href="https://max.ru/join/7j3M_9BFNWEfFMFmVd6DDz227jGaAVLpVvy3mObA93o" target="_blank" rel="noopener">Канал в MAX</a>
+      <a class="pill-dark" href="https://instagram.com/katya.perminova" target="_blank" rel="noopener">Instagram</a>
+      <a class="pill-dark" href="https://vk.ru/katyarta" target="_blank" rel="noopener">ВКонтакте</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>@katyarta · Библиотека из 2169 промптов подключается к Claude Code одной командой</footer>
+
+</body>
+</html>
