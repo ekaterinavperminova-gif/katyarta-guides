@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Загрузи скриншот сайта - получи готовый код - Катерина Арта</title>
+<meta name="description" content="Screenshot to Code - бесплатный открытый инструмент: превращает скриншот любого сайта в готовый рабочий код. Пошаговая установка от Катерины Арта.">
+<style>
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-VariableFont_wght.ttf");font-weight:100 900;font-style:normal}
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf");font-weight:100 900;font-style:italic}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Light.otf");font-weight:300}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Regular.otf");font-weight:400}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Medium.otf");font-weight:500}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-SemiBold.otf");font-weight:600}
+  :root{
+    --cream:#F2E8D9;
+    --wine:#570E1C;
+    --bordeaux:#82091B;
+    --soft-bordeaux:#8A3542;
+    --gold:#C9A96E;
+    --taupe:#B8A995;
+    --graphite:#20201E;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--wine);
+    font-family:'Inter',-apple-system,sans-serif;
+    font-weight:300;
+    line-height:1.65;
+    font-size:18px;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px;}
+  .cover{position:relative;width:100%;overflow:hidden;background:var(--graphite);}
+  .cover img{display:block;width:100%;height:auto;max-height:78vh;object-fit:cover;object-position:center 22%;}
+  .cover-caption{
+    position:absolute;left:24px;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--cream);
+    font-size:14px;
+    letter-spacing:.04em;
+    opacity:.85;
+  }
+  header.hero{padding:40px 0 8px;}
+  h1{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:36px;
+    line-height:1.2;
+    margin:0 0 14px;
+    color:var(--wine);
+  }
+  .subtitle{
+    font-size:18px;
+    color:var(--soft-bordeaux);
+    margin:0 0 6px;
+  }
+  .byline{
+    font-size:14px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin:0 0 32px;
+  }
+  section{padding:8px 0 32px;}
+  h2{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:24px;
+    color:var(--bordeaux);
+    margin:0 0 16px;
+    padding-top:8px;
+  }
+  p{margin:0 0 16px;}
+  .divider{border:none;border-top:1px solid var(--taupe);opacity:.5;margin:0;}
+  .stat-row{
+    display:flex;gap:16px;flex-wrap:wrap;
+    margin:24px 0 8px;
+  }
+  .stat{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 20px;
+    flex:1;
+    min-width:140px;
+  }
+  .stat .num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--wine);
+    font-size:32px;
+    display:block;
+    line-height:1;
+    margin-bottom:6px;
+  }
+  .stat .label{font-size:14px;color:var(--wine);opacity:.85;}
+  .note{
+    font-size:15px;
+    color:var(--soft-bordeaux);
+    font-style:italic;
+    margin-top:10px;
+  }
+  .step{
+    counter-increment:step;
+    position:relative;
+    padding:24px 0 24px 56px;
+    border-bottom:1px solid rgba(87,14,28,.12);
+  }
+  .step:last-of-type{border-bottom:none;}
+  .step::before{
+    content:counter(step);
+    position:absolute;
+    left:0;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:34px;
+    color:var(--gold);
+    line-height:1;
+  }
+  .steps{counter-reset:step;}
+  .step h3{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:20px;
+    margin:0 0 12px;
+    color:var(--wine);
+  }
+  .tri{margin:0 0 10px;}
+  .tri b{color:var(--bordeaux);}
+  code{
+    background:rgba(87,14,28,.08);
+    padding:2px 7px;
+    border-radius:4px;
+    font-size:.92em;
+    color:var(--wine);
+  }
+  .code-line{
+    display:block;
+    background:var(--graphite);
+    color:var(--cream);
+    padding:14px 18px;
+    border-radius:6px;
+    font-family:ui-monospace,Menlo,monospace;
+    font-size:15px;
+    margin:12px 0 16px;
+    overflow-x:auto;
+    white-space:pre;
+  }
+  .grabli-list{margin:0;padding-left:22px;}
+  .grabli-list li{margin-bottom:12px;}
+  .altlinks{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 22px;
+    margin-top:8px;
+  }
+  .altlinks a{color:var(--bordeaux);}
+  .altlinks ul{margin:8px 0 0;padding-left:20px;}
+  a{color:var(--bordeaux);}
+  .stat-block{
+    display:flex;align-items:baseline;gap:16px;
+    padding:22px 0;margin:24px 0;
+    border-top:1px solid var(--taupe);
+    border-bottom:1px solid var(--taupe);
+  }
+  .stat-num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:48px;
+    line-height:1;
+    flex:0 0 auto;
+  }
+  .stat-text{font-size:16px;color:var(--wine);line-height:1.4;}
+  .say-word{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--soft-bordeaux);
+    margin:24px 0 10px;
+  }
+  .pill-outline{
+    display:inline-block;
+    border:2px solid var(--gold);
+    border-radius:999px;
+    padding:14px 32px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:26px;
+    color:var(--bordeaux);
+    letter-spacing:.03em;
+    margin-bottom:8px;
+  }
+  .pill-gold{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--graphite);
+    border-radius:999px;
+    padding:15px 34px;
+    font-weight:600;
+    font-size:16px;
+    text-decoration:none;
+    border:none;
+  }
+  .eyebrow-label{
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--taupe);margin:32px 0 12px;
+  }
+  .channel-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  }
+  .pill-dark{
+    display:flex;align-items:center;justify-content:center;
+    background:var(--wine);color:var(--cream);
+    border-radius:999px;
+    padding:15px 12px;
+    font-size:15px;font-weight:500;
+    text-decoration:none;text-align:center;
+  }
+  @media (max-width:480px){
+    .channel-grid{grid-template-columns:1fr;}
+    .pill-outline{font-size:21px;padding:12px 24px;display:block;text-align:center;}
+  }
+  footer{
+    text-align:center;
+    padding:32px 0 48px;
+    color:var(--taupe);
+    font-size:13px;
+  }
+  @media (max-width:480px){
+    body{font-size:16.5px;}
+    h1{font-size:29px;}
+    .cover img{max-height:62vh;}
+    .step{padding-left:44px;}
+    .step::before{font-size:28px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <img src="assets/cover.jpg" alt="Катерина Арта" loading="eager">
+  <div class="cover-caption">Screenshot to Code</div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Загрузи скриншот любого сайта - и через несколько секунд получи готовый рабочий код</h1>
+    <p class="subtitle">Screenshot to Code - открытый бесплатный инструмент: считывает раскладку, шрифты и цвета со скриншота и сам пишет из них код, а какую нейросеть для этого использовать - решаешь сама</p>
+    <p class="byline">Катерина Арта · @katyarta · сентябрь 2026</p>
+  </header>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Что это и зачем</h2>
+    <p>Сверстать сайт с нуля - долго, а агентство за один такой макет берёт от нескольких тысяч долларов. <code>Screenshot to Code</code> превращает уже готовую картинку сайта в рабочий код за секунды</p>
+    <p>Работает это так: ты загружаешь скриншот сайта, инструмент считывает раскладку, отступы, шрифты и цвета - и сам пишет из них код. Рядом сразу открывается живой превью - картинка того, как страница выглядит в браузере прямо сейчас, и результат можно дорабатывать в том же окне обычными словами, без единой строчки кода руками</p>
+    <p>Под капотом это не одна нейросеть, а сразу несколько топовых на выбор - какую из них использовать для конкретного скриншота, решаешь сама</p>
+
+    <div class="stat-row">
+      <div class="stat"><span class="num">79 200+</span><span class="label">звёзд на GitHub, страница проекта abi/screenshot-to-code</span></div>
+      <div class="stat"><span class="num">MIT</span><span class="label">открытая лицензия, код можно смотреть и ставить себе бесплатно</span></div>
+    </div>
+    <p class="note">Цифры сверены напрямую в GitHub 18.09.2026. Проект живой и активно обновляется, число звёзд у тебя на экране может быть больше</p>
+
+    <p>Дальше - шаги от первого скриншота до готового кода, который можно вставить в свой проект</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Шаг 0. Что нужно до старта</h2>
+    <p>Только браузер и скриншот сайта, дизайн которого хочешь повторить. Ничего заранее ставить не нужно - весь путь ниже идёт через сайт проекта в браузере</p>
+    <p>Что это даёт: можно начать прямо сейчас, с любого компьютера</p>
+  </section>
+
+  <hr class="divider">
+
+  <section class="steps">
+
+    <div class="step">
+      <h3>Открой сайт проекта и загрузи скриншот</h3>
+      <p class="tri"><b>Куда нажать.</b> Открой в браузере страницу <code>screenshottocode.com</code> и найди на ней окно загрузки картинки. Сделай скриншот сайта, который хочешь повторить - свой черновик, чужой сайт для референса, макет из дизайн-программы - и перетащи файл в это окно</p>
+      <p class="tri"><b>Что увидишь.</b> Инструмент принимает картинку и начинает разбирать её на части: где заголовок, где кнопки, какие отступы между блоками</p>
+      <p class="tri"><b>Что это даёт.</b> Регистрация для первой попытки не нужна - можно сразу проверить, как инструмент справится именно с твоим макетом</p>
+    </div>
+
+    <div class="step">
+      <h3>Выбери нейросеть и получи готовый код</h3>
+      <p class="tri"><b>Куда нажать.</b> Рядом с окном загрузки будет список нейросетей, на которых может работать разбор картинки - выбери любую, разница проявится только в деталях результата</p>
+      <p class="tri"><b>Что увидишь.</b> Через несколько секунд с одной стороны экрана появляется готовый код страницы, а с другой - её живой превью</p>
+      <p class="tri"><b>Что это даёт.</b> Вместо часов вёрстки вручную - рабочий каркас страницы, который можно донастроить, а не собирать заново с нуля</p>
+    </div>
+
+    <div class="step">
+      <h3>Доработай результат и сохрани код</h3>
+      <p class="tri"><b>Куда нажать.</b> Прямо под превью есть строка, куда можно написать доработку обычными словами - «сделай кнопку крупнее», «поменяй цвет фона на бордовый» - и отправить. Готовый результат скачивается кнопкой рядом с кодом</p>
+      <p class="tri"><b>Что увидишь.</b> Страница перерисовывается под твою правку прямо в этом же окне, без нового скриншота и без повторной загрузки</p>
+      <p class="tri"><b>Что это даёт.</b> Код, который уже не выглядит как черновик и который можно вставить в свой проект</p>
+    </div>
+
+    <div class="step">
+      <h3>Поставь инструмент себе на компьютер (по желанию)</h3>
+      <p class="tri"><b>Куда нажать.</b> Бесплатная проба на сайте даёт ограниченное число попыток в месяц. Если хочешь работать без этого ограничения и на своём ключе нейросети (личном коде доступа, который тебе выдаёт сама нейросеть), скачай проект со страницы GitHub, впиши свой ключ в файл настроек с именем <code>.env</code> - это простой текстовый файл рядом с проектом - и вставь в терминал (программу, где команды печатаются текстом, а не нажимаются мышкой) две строки:</p>
+      <span class="code-line">echo "OPENAI_API_KEY=твой_ключ" &gt; .env
+docker-compose up -d --build</span>
+      <p class="tri"><b>Что увидишь.</b> Программа Docker (она запускает уже готовый чужой сервис прямо на твоём компьютере одним пакетом) поднимает инструмент у тебя, и через минуту он открывается в твоём браузере - это уже твоя собственная копия, а не чужой сайт</p>
+      <p class="tri"><b>Что это даёт.</b> Работаешь на своём ключе нейросети без месячного лимита сайта, и ничего не уходит за пределы твоего компьютера</p>
+    </div>
+
+    <div class="step">
+      <h3>Если что-то не подключилось</h3>
+      <p>Три вещи, которые проверить по порядку:</p>
+      <ol class="grabli-list">
+        <li>Сайт пишет, что бесплатные попытки на этот месяц закончились - подожди начала следующего месяца или перейди к Шагу 4: там ограничения сайта не действуют</li>
+        <li>Скриншот не загружается - проверь, что это обычная картинка в формате JPG или PNG, а не PDF и не ссылка на страницу</li>
+        <li>Команда с Docker (программой, которая одной строкой разворачивает готовый чужой сервис у тебя на компьютере) выдаёт ошибку - значит она ещё не поставлена: скачай её с сайта <code>docker.com</code>, там же кнопка для твоей системы</li>
+      </ol>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Где смотреть подробности</h2>
+    <p>Основной источник - сама страница проекта на GitHub:</p>
+    <div class="altlinks">
+      <ul>
+        <li><code>github.com/abi/screenshot-to-code</code> - код, документация, вся история проекта</li>
+        <li><code>screenshottocode.com</code> - сам инструмент, готовый к работе без установки</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Инструмент сейчас бесплатный</h2>
+    <p>Открытый код проекта - лицензия MIT, его можно поставить себе на компьютер и пользоваться без ограничений, платишь только за свой ключ нейросети по факту использования. Готовый сайт <code>screenshottocode.com</code> для быстрой пробы тоже не просит банковскую карту, но даёт ограниченное число попыток в месяц - для первого теста этого хватает с запасом</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Готовый код - это только начало</h2>
+    <p>Я одна, в декрете, без команды разработки собираю сайты и системы на нейросетях сама. Один такой инструмент экономит время на вёрстке одной страницы, но собрать из готового кода, дизайна и своих цепочек рабочий сайт под конкретный продукт - это уже не один скриншот</p>
+
+    <div class="stat-block">
+      <span class="stat-num">1.5</span>
+      <span class="stat-text">млн ₽ оборота проектов за год, с нуля и из декрета</span>
+    </div>
+
+    <p>Screenshot to Code закрывает вопрос быстрого черновика кода по картинке. Если нужен целый сайт с воронкой, автоматизация или продукт на нейросетях - одного инструмента мало, нужна архитектура под твою конкретную задачу</p>
+    <p>На консультации разбираю, как выстроить такую систему у тебя</p>
+
+    <p class="say-word">Напиши слово</p>
+    <div class="pill-outline">КОНСУЛЬТАЦИЯ</div>
+
+    <p class="say-word">мне в личку Telegram</p>
+    <a class="pill-gold" href="https://t.me/katyartaa" target="_blank" rel="noopener">Написать</a>
+
+    <p class="eyebrow-label">Мои каналы и страницы</p>
+    <div class="channel-grid">
+      <a class="pill-dark" href="https://t.me/+CNtsc57EWnQzZTk6" target="_blank" rel="noopener">Канал в Telegram</a>
+      <a class="pill-dark" href="https://max.ru/join/7j3M_9BFNWEfFMFmVd6DDz227jGaAVLpVvy3mObA93o" target="_blank" rel="noopener">Канал в MAX</a>
+      <a class="pill-dark" href="https://instagram.com/katya.perminova" target="_blank" rel="noopener">Instagram</a>
+      <a class="pill-dark" href="https://vk.ru/katyarta" target="_blank" rel="noopener">ВКонтакте</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>@katyarta · Загрузи скриншот сайта - получи готовый код за секунды</footer>
+
+</body>
+</html>
