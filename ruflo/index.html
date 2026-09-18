@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude вместо одного агента запускает шестьдесят - Катерина Арта</title>
+<meta name="description" content="RuFlo - бесплатный открытый инструмент, который подключает к Claude Code команду из 60+ ИИ-агентов и сам экономит токены. Пошаговая установка от Катерины Арта.">
+<style>
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-VariableFont_wght.ttf");font-weight:100 900;font-style:normal}
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf");font-weight:100 900;font-style:italic}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Light.otf");font-weight:300}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Regular.otf");font-weight:400}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Medium.otf");font-weight:500}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-SemiBold.otf");font-weight:600}
+  :root{
+    --cream:#F2E8D9;
+    --wine:#570E1C;
+    --bordeaux:#82091B;
+    --soft-bordeaux:#8A3542;
+    --gold:#C9A96E;
+    --taupe:#B8A995;
+    --graphite:#20201E;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--wine);
+    font-family:'Inter',-apple-system,sans-serif;
+    font-weight:300;
+    line-height:1.65;
+    font-size:18px;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px;}
+  .cover{position:relative;width:100%;overflow:hidden;background:var(--graphite);}
+  .cover img{display:block;width:100%;height:auto;max-height:78vh;object-fit:cover;object-position:center 22%;}
+  .cover-caption{
+    position:absolute;left:24px;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--cream);
+    font-size:14px;
+    letter-spacing:.04em;
+    opacity:.85;
+  }
+  header.hero{padding:40px 0 8px;}
+  h1{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:36px;
+    line-height:1.2;
+    margin:0 0 14px;
+    color:var(--wine);
+  }
+  .subtitle{
+    font-size:18px;
+    color:var(--soft-bordeaux);
+    margin:0 0 6px;
+  }
+  .byline{
+    font-size:14px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin:0 0 32px;
+  }
+  section{padding:8px 0 32px;}
+  h2{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:24px;
+    color:var(--bordeaux);
+    margin:0 0 16px;
+    padding-top:8px;
+  }
+  p{margin:0 0 16px;}
+  .divider{border:none;border-top:1px solid var(--taupe);opacity:.5;margin:0;}
+  .stat-row{
+    display:flex;gap:16px;flex-wrap:wrap;
+    margin:24px 0 8px;
+  }
+  .stat{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 20px;
+    flex:1;
+    min-width:140px;
+  }
+  .stat .num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--wine);
+    font-size:32px;
+    display:block;
+    line-height:1;
+    margin-bottom:6px;
+  }
+  .stat .label{font-size:14px;color:var(--wine);opacity:.85;}
+  .note{
+    font-size:15px;
+    color:var(--soft-bordeaux);
+    font-style:italic;
+    margin-top:10px;
+  }
+  .step{
+    counter-increment:step;
+    position:relative;
+    padding:24px 0 24px 56px;
+    border-bottom:1px solid rgba(87,14,28,.12);
+  }
+  .step:last-of-type{border-bottom:none;}
+  .step::before{
+    content:counter(step);
+    position:absolute;
+    left:0;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:34px;
+    color:var(--gold);
+    line-height:1;
+  }
+  .steps{counter-reset:step;}
+  .step h3{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:20px;
+    margin:0 0 12px;
+    color:var(--wine);
+  }
+  .tri{margin:0 0 10px;}
+  .tri b{color:var(--bordeaux);}
+  code{
+    background:rgba(87,14,28,.08);
+    padding:2px 7px;
+    border-radius:4px;
+    font-size:.92em;
+    color:var(--wine);
+  }
+  .code-line{
+    display:block;
+    background:var(--graphite);
+    color:var(--cream);
+    padding:14px 18px;
+    border-radius:6px;
+    font-family:ui-monospace,Menlo,monospace;
+    font-size:15px;
+    margin:12px 0 16px;
+    overflow-x:auto;
+  }
+  .grabli-list{margin:0;padding-left:22px;}
+  .grabli-list li{margin-bottom:12px;}
+  .altlinks{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 22px;
+    margin-top:8px;
+  }
+  .altlinks a{color:var(--bordeaux);}
+  .altlinks ul{margin:8px 0 0;padding-left:20px;}
+  a{color:var(--bordeaux);}
+  .stat-block{
+    display:flex;align-items:baseline;gap:16px;
+    padding:22px 0;margin:24px 0;
+    border-top:1px solid var(--taupe);
+    border-bottom:1px solid var(--taupe);
+  }
+  .stat-num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:48px;
+    line-height:1;
+    flex:0 0 auto;
+  }
+  .stat-text{font-size:16px;color:var(--wine);line-height:1.4;}
+  .say-word{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--soft-bordeaux);
+    margin:24px 0 10px;
+  }
+  .pill-outline{
+    display:inline-block;
+    border:2px solid var(--gold);
+    border-radius:999px;
+    padding:14px 32px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:26px;
+    color:var(--bordeaux);
+    letter-spacing:.03em;
+    margin-bottom:8px;
+  }
+  .pill-gold{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--graphite);
+    border-radius:999px;
+    padding:15px 34px;
+    font-weight:600;
+    font-size:16px;
+    text-decoration:none;
+    border:none;
+  }
+  .eyebrow-label{
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--taupe);margin:32px 0 12px;
+  }
+  .channel-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  }
+  .pill-dark{
+    display:flex;align-items:center;justify-content:center;
+    background:var(--wine);color:var(--cream);
+    border-radius:999px;
+    padding:15px 12px;
+    font-size:15px;font-weight:500;
+    text-decoration:none;text-align:center;
+  }
+  @media (max-width:480px){
+    .channel-grid{grid-template-columns:1fr;}
+    .pill-outline{font-size:21px;padding:12px 24px;display:block;text-align:center;}
+  }
+  footer{
+    text-align:center;
+    padding:32px 0 48px;
+    color:var(--taupe);
+    font-size:13px;
+  }
+  @media (max-width:480px){
+    body{font-size:16.5px;}
+    h1{font-size:29px;}
+    .cover img{max-height:62vh;}
+    .step{padding-left:44px;}
+    .step::before{font-size:28px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <img src="assets/cover.jpg" alt="Катерина Арта" loading="eager">
+  <div class="cover-caption">RuFlo</div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Один файл настройки - и вместо одного Клода на задачу выходит команда из 60+ агентов</h1>
+    <p class="subtitle">RuFlo - открытый бесплатный инструмент: подключается к Claude Code, сам распределяет задачи между агентами-специалистами и сам решает, какой модели отдать простой шаг, а какой - сложный</p>
+    <p class="byline">Катерина Арта · @katyarta · сентябрь 2026</p>
+  </header>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Что это и зачем</h2>
+    <p>Claude Code хорошо работает один на один: ты пишешь задачу, он её делает. Но на больших задачах - собрать фичу, прогнать тесты, проверить безопасность - один агент делает всё по очереди, и это долго</p>
+    <p><code>RuFlo</code> (в прошлом назывался Claude Flow) добавляет Клоду команду: агенты-«королевы» ведут работу, а агенты-специалисты - код, тесты, ревью, безопасность - разбирают задачи между собой и работают параллельно, а не по очереди</p>
+    <p>Вторая часть механики - маршрутизация по стоимости. Простой шаг инструмент сам отправляет дешёвой модели, сложный - той, что реально нужна. По цифрам из ролика это экономит до 50% токенов (это то, что списывается с твоего лимита в Клоде за каждый запрос) и растягивает тот же лимит до 250%</p>
+
+    <div class="stat-row">
+      <div class="stat"><span class="num">72 800+</span><span class="label">звёзд на GitHub, страница проекта ruvnet/ruflo</span></div>
+      <div class="stat"><span class="num">MIT</span><span class="label">открытая лицензия, бесплатно и без подписки</span></div>
+    </div>
+    <p class="note">Цифры сверены напрямую в GitHub 18.09.2026. Проект живой и активно обновляется, число звёзд у тебя на экране может быть больше</p>
+
+    <p>Дальше - четыре шага от установки до первой задачи, которую агенты решают вместе</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Шаг 0. Что нужно до старта</h2>
+    <p>Только открытый Claude Code в папке твоего проекта. Программу Node.js (это то, на чём работают такие инструменты с командами вместо кнопок) отдельно ставить не нужно: она у тебя уже стоит, потому что на ней работает сам Claude Code</p>
+    <p>Что это даёт: команды ниже можно вставлять прямо сейчас, ничего заранее не готовя</p>
+  </section>
+
+  <hr class="divider">
+
+  <section class="steps">
+
+    <div class="step">
+      <h3>Установи RuFlo мастером настройки</h3>
+      <p class="tri"><b>Куда нажать.</b> Рядом с окном, где ты обычно пишешь задачи Claude Code, открой терминал (программу, где команды печатаются текстом, а не нажимаются мышкой) и вставь строку:</p>
+      <span class="code-line">npx ruflo@latest init wizard</span>
+      <p class="tri"><b>Что увидишь.</b> Мастер настройки задаёт несколько вопросов о проекте и сам подбирает под них все нужные настройки, ничего не нужно донастраивать руками</p>
+      <p class="tri"><b>Что это даёт.</b> В папке проекта появляются файлы настроек RuFlo - агенты готовы к подключению</p>
+    </div>
+
+    <div class="step">
+      <h3>Подключи RuFlo к Claude Code</h3>
+      <p class="tri"><b>Куда нажать.</b> В том же окне вставь ещё одну строку:</p>
+      <span class="code-line">claude mcp add ruflo -- npx ruflo@latest mcp start</span>
+      <p class="tri"><b>Что увидишь.</b> Сообщение, что связка с Claude Code по имени <code>ruflo</code> добавлена</p>
+      <p class="tri"><b>Что это даёт.</b> Claude Code теперь видит RuFlo как один из своих инструментов и может сам вызывать агентов, когда задача этого требует</p>
+    </div>
+
+    <div class="step">
+      <h3>Дай Claude Code обычную задачу</h3>
+      <p class="tri"><b>Куда нажать.</b> Пиши задачу как обычно: «собери фичу X», «прогони тесты», «проверь код на уязвимости» - без специальных команд для RuFlo</p>
+      <p class="tri"><b>Что увидишь.</b> Claude Code сам решает, когда позвать команду агентов вместо того, чтобы делать всё в одиночку - это видно по тому, что разные части задачи выполняются параллельно</p>
+      <p class="tri"><b>Что это даёт.</b> Одна задача, которая раньше шла по очереди, теперь разбирается сразу с нескольких сторон</p>
+    </div>
+
+    <div class="step">
+      <h3>Собери первую команду агентов вручную (по желанию)</h3>
+      <p class="tri"><b>Куда нажать.</b> Если хочешь запустить команду агентов отдельной командой, а не ждать, пока Claude Code решит сам:</p>
+      <span class="code-line">npx ruflo@latest swarm init --topology hierarchical --max-agents 8</span>
+      <p class="tri"><b>Что увидишь.</b> Инструмент поднимает восемь агентов в иерархии «королева и подчинённые» и готов принимать задачу</p>
+      <p class="tri"><b>Что это даёт.</b> Контроль над размером команды под конкретную задачу, а не только автоматический режим из Шага 3</p>
+    </div>
+
+    <div class="step">
+      <h3>Если что-то не подключилось</h3>
+      <p>Три вещи, которые проверить по порядку:</p>
+      <ol class="grabli-list">
+        <li>Строка <code>claude mcp add</code> выдала ошибку - убедись, что сам Claude Code вообще запускается из этого же окна командой <code>claude</code>, если нет, переустанови его сначала</li>
+        <li>Связка с именем <code>ruflo</code> добавлена, но агенты не отвечают - начни с Claude Code новый диалог: старый ещё не знает про добавление</li>
+        <li>Строка из Шага 1 выдаёт «not found» - значит программа, о которой шла речь в Шаге 0, на компьютере всё же не стоит отдельно от Claude Code, поставь её с <code>nodejs.org</code>, там же кнопка для твоей системы</li>
+      </ol>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Где смотреть подробности</h2>
+    <p>Основной источник - сама страница проекта на GitHub:</p>
+    <div class="altlinks">
+      <ul>
+        <li><code>github.com/ruvnet/ruflo</code> - код, документация, вся история проекта</li>
+        <li><code>github.com/ruvnet/ruflo/wiki</code> - раздел Quick Start с дополнительными командами</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Инструмент сейчас бесплатный</h2>
+    <p>Открытый код, лицензия MIT, ставится и запускается уже сегодня без оплаты и подписки. Платишь только по своей обычной подписке Claude - и именно на ней RuFlo помогает сэкономить</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Команда агентов - это только начало</h2>
+    <p>Я одна, в декрете, без команды разработки строю системы на нейросетях сама. Один такой инструмент экономит расход в одной задаче, но собрать из связки агентов, промптов и своих готовых цепочек команд рабочую систему под конкретный проект - это уже не одна строка настройки</p>
+
+    <div class="stat-block">
+      <span class="stat-num">1.5</span>
+      <span class="stat-text">млн ₽ оборота проектов за год, с нуля и из декрета</span>
+    </div>
+
+    <p>RuFlo закрывает вопрос одной команды агентов на одной задаче. Если строишь целую систему - контент-завод, автоматизацию, продукт на нейросетях - одного инструмента мало, нужна архитектура под твою конкретную задачу</p>
+    <p>На консультации разбираю, как выстроить такую систему у тебя</p>
+
+    <p class="say-word">Напиши слово</p>
+    <div class="pill-outline">КОНСУЛЬТАЦИЯ</div>
+
+    <p class="say-word">мне в личку Telegram</p>
+    <a class="pill-gold" href="https://t.me/katyartaa" target="_blank" rel="noopener">Написать</a>
+
+    <p class="eyebrow-label">Мои каналы и страницы</p>
+    <div class="channel-grid">
+      <a class="pill-dark" href="https://t.me/+CNtsc57EWnQzZTk6" target="_blank" rel="noopener">Канал в Telegram</a>
+      <a class="pill-dark" href="https://max.ru/join/7j3M_9BFNWEfFMFmVd6DDz227jGaAVLpVvy3mObA93o" target="_blank" rel="noopener">Канал в MAX</a>
+      <a class="pill-dark" href="https://instagram.com/katya.perminova" target="_blank" rel="noopener">Instagram</a>
+      <a class="pill-dark" href="https://vk.ru/katyarta" target="_blank" rel="noopener">ВКонтакте</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>@katyarta · Один файл настройки - и вместо одного Клода команда из 60+ агентов</footer>
+
+</body>
+</html>
