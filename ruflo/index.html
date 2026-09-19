@@ -174,6 +174,13 @@
     flex:0 0 auto;
   }
   .stat-text{font-size:16px;color:var(--wine);line-height:1.4;}
+  .proof-wide{margin:0 0 12px;border:1px solid var(--gold);border-radius:10px;overflow:hidden;background:#fff;}
+  .proof-wide img{width:100%;height:auto;display:block;}
+  .proof-wide figcaption{font-family:"Playfair Display",serif;font-style:italic;font-size:12.5px;color:var(--taupe);text-align:center;padding:6px;}
+  .proof-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+  @media (max-width:520px){.proof-row{grid-template-columns:1fr;}}
+  .proof-row img{border:1px solid var(--gold);border-radius:8px;width:100%;}
+  .proof-cap{font-family:"Playfair Display",serif;font-style:italic;font-size:15px;color:var(--bordeaux);}
   .say-word{
     font-family:'Playfair Display',serif;
     font-style:italic;
@@ -318,7 +325,7 @@
       <ol class="grabli-list">
         <li>Строка <code>claude mcp add</code> выдала ошибку - убедись, что сам Claude Code вообще запускается из этого же окна командой <code>claude</code>, если нет, переустанови его сначала</li>
         <li>Связка с именем <code>ruflo</code> добавлена, но агенты не отвечают - начни с Claude Code новый диалог: старый ещё не знает про добавление</li>
-        <li>Строка из Шага 1 выдаёт «not found» - значит программа, о которой шла речь в Шаге 0, на компьютере всё же не стоит отдельно от Claude Code, поставь её с <code>nodejs.org</code>, там же кнопка для твоей системы</li>
+        <li>Строка из Шага 1 выдаёт «not found» - значит программа, о которой шла речь в Шаге 0, на компьютере всё же не стоит отдельно от Claude Code, поставь её с <a href="https://nodejs.org" target="_blank" rel="noopener"><code>nodejs.org</code></a>, там же кнопка для твоей системы</li>
       </ol>
     </div>
 
@@ -331,8 +338,8 @@
     <p>Основной источник - сама страница проекта на GitHub:</p>
     <div class="altlinks">
       <ul>
-        <li><code>github.com/ruvnet/ruflo</code> - код, документация, вся история проекта</li>
-        <li><code>github.com/ruvnet/ruflo/wiki</code> - раздел Quick Start с дополнительными командами</li>
+        <li><a href="https://github.com/ruvnet/ruflo" target="_blank" rel="noopener"><code>github.com/ruvnet/ruflo</code></a> - код, документация, вся история проекта</li>
+        <li><a href="https://github.com/ruvnet/ruflo/wiki" target="_blank" rel="noopener"><code>github.com/ruvnet/ruflo/wiki</code></a> - раздел Quick Start с дополнительными командами</li>
       </ul>
     </div>
   </section>
@@ -342,6 +349,21 @@
   <section>
     <h2>Инструмент сейчас бесплатный</h2>
     <p>Открытый код, лицензия MIT, ставится и запускается уже сегодня без оплаты и подписки. Платишь только по своей обычной подписке Claude - и именно на ней RuFlo помогает сэкономить</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Что происходит с блогом, <i>пока я собираю такие инструкции</i></h2>
+    <p>Пишу про такие находки регулярно, и вот что это даёт блогу на нейросетях за то же время</p>
+    <figure class="proof-wide"><img src="assets/insights.jpg" alt="Статистика профиля"><figcaption>Статистика профиля: просмотры, взаимодействия, новые подписчики</figcaption></figure>
+    <figure class="proof-wide"><img src="assets/panel30.jpg" alt="Панель: 4,6 млн просмотров за 30 дней"><figcaption>Профессиональная панель: 4,6 млн просмотров за 30 дней</figcaption></figure>
+    <div class="proof-row">
+      <img src="assets/r19.jpg" alt="Рилс">
+      <img src="assets/r1a.jpg" alt="Рилс">
+      <img src="assets/r1b.jpg" alt="Рилс">
+    </div>
+    <p class="proof-cap">Три рилса по миллиону и больше. Без рекламы и без команды: производство занимает минуты, время уходит на смысл</p>
   </section>
 
   <hr class="divider">

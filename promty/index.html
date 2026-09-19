@@ -174,6 +174,13 @@
     flex:0 0 auto;
   }
   .stat-text{font-size:16px;color:var(--wine);line-height:1.4;}
+  .proof-wide{margin:0 0 12px;border:1px solid var(--gold);border-radius:10px;overflow:hidden;background:#fff;}
+  .proof-wide img{width:100%;height:auto;display:block;}
+  .proof-wide figcaption{font-family:"Playfair Display",serif;font-style:italic;font-size:12.5px;color:var(--taupe);text-align:center;padding:6px;}
+  .proof-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+  @media (max-width:520px){.proof-row{grid-template-columns:1fr;}}
+  .proof-row img{border:1px solid var(--gold);border-radius:8px;width:100%;}
+  .proof-cap{font-family:"Playfair Display",serif;font-style:italic;font-size:15px;color:var(--bordeaux);}
   .say-word{
     font-family:'Playfair Display',serif;
     font-style:italic;
@@ -257,7 +264,7 @@
   <section>
     <h2>Что это и зачем</h2>
     <p>Хороший запрос к нейросети обычно собираешь по кусочкам: что-то из чужого поста, что-то на ходу переписываешь под себя. prompts.chat решает это иначе - это открытая база, куда сообщество годами добавляло готовые формулировки под конкретные задачи: тексты, картинки, код, исследования</p>
-    <p>Раньше проект назывался Awesome ChatGPT Prompts, сейчас у него новое имя и свой сайт <code>prompts.chat</code>. В ролике, с которого мы начали, звучит цифра «больше 10 000 промптов» - в реальном списке проекта их <b>2169</b>, я сверила это напрямую по файлу на странице проекта на GitHub, а не поверила ролику на слово</p>
+    <p>Раньше проект назывался Awesome ChatGPT Prompts, сейчас у него новое имя и свой сайт <a href="https://prompts.chat" target="_blank" rel="noopener"><code>prompts.chat</code></a>. В ролике, с которого мы начали, звучит цифра «больше 10 000 промптов» - в реальном списке проекта их <b>2169</b>, я сверила это напрямую по файлу на странице проекта на GitHub, а не поверила ролику на слово</p>
 
     <div class="stat-row">
       <div class="stat"><span class="num">2169</span><span class="label">промптов в библиотеке, страница проекта f/prompts.chat</span></div>
@@ -307,7 +314,7 @@
 
     <div class="step">
       <h3>Пользуйся библиотекой без Claude Code (по желанию)</h3>
-      <p class="tri"><b>Куда нажать.</b> Если не хочешь ничего подключать, просто открой в браузере <code>prompts.chat/prompts</code> и найди нужный промпт через поиск на странице</p>
+      <p class="tri"><b>Куда нажать.</b> Если не хочешь ничего подключать, просто открой в браузере <a href="https://prompts.chat/prompts" target="_blank" rel="noopener"><code>prompts.chat/prompts</code></a> и найди нужный промпт через поиск на странице</p>
       <p class="tri"><b>Что увидишь.</b> Тот же список из 2169 промптов с фильтрами по теме: тексты, картинки, код, исследования</p>
       <p class="tri"><b>Что это даёт.</b> Библиотекой можно пользоваться и без единой команды - как обычным сайтом: текст промпта копируешь и вставляешь в любую нейросеть, не только в Claude</p>
     </div>
@@ -318,7 +325,7 @@
       <ol class="grabli-list">
         <li>Строка <code>/plugin marketplace add</code> ничего не находит - проверь, что Claude Code обновлён до последней версии, команда для подключения расширений появилась не в самых старых версиях</li>
         <li>Плагин установлен, но команда <code>/prompts.chat:prompts</code> не запускается - начни в Claude Code новый диалог, старый ещё не знает о добавлении</li>
-        <li>Хочешь не только искать, а ещё и сохранять свои промпты в личный аккаунт - для этого на сайте <code>prompts.chat/settings</code> есть отдельный ключ доступа, но для поиска и использования готовых промптов он вообще не нужен</li>
+        <li>Хочешь не только искать, а ещё и сохранять свои промпты в личный аккаунт - для этого на сайте <a href="https://prompts.chat/settings" target="_blank" rel="noopener"><code>prompts.chat/settings</code></a> есть отдельный ключ доступа, но для поиска и использования готовых промптов он вообще не нужен</li>
       </ol>
     </div>
 
@@ -331,8 +338,8 @@
     <p>Основной источник - сама страница проекта на GitHub:</p>
     <div class="altlinks">
       <ul>
-        <li><code>github.com/f/prompts.chat</code> - код, документация, вся история проекта</li>
-        <li><code>prompts.chat/prompts</code> - сама библиотека в браузере, без Claude Code</li>
+        <li><a href="https://github.com/f/prompts.chat" target="_blank" rel="noopener"><code>github.com/f/prompts.chat</code></a> - код, документация, вся история проекта</li>
+        <li><a href="https://prompts.chat/prompts" target="_blank" rel="noopener"><code>prompts.chat/prompts</code></a> - сама библиотека в браузере, без Claude Code</li>
       </ul>
     </div>
   </section>
@@ -342,6 +349,21 @@
   <section>
     <h2>Инструмент сейчас бесплатный</h2>
     <p>Код инструмента открыт по лицензии MIT, а сами промпты - в общественном достоянии по лицензии CC0: пользоваться, копировать и переиспользовать можно свободно, без разрешений и оплаты. Платишь только по своей обычной подписке Claude - библиотека работает поверх неё бесплатно</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Что происходит с блогом, <i>пока я собираю такие инструкции</i></h2>
+    <p>Пишу про такие находки регулярно, и вот что это даёт блогу на нейросетях за то же время</p>
+    <figure class="proof-wide"><img src="assets/insights.jpg" alt="Статистика профиля"><figcaption>Статистика профиля: просмотры, взаимодействия, новые подписчики</figcaption></figure>
+    <figure class="proof-wide"><img src="assets/panel30.jpg" alt="Панель: 4,6 млн просмотров за 30 дней"><figcaption>Профессиональная панель: 4,6 млн просмотров за 30 дней</figcaption></figure>
+    <div class="proof-row">
+      <img src="assets/r19.jpg" alt="Рилс">
+      <img src="assets/r1a.jpg" alt="Рилс">
+      <img src="assets/r1b.jpg" alt="Рилс">
+    </div>
+    <p class="proof-cap">Три рилса по миллиону и больше. Без рекламы и без команды: производство занимает минуты, время уходит на смысл</p>
   </section>
 
   <hr class="divider">

@@ -175,6 +175,13 @@
     flex:0 0 auto;
   }
   .stat-text{font-size:16px;color:var(--wine);line-height:1.4;}
+  .proof-wide{margin:0 0 12px;border:1px solid var(--gold);border-radius:10px;overflow:hidden;background:#fff;}
+  .proof-wide img{width:100%;height:auto;display:block;}
+  .proof-wide figcaption{font-family:"Playfair Display",serif;font-style:italic;font-size:12.5px;color:var(--taupe);text-align:center;padding:6px;}
+  .proof-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+  @media (max-width:520px){.proof-row{grid-template-columns:1fr;}}
+  .proof-row img{border:1px solid var(--gold);border-radius:8px;width:100%;}
+  .proof-cap{font-family:"Playfair Display",serif;font-style:italic;font-size:15px;color:var(--bordeaux);}
   .say-word{
     font-family:'Playfair Display',serif;
     font-style:italic;
@@ -284,7 +291,7 @@
 
     <div class="step">
       <h3>Открой сайт проекта и загрузи скриншот</h3>
-      <p class="tri"><b>Куда нажать.</b> Открой в браузере страницу <code>screenshottocode.com</code> и найди на ней окно загрузки картинки. Сделай скриншот сайта, который хочешь повторить - свой черновик, чужой сайт для референса, макет из дизайн-программы - и перетащи файл в это окно</p>
+      <p class="tri"><b>Куда нажать.</b> Открой в браузере страницу <a href="https://screenshottocode.com" target="_blank" rel="noopener"><code>screenshottocode.com</code></a> и найди на ней окно загрузки картинки. Сделай скриншот сайта, который хочешь повторить - свой черновик, чужой сайт для референса, макет из дизайн-программы - и перетащи файл в это окно</p>
       <p class="tri"><b>Что увидишь.</b> Инструмент принимает картинку и начинает разбирать её на части: где заголовок, где кнопки, какие отступы между блоками</p>
       <p class="tri"><b>Что это даёт.</b> Регистрация для первой попытки не нужна - можно сразу проверить, как инструмент справится именно с твоим макетом</p>
     </div>
@@ -318,7 +325,7 @@ docker-compose up -d --build</span>
       <ol class="grabli-list">
         <li>Сайт пишет, что бесплатные попытки на этот месяц закончились - подожди начала следующего месяца или перейди к Шагу 4: там ограничения сайта не действуют</li>
         <li>Скриншот не загружается - проверь, что это обычная картинка в формате JPG или PNG, а не PDF и не ссылка на страницу</li>
-        <li>Команда с Docker (программой, которая одной строкой разворачивает готовый чужой сервис у тебя на компьютере) выдаёт ошибку - значит она ещё не поставлена: скачай её с сайта <code>docker.com</code>, там же кнопка для твоей системы</li>
+        <li>Команда с Docker (программой, которая одной строкой разворачивает готовый чужой сервис у тебя на компьютере) выдаёт ошибку - значит она ещё не поставлена: скачай её с сайта <a href="https://docker.com" target="_blank" rel="noopener"><code>docker.com</code></a>, там же кнопка для твоей системы</li>
       </ol>
     </div>
 
@@ -331,8 +338,8 @@ docker-compose up -d --build</span>
     <p>Основной источник - сама страница проекта на GitHub:</p>
     <div class="altlinks">
       <ul>
-        <li><code>github.com/abi/screenshot-to-code</code> - код, документация, вся история проекта</li>
-        <li><code>screenshottocode.com</code> - сам инструмент, готовый к работе без установки</li>
+        <li><a href="https://github.com/abi/screenshot-to-code" target="_blank" rel="noopener"><code>github.com/abi/screenshot-to-code</code></a> - код, документация, вся история проекта</li>
+        <li><a href="https://screenshottocode.com" target="_blank" rel="noopener"><code>screenshottocode.com</code></a> - сам инструмент, готовый к работе без установки</li>
       </ul>
     </div>
   </section>
@@ -341,7 +348,22 @@ docker-compose up -d --build</span>
 
   <section>
     <h2>Инструмент сейчас бесплатный</h2>
-    <p>Открытый код проекта - лицензия MIT, его можно поставить себе на компьютер и пользоваться без ограничений, платишь только за свой ключ нейросети по факту использования. Готовый сайт <code>screenshottocode.com</code> для быстрой пробы тоже не просит банковскую карту, но даёт ограниченное число попыток в месяц - для первого теста этого хватает с запасом</p>
+    <p>Открытый код проекта - лицензия MIT, его можно поставить себе на компьютер и пользоваться без ограничений, платишь только за свой ключ нейросети по факту использования. Готовый сайт <a href="https://screenshottocode.com" target="_blank" rel="noopener"><code>screenshottocode.com</code></a> для быстрой пробы тоже не просит банковскую карту, но даёт ограниченное число попыток в месяц - для первого теста этого хватает с запасом</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Что происходит с блогом, <i>пока я собираю такие инструкции</i></h2>
+    <p>Пишу про такие находки регулярно, и вот что это даёт блогу на нейросетях за то же время</p>
+    <figure class="proof-wide"><img src="assets/insights.jpg" alt="Статистика профиля"><figcaption>Статистика профиля: просмотры, взаимодействия, новые подписчики</figcaption></figure>
+    <figure class="proof-wide"><img src="assets/panel30.jpg" alt="Панель: 4,6 млн просмотров за 30 дней"><figcaption>Профессиональная панель: 4,6 млн просмотров за 30 дней</figcaption></figure>
+    <div class="proof-row">
+      <img src="assets/r19.jpg" alt="Рилс">
+      <img src="assets/r1a.jpg" alt="Рилс">
+      <img src="assets/r1b.jpg" alt="Рилс">
+    </div>
+    <p class="proof-cap">Три рилса по миллиону и больше. Без рекламы и без команды: производство занимает минуты, время уходит на смысл</p>
   </section>
 
   <hr class="divider">

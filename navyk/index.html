@@ -105,6 +105,20 @@ p{margin:0 0 14px}
 .stat-row img{border:1px solid var(--gold);border-radius:8px}
 .stat-cap{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--bordeaux)}
 
+.say-word{font-family:var(--serif);font-style:italic;color:var(--bordeaux);margin:24px 0 10px}
+.pill-outline{display:inline-block;border:2px solid var(--gold);border-radius:999px;padding:14px 32px;
+  font-family:var(--serif);font-style:italic;font-size:26px;color:var(--bordeaux);letter-spacing:.03em;margin-bottom:8px}
+.pill-gold{display:inline-block;background:var(--gold);color:var(--graphite);border-radius:999px;
+  padding:15px 34px;font-weight:600;font-size:16px;text-decoration:none;border:none}
+.eyebrow-label{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe);margin:32px 0 12px}
+.channel-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pill-dark{display:flex;align-items:center;justify-content:center;background:var(--wine);color:var(--cream);
+  border-radius:999px;padding:15px 12px;font-size:15px;font-weight:500;text-decoration:none;text-align:center}
+@media (max-width:480px){.channel-grid{grid-template-columns:1fr}.pill-outline{font-size:21px;padding:12px 24px;display:block;text-align:center}}
+.num-row.light .num{color:var(--bordeaux)}
+.num-row.light .num span{color:var(--wine)}
+.num-row.light .num-t{color:var(--olive)}
+
 .offer{background:var(--wine);color:var(--cream);border-radius:16px;padding:28px 22px;margin-top:6px}
 .offer h2{color:var(--gold)}
 .offer p{color:var(--cream)}
@@ -328,23 +342,24 @@ footer{padding:26px 0 40px;text-align:center;color:var(--olive);font-family:var(
   </div>
 
   <div class="sec">
-    <div class="offer">
-      <h2>Один навык - <i>первый кирпич</i></h2>
-      <p class="lead">Я одна, в декрете, без команды, строю свои проекты на нейросетях. Код я не пишу. Вместо команды у меня система: Claude и навыки под каждую рутину, которую раньше делала руками или отдавала людям</p>
-      <div class="num-row"><div class="num">1.5 <span>млн ₽</span></div><div class="num-t">оборота проектов за год, с нуля и из декрета</div></div>
-      <p>Хочешь собрать такую систему под свой блог или продукт: разбираю на консультации, что у тебя забирает время, какие навыки это закрывают и с какого начать</p>
-      <div class="code-row">
-        <span class="code">КОНСУЛЬТАЦИЯ</span>
-        <a class="btn-main" href="https://t.me/katyartaa">Написать в Telegram</a>
-      </div>
-      <div class="chan-label">Мои каналы и страницы</div>
-      <div class="chan-grid">
-        <a class="chan" href="https://t.me/+CNtsc57EWnQzZTk6">Канал в Telegram</a>
-        <a class="chan" href="https://max.ru/join/7j3M_9BFNWEfFMFmVd6DDz227jGaAVLpVvy3mObA93o">Канал в MAX</a>
-        <a class="chan" href="https://instagram.com/katya.perminova">Instagram</a>
-        <a class="chan" href="https://vk.ru/katerinarta">ВКонтакте</a>
-        <a class="chan" href="https://youtube.com/@katerinarta">YouTube</a>
-      </div>
+    <h2>Один навык - <i>первый кирпич</i></h2>
+    <p class="lead">Я одна, в декрете, без команды, строю свои проекты на нейросетях. Код я не пишу. Вместо команды у меня система: Claude и навыки под каждую рутину, которую раньше делала руками или отдавала людям</p>
+    <div class="num-row light"><div class="num">1.5 <span>млн ₽</span></div><div class="num-t">оборота проектов за год, с нуля и из декрета</div></div>
+    <p>Хочешь собрать такую систему под свой блог или продукт: разбираю на консультации, что у тебя забирает время, какие навыки это закрывают и с какого начать</p>
+
+    <p class="say-word">Напиши слово</p>
+    <div class="pill-outline">КОНСУЛЬТАЦИЯ</div>
+
+    <p class="say-word">мне в личку Telegram</p>
+    <a class="pill-gold" href="https://t.me/katyartaa" target="_blank" rel="noopener">Написать</a>
+
+    <p class="eyebrow-label">Мои каналы и страницы</p>
+    <div class="channel-grid">
+      <a class="pill-dark" href="https://t.me/+CNtsc57EWnQzZTk6" target="_blank" rel="noopener">Канал в Telegram</a>
+      <a class="pill-dark" href="https://max.ru/join/7j3M_9BFNWEfFMFmVd6DDz227jGaAVLpVvy3mObA93o" target="_blank" rel="noopener">Канал в MAX</a>
+      <a class="pill-dark" href="https://instagram.com/katya.perminova" target="_blank" rel="noopener">Instagram</a>
+      <a class="pill-dark" href="https://vk.ru/katerinarta" target="_blank" rel="noopener">ВКонтакте</a>
+      <a class="pill-dark" href="https://youtube.com/@katerinarta" target="_blank" rel="noopener">YouTube</a>
     </div>
   </div>
 
