@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>286 скиллов и 68 субагентов для Claude Code - Катерина Арта</title>
+<meta name="description" content="Everything Claude Code (ECC) - бесплатная открытая система из 292 скиллов и 68 субагентов для Claude Code, Codex и Cursor. Пошаговая установка от Катерины Арта.">
+<style>
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-VariableFont_wght.ttf");font-weight:100 900;font-style:normal}
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf");font-weight:100 900;font-style:italic}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Light.otf");font-weight:300}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Regular.otf");font-weight:400}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Medium.otf");font-weight:500}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-SemiBold.otf");font-weight:600}
+  :root{
+    --cream:#F2E8D9;
+    --wine:#570E1C;
+    --bordeaux:#82091B;
+    --soft-bordeaux:#8A3542;
+    --gold:#C9A96E;
+    --taupe:#B8A995;
+    --graphite:#20201E;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--wine);
+    font-family:'Inter',-apple-system,sans-serif;
+    font-weight:300;
+    line-height:1.65;
+    font-size:18px;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px;}
+  .cover{position:relative;width:100%;overflow:hidden;background:var(--graphite);}
+  .cover img{display:block;width:100%;height:auto;max-height:78vh;object-fit:cover;object-position:center 22%;}
+  .cover-caption{
+    position:absolute;left:24px;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--cream);
+    font-size:14px;
+    letter-spacing:.04em;
+    opacity:.85;
+  }
+  header.hero{padding:40px 0 8px;}
+  h1{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:36px;
+    line-height:1.2;
+    margin:0 0 14px;
+    color:var(--wine);
+  }
+  .subtitle{
+    font-size:18px;
+    color:var(--soft-bordeaux);
+    margin:0 0 6px;
+  }
+  .byline{
+    font-size:14px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin:0 0 32px;
+  }
+  section{padding:8px 0 32px;}
+  h2{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:24px;
+    color:var(--bordeaux);
+    margin:0 0 16px;
+    padding-top:8px;
+  }
+  p{margin:0 0 16px;}
+  .divider{border:none;border-top:1px solid var(--taupe);opacity:.5;margin:0;}
+  .stat-row{
+    display:flex;gap:16px;flex-wrap:wrap;
+    margin:24px 0 8px;
+  }
+  .stat{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 20px;
+    flex:1;
+    min-width:140px;
+  }
+  .stat .num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--wine);
+    font-size:32px;
+    display:block;
+    line-height:1;
+    margin-bottom:6px;
+  }
+  .stat .label{font-size:14px;color:var(--wine);opacity:.85;}
+  .note{
+    font-size:15px;
+    color:var(--soft-bordeaux);
+    font-style:italic;
+    margin-top:10px;
+  }
+  .step{
+    counter-increment:step;
+    position:relative;
+    padding:24px 0 24px 56px;
+    border-bottom:1px solid rgba(87,14,28,.12);
+  }
+  .step:last-of-type{border-bottom:none;}
+  .step::before{
+    content:counter(step);
+    position:absolute;
+    left:0;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:34px;
+    color:var(--gold);
+    line-height:1;
+  }
+  .steps{counter-reset:step;}
+  .step h3{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:20px;
+    margin:0 0 12px;
+    color:var(--wine);
+  }
+  .tri{margin:0 0 10px;}
+  .tri b{color:var(--bordeaux);}
+  code{
+    background:rgba(87,14,28,.08);
+    padding:2px 7px;
+    border-radius:4px;
+    font-size:.92em;
+    color:var(--wine);
+  }
+  .code-line{
+    display:block;
+    background:var(--graphite);
+    color:var(--cream);
+    padding:14px 18px;
+    border-radius:6px;
+    font-family:ui-monospace,Menlo,monospace;
+    font-size:15px;
+    margin:12px 0 16px;
+    overflow-x:auto;
+  }
+  .grabli-list{margin:0;padding-left:22px;}
+  .grabli-list li{margin-bottom:12px;}
+  .altlinks{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 22px;
+    margin-top:8px;
+  }
+  .altlinks a{color:var(--bordeaux);}
+  .altlinks ul{margin:8px 0 0;padding-left:20px;}
+  a{color:var(--bordeaux);}
+  .stat-block{
+    display:flex;align-items:baseline;gap:16px;
+    padding:22px 0;margin:24px 0;
+    border-top:1px solid var(--taupe);
+    border-bottom:1px solid var(--taupe);
+  }
+  .stat-num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:48px;
+    line-height:1;
+    flex:0 0 auto;
+  }
+  .stat-text{font-size:16px;color:var(--wine);line-height:1.4;}
+  .proof-wide{margin:0 0 12px;border:1px solid var(--gold);border-radius:10px;overflow:hidden;background:#fff;}
+  .proof-wide img{width:100%;height:auto;display:block;}
+  .proof-wide figcaption{font-family:"Playfair Display",serif;font-style:italic;font-size:12.5px;color:var(--taupe);text-align:center;padding:6px;}
+  .proof-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+  @media (max-width:520px){.proof-row{grid-template-columns:1fr;}}
+  .proof-row img{border:1px solid var(--gold);border-radius:8px;width:100%;}
+  .proof-cap{font-family:"Playfair Display",serif;font-style:italic;font-size:15px;color:var(--bordeaux);}
+  .say-word{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--soft-bordeaux);
+    margin:24px 0 10px;
+  }
+  .pill-outline{
+    display:inline-block;
+    border:2px solid var(--gold);
+    border-radius:999px;
+    padding:14px 32px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:26px;
+    color:var(--bordeaux);
+    letter-spacing:.03em;
+    margin-bottom:8px;
+  }
+  .pill-gold{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--graphite);
+    border-radius:999px;
+    padding:15px 34px;
+    font-weight:600;
+    font-size:16px;
+    text-decoration:none;
+    border:none;
+  }
+  .eyebrow-label{
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--taupe);margin:32px 0 12px;
+  }
+  .channel-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  }
+  .pill-dark{
+    display:flex;align-items:center;justify-content:center;
+    background:var(--wine);color:var(--cream);
+    border-radius:999px;
+    padding:15px 12px;
+    font-size:15px;font-weight:500;
+    text-decoration:none;text-align:center;
+  }
+  @media (max-width:480px){
+    .channel-grid{grid-template-columns:1fr;}
+    .pill-outline{font-size:21px;padding:12px 24px;display:block;text-align:center;}
+  }
+  footer{
+    text-align:center;
+    padding:32px 0 48px;
+    color:var(--taupe);
+    font-size:13px;
+  }
+  @media (max-width:480px){
+    body{font-size:16.5px;}
+    h1{font-size:29px;}
+    .cover img{max-height:62vh;}
+    .step{padding-left:44px;}
+    .step::before{font-size:28px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <img src="assets/cover.jpg" alt="Катерина Арта" loading="eager">
+  <div class="cover-caption">Everything Claude Code</div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Человек десять месяцев собирал свою систему для Claude Code - и отдал её всем бесплатно</h1>
+    <p class="subtitle">Everything Claude Code: 292 скилла и 68 субагентов в одной сборке. Ставится одной командой, работает не только в Claude Code, но и в Codex и Cursor</p>
+    <p class="byline">Катерина Арта · @katerinarta_ · сентябрь 2026</p>
+  </header>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Что это и зачем</h2>
+    <p>Claude Code из коробки - это один помощник, который делает то, что ты попросишь, и забывает контекст между сессиями. Работает, но каждый раз заново</p>
+    <p><code>ECC</code> (Everything Claude Code) добавляет к нему готовую инженерную систему: <b>субагенты</b> - отдельные исполнители под планирование, ревью, безопасность, и <b>скиллы</b> - готовые рабочие инструкции, которые агент подхватывает сам, когда задача этого требует</p>
+    <p>Внутри есть, например, скилл, который прогоняет код на уязвимости, скилл, который держит память проекта в порядке, и скиллы, которые учатся на твоих прошлых сессиях и превращают удачные решения в переиспользуемые</p>
+
+    <div class="stat-row">
+      <div class="stat"><span class="num">292</span><span class="label">скилла в сборке на момент проверки</span></div>
+      <div class="stat"><span class="num">68</span><span class="label">субагентов: планирование, ревью, безопасность, данные</span></div>
+    </div>
+    <p class="note">В ролике звучит 286 скиллов - столько было на момент записи. Сверено напрямую в репозитории 22.09.2026: сейчас 292, плюс 94 команды. Проект живой, у тебя на экране цифра может быть ещё больше</p>
+
+    <p>Дальше - установка по шагам и первая задача, на которой это видно</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Шаг 0. Что нужно до старта</h2>
+    <p>Три вещи, которые почти наверняка у тебя уже есть, если ты работаешь в Claude Code: сам Claude Code версии 2.1 или новее, Git и Node.js 18 или новее (это то, на чём работают такие инструменты)</p>
+    <p class="tri"><b>Куда нажать.</b> Открой терминал (окно, где команды печатаются текстом) и вставь три строки по очереди:</p>
+    <span class="code-line">node --version</span>
+    <span class="code-line">git --version</span>
+    <span class="code-line">claude --version</span>
+    <p class="tri"><b>Что увидишь.</b> На каждую - номер версии. Если вместо номера пишет «command not found», эту программу нужно поставить: Node.js берётся на <a href="https://nodejs.org" target="_blank" rel="noopener"><code>nodejs.org</code></a>, там сразу кнопка под твою систему</p>
+    <p class="tri"><b>Что это даёт.</b> Установка ниже пройдёт с первого раза, а не упрётся в ошибку на середине</p>
+  </section>
+
+  <hr class="divider">
+
+  <section class="steps">
+
+    <div class="step">
+      <h3>Запусти мастер установки</h3>
+      <p class="tri"><b>Куда нажать.</b> В том же терминале вставь одну строку:</p>
+      <span class="code-line">npx ecc-universal@2.2.2 setup</span>
+      <p class="tri"><b>Что увидишь.</b> Мастер задаст несколько вопросов и ПОКАЖЕТ список файлов, которые собирается изменить, до того как что-то запишет. Для обычной личной установки выбирай <b>Global user</b> (ставится сразу во все твои проекты) и <b>Standard</b> hooks</p>
+      <p class="tri"><b>Что это даёт.</b> Вся сборка - скиллы, субагенты, команды - встаёт в Claude Code как один плагин, руками ничего складывать не нужно</p>
+    </div>
+
+    <div class="step">
+      <h3>Перезапусти Claude Code и проверь</h3>
+      <p class="tri"><b>Куда нажать.</b> Закрой текущий диалог с Claude Code и открой новый. В поле чата набери:</p>
+      <span class="code-line">/plugin list</span>
+      <p class="tri"><b>Что увидишь.</b> Список подключённых плагинов, в нём строка <code>ecc@ecc</code></p>
+      <p class="tri"><b>Что это даёт.</b> Это и есть подтверждение, что система встала. Старый диалог про неё не знает - поэтому новый обязателен</p>
+    </div>
+
+    <div class="step">
+      <h3>Дай первую задачу и посмотри на разницу</h3>
+      <p class="tri"><b>Куда нажать.</b> В поле чата набери команду планировщика со своей задачей в кавычках:</p>
+      <span class="code-line">/ecc:plan "добавь авторизацию пользователей"</span>
+      <p class="tri"><b>Что увидишь.</b> Claude не бросится сразу писать код, а сначала выдаст план работ - что и в каком порядке будет делать</p>
+      <p class="tri"><b>Что это даёт.</b> Ровно то, за чем всё это ставится: сначала думает, потом делает. На больших задачах это экономит переделки</p>
+    </div>
+
+    <div class="step">
+      <h3>Попробуй готовые скиллы</h3>
+      <p class="tri"><b>Куда нажать.</b> Эти команды работают сразу после установки:</p>
+      <span class="code-line">/code-review</span>
+      <span class="code-line">/security-scan</span>
+      <span class="code-line">/build-fix</span>
+      <p class="tri"><b>Что увидишь.</b> Первая - разбор твоего кода свежим взглядом, вторая - проверку на уязвимости, третья - починку ошибок сборки</p>
+      <p class="tri"><b>Что это даёт.</b> Три задачи, которые обычно делаются руками и долго, становятся одной строкой</p>
+    </div>
+
+    <div class="step">
+      <h3>Если что-то не встало</h3>
+      <p>Три вещи по порядку:</p>
+      <ol class="grabli-list">
+        <li>Мастер ругается на версию - проверь, какая версия сейчас актуальна: <code>npm view ecc-universal version</code>, и подставь её в команду вместо 2.2.2</li>
+        <li>Установка прошла, но <code>/plugin list</code> пустой - запусти диагностику: <code>npx ecc-universal@2.2.2 doctor</code>, а следом <code>npx ecc-universal@2.2.2 repair</code></li>
+        <li>Хочешь откатить всё назад - сначала посмотри, что будет удалено, и только потом удаляй: <code>npx ecc-universal@2.2.2 uninstall --dry-run</code>, затем та же строка без <code>--dry-run</code></li>
+      </ol>
+    </div>
+
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Не только Claude Code</h2>
+    <p>Та же сборка ставится в другие среды - в ролике про это последняя фраза. Одной командой можно настроить сразу несколько:</p>
+    <span class="code-line">npx ecc-universal@2.2.2 install --guided</span>
+    <p>Мастер спросит, какие среды подключить. На сегодня Claude Code - основная и самая стабильная, у Codex своя нативная поддержка, Cursor и OpenCode в бете, Gemini и ещё несколько - в экспериментальном режиме</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Где смотреть подробности</h2>
+    <div class="altlinks">
+      <ul>
+        <li><a href="https://github.com/affaan-m/ECC" target="_blank" rel="noopener"><code>github.com/affaan-m/ECC</code></a> - сам репозиторий: код, документация, список всех скиллов и агентов</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Система сейчас бесплатная</h2>
+    <p>Открытый код, лицензия MIT, ставится и работает сегодня без оплаты и подписки. Платишь только по своей обычной подписке Claude</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Что происходит с блогом, <i>пока я собираю такие инструкции</i></h2>
+    <p>Пишу про такие находки регулярно, и вот что это даёт блогу на нейросетях за то же время</p>
+    <figure class="proof-wide"><img src="assets/insights.jpg" alt="Статистика профиля"><figcaption>Статистика профиля: просмотры, взаимодействия, новые подписчики</figcaption></figure>
+    <figure class="proof-wide"><img src="assets/panel30.jpg" alt="Панель: 4,6 млн просмотров за 30 дней"><figcaption>Профессиональная панель: 4,6 млн просмотров за 30 дней</figcaption></figure>
+    <div class="proof-row">
+      <img src="assets/r19.jpg" alt="Рилс">
+      <img src="assets/r1a.jpg" alt="Рилс">
+      <img src="assets/r1b.jpg" alt="Рилс">
+    </div>
+    <p class="proof-cap">Три рилса по миллиону и больше. Без рекламы и без команды: производство занимает минуты, время уходит на смысл</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Чужая сборка - это чужая логика работы</h2>
+    <p>Я одна, в декрете, без команды разработки строю системы на нейросетях сама. ECC - отличная готовая сборка, но она собрана под чужие задачи: там 292 скилла, из которых тебе реально нужны десять, и ни одного под твой конкретный проект</p>
+
+    <div class="stat-block">
+      <span class="stat-num">1.5</span>
+      <span class="stat-text">млн ₽ оборота проектов за год, с нуля и из декрета</span>
+    </div>
+
+    <p>Поставить чужую систему - один вечер. Собрать свою, где скиллы и агенты сделаны под то, чем ты занимаешься каждый день - другая работа, и начинается она не с команды в терминале, а с разбора твоих задач</p>
+    <p>На консультации разбираю, как выстроить такую систему у тебя</p>
+
+    <p class="say-word">Напиши слово</p>
+    <div class="pill-outline">КОНСУЛЬТАЦИЯ</div>
+
+    <p class="say-word">мне в личку Telegram</p>
+    <a class="pill-gold" href="https://t.me/katyartaa" target="_blank" rel="noopener">Написать</a>
+
+    <p class="eyebrow-label">Мои каналы и страницы</p>
+    <div class="channel-grid">
+      <a class="pill-dark" href="https://t.me/+CNtsc57EWnQzZTk6" target="_blank" rel="noopener">Канал в Telegram</a>
+      <a class="pill-dark" href="https://max.ru/join/7j3M_9BFNWEfFMFmVd6DDz227jGaAVLpVvy3mObA93o" target="_blank" rel="noopener">Канал в MAX</a>
+      <a class="pill-dark" href="https://instagram.com/katerinarta_" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>@katerinarta_ · 292 скилла и 68 субагентов для Claude Code одной командой</footer>
+
+</body>
+</html>
