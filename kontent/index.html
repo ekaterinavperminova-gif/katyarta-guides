@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Целая команда по контенту внутри Claude: 52 бесплатных навыка - Катерина Арта</title>
+<meta name="description" content="Claude Content Skills - бесплатный набор из 52 навыков Claude для контента: сценарии рилсов, карусели, ответы на комментарии, контент-план и поиск залетевших рилсов. Пошаговая установка от Катерины Арта.">
+<style>
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-VariableFont_wght.ttf");font-weight:100 900;font-style:normal}
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf");font-weight:100 900;font-style:italic}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Light.otf");font-weight:300}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Regular.otf");font-weight:400}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Medium.otf");font-weight:500}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-SemiBold.otf");font-weight:600}
+  :root{
+    --cream:#F2E8D9;
+    --wine:#570E1C;
+    --bordeaux:#82091B;
+    --soft-bordeaux:#8A3542;
+    --gold:#C9A96E;
+    --taupe:#B8A995;
+    --graphite:#20201E;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--wine);
+    font-family:'Inter',-apple-system,sans-serif;
+    font-weight:300;
+    line-height:1.65;
+    font-size:18px;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px;}
+  .cover{position:relative;width:100%;overflow:hidden;background:var(--graphite);}
+  .cover img{display:block;width:100%;height:auto;max-height:78vh;object-fit:cover;object-position:center 22%;}
+  .cover-caption{
+    position:absolute;left:24px;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--cream);
+    font-size:14px;
+    letter-spacing:.04em;
+    opacity:.85;
+  }
+  header.hero{padding:40px 0 8px;}
+  h1{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:36px;
+    line-height:1.2;
+    margin:0 0 14px;
+    color:var(--wine);
+  }
+  .subtitle{
+    font-size:18px;
+    color:var(--soft-bordeaux);
+    margin:0 0 6px;
+  }
+  .byline{
+    font-size:14px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin:0 0 32px;
+  }
+  section{padding:8px 0 32px;}
+  h2{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:24px;
+    color:var(--bordeaux);
+    margin:0 0 16px;
+    padding-top:8px;
+  }
+  p{margin:0 0 16px;}
+  .divider{border:none;border-top:1px solid var(--taupe);opacity:.5;margin:0;}
+  .stat-row{
+    display:flex;gap:16px;flex-wrap:wrap;
+    margin:24px 0 8px;
+  }
+  .stat{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 20px;
+    flex:1;
+    min-width:140px;
+  }
+  .stat .num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--wine);
+    font-size:32px;
+    display:block;
+    line-height:1;
+    margin-bottom:6px;
+  }
+  .stat .label{font-size:14px;color:var(--wine);opacity:.85;}
+  .note{
+    font-size:15px;
+    color:var(--soft-bordeaux);
+    font-style:italic;
+    margin-top:10px;
+  }
+  .step{
+    counter-increment:step;
+    position:relative;
+    padding:24px 0 24px 56px;
+    border-bottom:1px solid rgba(87,14,28,.12);
+  }
+  .step:last-of-type{border-bottom:none;}
+  .step::before{
+    content:counter(step);
+    position:absolute;
+    left:0;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:34px;
+    color:var(--gold);
+    line-height:1;
+  }
+  .steps{counter-reset:step;}
+  .step h3{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:20px;
+    margin:0 0 12px;
+    color:var(--wine);
+  }
+  .tri{margin:0 0 10px;}
+  .tri b{color:var(--bordeaux);}
+  code{
+    background:rgba(87,14,28,.08);
+    padding:2px 7px;
+    border-radius:4px;
+    font-size:.92em;
+    color:var(--wine);
+  }
+  .code-line{
+    display:block;
+    background:var(--graphite);
+    color:var(--cream);
+    padding:14px 18px;
+    border-radius:6px;
+    font-family:ui-monospace,Menlo,monospace;
+    font-size:15px;
+    margin:12px 0 16px;
+    overflow-x:auto;
+  }
+  .grabli-list{margin:0;padding-left:22px;}
+  .grabli-list li{margin-bottom:12px;}
+  .altlinks{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 22px;
+    margin-top:8px;
+  }
+  .altlinks a{color:var(--bordeaux);}
+  .altlinks ul{margin:8px 0 0;padding-left:20px;}
+  a{color:var(--bordeaux);}
+  .stat-block{
+    display:flex;align-items:baseline;gap:16px;
+    padding:22px 0;margin:24px 0;
+    border-top:1px solid var(--taupe);
+    border-bottom:1px solid var(--taupe);
+  }
+  .stat-num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:48px;
+    line-height:1;
+    flex:0 0 auto;
+  }
+  .stat-text{font-size:16px;color:var(--wine);line-height:1.4;}
+  .proof-wide{margin:0 0 12px;border:1px solid var(--gold);border-radius:10px;overflow:hidden;background:#fff;}
+  .proof-wide img{width:100%;height:auto;display:block;}
+  .proof-wide figcaption{font-family:"Playfair Display",serif;font-style:italic;font-size:12.5px;color:var(--taupe);text-align:center;padding:6px;}
+  .proof-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+  @media (max-width:520px){.proof-row{grid-template-columns:1fr;}}
+  .proof-row img{border:1px solid var(--gold);border-radius:8px;width:100%;}
+  .proof-cap{font-family:"Playfair Display",serif;font-style:italic;font-size:15px;color:var(--bordeaux);}
+  .say-word{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--soft-bordeaux);
+    margin:24px 0 10px;
+  }
+  .pill-outline{
+    display:inline-block;
+    border:2px solid var(--gold);
+    border-radius:999px;
+    padding:14px 32px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:26px;
+    color:var(--bordeaux);
+    letter-spacing:.03em;
+    margin-bottom:8px;
+  }
+  .pill-gold{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--graphite);
+    border-radius:999px;
+    padding:15px 34px;
+    font-weight:600;
+    font-size:16px;
+    text-decoration:none;
+    border:none;
+  }
+  .eyebrow-label{
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--taupe);margin:32px 0 12px;
+  }
+  .channel-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  }
+  .pill-dark{
+    display:flex;align-items:center;justify-content:center;
+    background:var(--wine);color:var(--cream);
+    border-radius:999px;
+    padding:15px 12px;
+    font-size:15px;font-weight:500;
+    text-decoration:none;text-align:center;
+  }
+  @media (max-width:480px){
+    .channel-grid{grid-template-columns:1fr;}
+    .pill-outline{font-size:21px;padding:12px 24px;display:block;text-align:center;}
+  }
+  footer{
+    text-align:center;
+    padding:32px 0 48px;
+    color:var(--taupe);
+    font-size:13px;
+  }
+  @media (max-width:480px){
+    body{font-size:16.5px;}
+    h1{font-size:29px;}
+    .cover img{max-height:62vh;}
+    .step{padding-left:44px;}
+    .step::before{font-size:28px;}
+  }
+
+  .lead{font-size:20px;color:var(--wine);font-weight:400;}
+  .does{list-style:none;margin:8px 0 24px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .does li{background:#fff;border:1px solid rgba(201,169,110,.55);border-radius:10px;padding:14px 16px;font-size:16px;line-height:1.4;}
+  .does li b{display:block;font-family:'Playfair Display',serif;font-style:italic;font-weight:600;color:var(--bordeaux);font-size:18px;margin-bottom:2px;}
+  @media (max-width:520px){.does{grid-template-columns:1fr;}}
+  .routes{display:grid;gap:12px;margin:8px 0 8px;}
+  .route{display:flex;gap:16px;align-items:flex-start;background:var(--wine);color:var(--cream);border-radius:12px;padding:18px 20px;text-decoration:none;}
+  .route .rn{font-family:'Playfair Display',serif;font-style:italic;font-size:34px;line-height:1;color:var(--gold);flex:0 0 28px;}
+  .route h3{margin:0 0 4px;font-family:'Playfair Display',serif;font-weight:600;font-size:19px;color:var(--cream);}
+  .route p{margin:0;font-size:15px;opacity:.85;line-height:1.45;}
+  .route-head{display:flex;align-items:baseline;gap:12px;margin:0 0 6px;}
+  .route-head .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9A7F4E;font-weight:600;}
+  .prompt{background:#fff;border:1px solid var(--gold);border-radius:10px;padding:16px 18px;margin:12px 0 16px;font-size:16px;line-height:1.55;color:var(--graphite);}
+  .prompt .lbl{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe);margin-bottom:6px;font-weight:500;}
+  .callout{border-left:3px solid var(--gold);padding:4px 0 4px 16px;margin:16px 0;font-family:'Playfair Display',serif;font-style:italic;font-size:19px;color:var(--bordeaux);line-height:1.45;}
+  .groups{display:grid;gap:10px;margin:8px 0 16px;}
+  .grp{background:#fff;border:1px solid rgba(201,169,110,.55);border-radius:10px;padding:14px 16px;}
+  .grp h4{margin:0 0 6px;font-family:'Playfair Display',serif;font-style:italic;font-weight:600;font-size:18px;color:var(--bordeaux);}
+  .grp p{margin:0;font-size:15px;line-height:1.5;}
+  .grp code{font-size:.85em;}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <img src="assets/cover.jpg" alt="Катерина Арта" loading="eager">
+  <div class="cover-caption">Claude Content Skills</div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Целая команда по контенту внутри Claude. 52 навыка, бесплатно</h1>
+    <p class="subtitle">Claude Content Skills: сценарии рилсов, карусели, ответы на комментарии, контент-план и поиск рилсов, которые залетели в твоей нише. Установка по шагам и первые задачи</p>
+    <p class="byline">Катерина Арта · @katerinarta_ · октябрь 2026</p>
+  </header>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Что это и зачем</h2>
+    <p class="lead">Обычный Claude отвечает на то, что спросишь, и каждый раз начинает с нуля. Навык (скилл) - это готовая рабочая инструкция: Claude читает её и делает задачу по проверенной схеме, а не наугад</p>
+    <p>В этом наборе 52 таких навыка, и у каждого своя работа:</p>
+    <ul class="does">
+      <li><b>Пишет сценарии</b>рилсов по хукам, которые уже залетали</li>
+      <li><b>Собирает карусели</b>одна идея, десять слайдов, сохранение в конце</li>
+      <li><b>Делает рилс</b>по битам: текст, надписи на экране, что показать</li>
+      <li><b>Отвечает на комментарии</b>и отправляет материал в личку</li>
+      <li><b>Планирует</b>контент на две недели с форматами и хуками</li>
+      <li><b>Ищет залетевшее</b>в твоей нише и объясняет, почему оно сработало</li>
+    </ul>
+    <figure class="proof-wide"><img src="assets/repo.jpg" alt="Репозиторий Claude Content Skills на GitHub"><figcaption>github.com/Ootto-AI/claude-content-skills: открытый код, лицензия MIT, снято 7 октября 2026</figcaption></figure>
+    <div class="stat-row">
+      <div class="stat"><span class="num">52</span><span class="label">навыка в папке skills на момент проверки</span></div>
+      <div class="stat"><span class="num">0 ₽</span><span class="label">лицензия MIT, платишь только за свою подписку Claude</span></div>
+    </div>
+    <p class="note">Набор выложила компания Ootto, автор ролика, который я разбирала. Внутри есть ссылки на их платный сервис-автопилот, но для работы навыков он не нужен</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Самый сильный навык - контент-ресёрч</h2>
+    <p>Ты называешь аккаунт или нишу и даёшь ссылки на его рилсы с просмотрами, навык находит те, что выстрелили сильнее обычного, и разбирает почему: хук в первые две секунды, формат, темп, на чём держится внимание. На выходе - короткий план, что повторить у себя</p>
+    <div class="callout">Вопрос «что выложить?» превращается в список проверенных идей, которые осталось сделать по-своему</div>
+    <p>Второй, ради которого стоит ставить, - Content Factory. Он запускает остальные навыки по порядку: нашёл залетевший формат → разобрал → написал хук и сценарий → собрал рилс → подпись → ответы на комментарии</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Какой способ установки выбрать</h2>
+    <div class="routes">
+      <a class="route" href="#plugin"><span class="rn">1</span><div><h3>Claude Code, две команды</h3><p>Самый простой, если Claude Code уже стоит. Все 52 навыка встают сразу</p></div></a>
+      <a class="route" href="#manual"><span class="rn">2</span><div><h3>Через терминал</h3><p>Если первый способ не сработал. Те же навыки, копируются в папку руками одной командой</p></div></a>
+      <a class="route" href="#web"><span class="rn">3</span><div><h3>Без установки, в claude.ai</h3><p>Нет Claude Code - копируешь текст навыка и вставляешь в обычный чат</p></div></a>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="steps" id="plugin">
+    <div class="route-head"><span class="tag">Способ 1</span></div>
+    <h2>Claude Code: две команды в чат</h2>
+
+    <div class="step">
+      <h3>Подключи каталог навыков</h3>
+      <p class="tri"><b>Куда нажать.</b> Открой Claude Code и вставь в поле чата:</p>
+      <span class="code-line">/plugin marketplace add Ootto-AI/claude-content-skills</span>
+      <p class="tri"><b>Что увидишь.</b> Сообщение, что каталог <code>ootto-content-skills</code> добавлен</p>
+      <p class="tri"><b>Что это даёт.</b> Claude Code теперь знает, откуда брать навыки и как их обновлять</p>
+    </div>
+
+    <div class="step">
+      <h3>Установи сами навыки</h3>
+      <p class="tri"><b>Куда нажать.</b> Следующей строкой вставь:</p>
+      <span class="code-line">/plugin install claude-content-skills@ootto-content-skills</span>
+      <p class="tri"><b>Что увидишь.</b> Подтверждение, что набор <code>claude-content-skills</code> установлен</p>
+      <p class="tri"><b>Что это даёт.</b> Все 52 навыка лежат у тебя и подхватываются сами, когда задача подходит</p>
+    </div>
+
+    <div class="step">
+      <h3>Перезапусти Claude Code и проверь</h3>
+      <p class="tri"><b>Куда нажать.</b> Закрой диалог и открой новый. В поле чата набери <code>/</code> и начни печатать <code>content</code></p>
+      <p class="tri"><b>Что увидишь.</b> В подсказках появятся <code>content-research</code>, <code>content-factory</code>, <code>content-calendar</code> и другие</p>
+      <p class="tri"><b>Что это даёт.</b> Это подтверждение, что набор встал. Старый диалог про него не знает, поэтому новый обязателен</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="steps" id="manual">
+    <div class="route-head"><span class="tag">Способ 2</span></div>
+    <h2>Через терминал, если первый не сработал</h2>
+    <div class="step">
+      <h3>Скачай набор и запусти установщик</h3>
+      <p class="tri"><b>Куда нажать.</b> Открой терминал (окно, где команды печатаются текстом) и вставь две строки по очереди:</p>
+      <span class="code-line">git clone --depth 1 https://github.com/Ootto-AI/claude-content-skills.git</span>
+      <span class="code-line">bash claude-content-skills/install.sh</span>
+      <p class="tri"><b>Что увидишь.</b> Строки <code>installed ...</code> по одной на каждый навык, в конце <code>Done</code></p>
+      <p class="tri"><b>Что это даёт.</b> Навыки лежат в папке <code>~/.claude/skills/</code>, оттуда их читает Claude Code. Дальше перезапуск, как в способе 1</p>
+    </div>
+    <p class="note">Работает на Mac и Linux. На Windows ставь способом 1, он одинаковый для всех систем</p>
+  </section>
+
+  <hr class="divider">
+
+  <section class="steps" id="web">
+    <div class="route-head"><span class="tag">Способ 3</span></div>
+    <h2>Без Claude Code, в обычном claude.ai</h2>
+    <div class="step">
+      <h3>Открой нужный навык на GitHub</h3>
+      <p class="tri"><b>Куда нажать.</b> На странице набора открой папку <code>skills</code>, затем папку навыка, например <code>content-research</code>, и в ней файл <code>SKILL.md</code></p>
+      <p class="tri"><b>Что увидишь.</b> Текст инструкции на английском</p>
+      <p class="tri"><b>Что это даёт.</b> Каждый навык - это обычный текст, его можно просто скопировать</p>
+    </div>
+    <div class="step">
+      <h3>Вставь в чат вместе со своей задачей</h3>
+      <p class="tri"><b>Куда нажать.</b> Скопируй текст целиком, вставь в новый чат на <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> и ниже допиши задачу</p>
+      <p class="tri"><b>Что увидишь.</b> Claude отработает по этой инструкции так же, как в Claude Code</p>
+      <p class="tri"><b>Что это даёт.</b> Можно попробовать любой навык за минуту, ничего не устанавливая. Чтобы не копировать каждый раз, сохрани текст в инструкции проекта (Project) на claude.ai</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Первые три задачи</h2>
+    <p>Навыки написаны на английском и отвечают на английском, если не попросить иначе. Поэтому в конце каждой задачи пиши «отвечай по-русски»</p>
+    <div class="prompt"><span class="lbl">Найти, что залетело в нише</span>/content-research @аккаунт_конкурента. Найди его рилсы, которые выстрелили сильнее обычного, разбери хуки и формат и дай план, что повторить у меня. Моя ниша: ... Отвечай по-русски</div>
+    <div class="prompt"><span class="lbl">Десять хуков для рилса</span>/viral-hook-writer Тема рилса: ... Моя аудитория: ... Дай 10 хуков на первые три секунды и скажи, какой тестировать первым. Отвечай по-русски</div>
+    <div class="prompt"><span class="lbl">Контент-план на две недели</span>/content-calendar Вот мои идеи: ... Разложи их в план рилсов на две недели с форматами и хуками. Отвечай по-русски</div>
+    <p class="note">Если команда с косой чертой не находится, набери <code>/</code> и начни печатать название: Claude Code подскажет полное имя навыка вместе с названием набора</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Что внутри: карта 52 навыков</h2>
+    <div class="groups">
+      <div class="grp"><h4>Изучить, что работает</h4><p>разбор чужого рилса по кадрам, тренды ниши, разбор конкурента, идеи из комментариев аудитории, аудит своего контента, контент-ресёрч</p></div>
+      <div class="grp"><h4>Создать</h4><p>хуки, сценарии, сборка рилса по битам, A/B тест хуков, карусели, серии сторис, обложка, надписи на экране, список кадров для съёмки, бриф для UGC-креатора</p></div>
+      <div class="grp"><h4>Выложить и продать</h4><p>подпись и хэштеги, переупаковка длинного контента в рилсы, контент-план, ответы на комментарии, призыв к действию, скрипт переписки в личке, время публикации, адаптация под другие площадки</p></div>
+      <div class="grp"><h4>Расти</h4><p>рубрики, опорные темы, шапка профиля, коллаборации, понятный отчёт по цифрам, поиск ключевых слов и хэштегов</p></div>
+      <div class="grp"><h4>Остальное</h4><p>память Claude между сессиями, сбор данных из интернета, реклама, запуски, партнёрства с блогерами, LinkedIn и X</p></div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Грабли, о которые спотыкаются</h2>
+    <ol class="grabli-list">
+      <li><b>Ответы на английском.</b> Навыки написаны по-английски. Добавляй «отвечай по-русски» в каждую задачу</li>
+      <li><b>Новый диалог после установки.</b> Старый диалог Claude Code про новые навыки не знает</li>
+      <li><b>Сбор данных из интернета ставится отдельно.</b> Навык <code>agent-reach</code> при первом запуске попросит установить свою программу. Остальным навыкам она не нужна</li>
+      <li><b>Навык не знает тебя.</b> Он пишет по общей схеме. Чтобы тексты звучали твоим голосом, дай ему примеры своих постов и описание аудитории</li>
+    </ol>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Где смотреть подробности</h2>
+    <div class="altlinks">
+      <ul>
+        <li><a href="https://github.com/Ootto-AI/claude-content-skills" target="_blank" rel="noopener"><code>github.com/Ootto-AI/claude-content-skills</code></a> - сам набор: все навыки, описание каждого, установка</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Что происходит с блогом, <i>когда контент делает система</i></h2>
+    <p>У меня похожий завод собран под мой блог: ролики, тексты, обложки и выдача материалов идут по моим правилам. Вот что он даёт за то же время</p>
+    <figure class="proof-wide"><img src="assets/insights.jpg" alt="Статистика профиля"><figcaption>Статистика профиля: просмотры, взаимодействия, новые подписчики</figcaption></figure>
+    <figure class="proof-wide"><img src="assets/panel30.jpg" alt="Панель: 4,6 млн просмотров за 30 дней"><figcaption>Профессиональная панель: 4,6 млн просмотров за 30 дней</figcaption></figure>
+    <div class="proof-row">
+      <img src="assets/r19.jpg" alt="Рилс">
+      <img src="assets/r1a.jpg" alt="Рилс">
+      <img src="assets/r1b.jpg" alt="Рилс">
+    </div>
+    <p class="proof-cap">Три рилса по миллиону и больше. Без рекламы и без команды: производство занимает минуты, время уходит на смысл</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>52 навыка - это детали, <i>а не завод</i></h2>
+    <p>Я одна, в декрете, без команды собрала свой контент-завод сама. Готовый набор - хороший старт, но навыки в нём работают по отдельности и пишут по общей схеме для англоязычного блога. Какой контент нужен именно твоей аудитории, как он превращается в заявки и как соединить поиск идей, съёмку, выдачу материалов и продажи в одну машину, набор не решит</p>
+
+    <div class="stat-block">
+      <span class="stat-num">1.5</span>
+      <span class="stat-text">млн ₽ оборота проектов за год, с нуля и из декрета</span>
+    </div>
+
+    <p>Поставить набор - десять минут. Собрать систему, где контент сам приводит людей в личку и в продажи, - другая работа, и начинается она с разбора твоего блога и твоих продуктов</p>
+    <p>На консультации разбираю, как выстроить такой контент-завод у тебя: от поиска идей до заявки</p>
+
+    <p class="say-word">Напиши слово</p>
+    <div class="pill-outline">КОНСУЛЬТАЦИЯ</div>
+
+    <p class="say-word">мне в личку Telegram</p>
+    <a class="pill-gold" href="https://t.me/katerinarta" target="_blank" rel="noopener">Написать</a>
+
+    <p class="eyebrow-label">Мои каналы и страницы</p>
+    <div class="channel-grid">
+      <a class="pill-dark" href="https://t.me/+CNtsc57EWnQzZTk6" target="_blank" rel="noopener">Канал в Telegram</a>
+      <a class="pill-dark" href="https://max.ru/join/7j3M_9BFNWEfFMFmVd6DDz227jGaAVLpVvy3mObA93o" target="_blank" rel="noopener">Канал в MAX</a>
+      <a class="pill-dark" href="https://instagram.com/katerinarta_" target="_blank" rel="noopener">Instagram</a>
+      <a class="pill-dark" href="https://vk.ru/katerinarta" target="_blank" rel="noopener">ВКонтакте</a>
+      <a class="pill-dark" href="https://youtube.com/@katerinarta" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>@katerinarta_ · целая команда по контенту внутри Claude</footer>
+
+</body>
+</html>
