@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Три ИИ-агента вместо сотрудников: Dots, Muse и Grok Bot - Катерина Арта</title>
+<meta name="description" content="Честное сравнение ИИ-агентов OpenAI Dots, Meta Muse и Grok Bot: что умеют, сколько стоят, что делают с твоими данными, где слабые и чем заменить. Катерина Арта, октябрь 2026">
+<style>
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-VariableFont_wght.ttf");font-weight:100 900;font-style:normal}
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf");font-weight:100 900;font-style:italic}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Light.otf");font-weight:300}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Regular.otf");font-weight:400}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Medium.otf");font-weight:500}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-SemiBold.otf");font-weight:600}
+  :root{
+    --cream:#F2E8D9;
+    --wine:#570E1C;
+    --bordeaux:#82091B;
+    --soft-bordeaux:#8A3542;
+    --gold:#C9A96E;
+    --taupe:#B8A995;
+    --graphite:#20201E;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--wine);
+    font-family:'Inter',-apple-system,sans-serif;
+    font-weight:300;
+    line-height:1.65;
+    font-size:18px;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px;}
+  .cover{position:relative;width:100%;overflow:hidden;background:var(--graphite);}
+  .cover img{display:block;width:100%;height:auto;max-height:78vh;object-fit:cover;object-position:center 22%;}
+  .cover-caption{
+    position:absolute;left:24px;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--cream);
+    font-size:14px;
+    letter-spacing:.04em;
+    opacity:.85;
+  }
+  header.hero{padding:40px 0 8px;}
+  h1{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:36px;
+    line-height:1.2;
+    margin:0 0 14px;
+    color:var(--wine);
+  }
+  .subtitle{
+    font-size:18px;
+    color:var(--soft-bordeaux);
+    margin:0 0 6px;
+  }
+  .byline{
+    font-size:14px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin:0 0 32px;
+  }
+  section{padding:8px 0 32px;}
+  h2{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:24px;
+    color:var(--bordeaux);
+    margin:0 0 16px;
+    padding-top:8px;
+  }
+  p{margin:0 0 16px;}
+  .divider{border:none;border-top:1px solid var(--taupe);opacity:.5;margin:0;}
+  .stat-row{
+    display:flex;gap:16px;flex-wrap:wrap;
+    margin:24px 0 8px;
+  }
+  .stat{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 20px;
+    flex:1;
+    min-width:140px;
+  }
+  .stat .num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--wine);
+    font-size:32px;
+    display:block;
+    line-height:1;
+    margin-bottom:6px;
+  }
+  .stat .label{font-size:14px;color:var(--wine);opacity:.85;}
+  .note{
+    font-size:15px;
+    color:var(--soft-bordeaux);
+    font-style:italic;
+    margin-top:10px;
+  }
+  .step{
+    counter-increment:step;
+    position:relative;
+    padding:24px 0 24px 56px;
+    border-bottom:1px solid rgba(87,14,28,.12);
+  }
+  .step:last-of-type{border-bottom:none;}
+  .step::before{
+    content:counter(step);
+    position:absolute;
+    left:0;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:34px;
+    color:var(--gold);
+    line-height:1;
+  }
+  .steps{counter-reset:step;}
+  .step h3{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:20px;
+    margin:0 0 12px;
+    color:var(--wine);
+  }
+  .tri{margin:0 0 10px;}
+  .tri b{color:var(--bordeaux);}
+  code{
+    background:rgba(87,14,28,.08);
+    padding:2px 7px;
+    border-radius:4px;
+    font-size:.92em;
+    color:var(--wine);
+  }
+  .code-line{
+    display:block;
+    background:var(--graphite);
+    color:var(--cream);
+    padding:14px 18px;
+    border-radius:6px;
+    font-family:ui-monospace,Menlo,monospace;
+    font-size:15px;
+    margin:12px 0 16px;
+    overflow-x:auto;
+  }
+  .grabli-list{margin:0;padding-left:22px;}
+  .grabli-list li{margin-bottom:12px;}
+  .altlinks{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 22px;
+    margin-top:8px;
+  }
+  .altlinks a{color:var(--bordeaux);}
+  .altlinks ul{margin:8px 0 0;padding-left:20px;}
+  a{color:var(--bordeaux);}
+  .stat-block{
+    display:flex;align-items:baseline;gap:16px;
+    padding:22px 0;margin:24px 0;
+    border-top:1px solid var(--taupe);
+    border-bottom:1px solid var(--taupe);
+  }
+  .stat-num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:48px;
+    line-height:1;
+    flex:0 0 auto;
+  }
+  .stat-text{font-size:16px;color:var(--wine);line-height:1.4;}
+  .proof-wide{margin:0 0 12px;border:1px solid var(--gold);border-radius:10px;overflow:hidden;background:#fff;}
+  .proof-wide img{width:100%;height:auto;display:block;}
+  .proof-wide figcaption{font-family:"Playfair Display",serif;font-style:italic;font-size:12.5px;color:var(--taupe);text-align:center;padding:6px;}
+  .proof-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+  @media (max-width:520px){.proof-row{grid-template-columns:1fr;}}
+  .proof-row img{border:1px solid var(--gold);border-radius:8px;width:100%;}
+  .proof-cap{font-family:"Playfair Display",serif;font-style:italic;font-size:15px;color:var(--bordeaux);}
+  .say-word{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--soft-bordeaux);
+    margin:24px 0 10px;
+  }
+  .pill-outline{
+    display:inline-block;
+    border:2px solid var(--gold);
+    border-radius:999px;
+    padding:14px 32px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:26px;
+    color:var(--bordeaux);
+    letter-spacing:.03em;
+    margin-bottom:8px;
+  }
+  .pill-gold{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--graphite);
+    border-radius:999px;
+    padding:15px 34px;
+    font-weight:600;
+    font-size:16px;
+    text-decoration:none;
+    border:none;
+  }
+  .eyebrow-label{
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--taupe);margin:32px 0 12px;
+  }
+  .channel-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  }
+  .pill-dark{
+    display:flex;align-items:center;justify-content:center;
+    background:var(--wine);color:var(--cream);
+    border-radius:999px;
+    padding:15px 12px;
+    font-size:15px;font-weight:500;
+    text-decoration:none;text-align:center;
+  }
+  @media (max-width:480px){
+    .channel-grid{grid-template-columns:1fr;}
+    .pill-outline{font-size:21px;padding:12px 24px;display:block;text-align:center;}
+  }
+  footer{
+    text-align:center;
+    padding:32px 0 48px;
+    color:var(--taupe);
+    font-size:13px;
+  }
+  @media (max-width:480px){
+    body{font-size:16.5px;}
+    h1{font-size:29px;}
+    .cover img{max-height:62vh;}
+    .step{padding-left:44px;}
+    .step::before{font-size:28px;}
+  }
+
+  .lead{font-size:20px;color:var(--wine);font-weight:400;}
+  .does{list-style:none;margin:8px 0 24px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .does li{background:#fff;border:1px solid rgba(201,169,110,.55);border-radius:10px;padding:14px 16px;font-size:16px;line-height:1.4;}
+  .does li b{display:block;font-family:'Playfair Display',serif;font-style:italic;font-weight:600;color:var(--bordeaux);font-size:18px;margin-bottom:2px;}
+  @media (max-width:520px){.does{grid-template-columns:1fr;}}
+  .routes{display:grid;gap:12px;margin:8px 0 8px;}
+  .route{display:flex;gap:16px;align-items:flex-start;background:var(--wine);color:var(--cream);border-radius:12px;padding:18px 20px;text-decoration:none;}
+  .route .rn{font-family:'Playfair Display',serif;font-style:italic;font-size:34px;line-height:1;color:var(--gold);flex:0 0 28px;}
+  .route h3{margin:0 0 4px;font-family:'Playfair Display',serif;font-weight:600;font-size:19px;color:var(--cream);}
+  .route p{margin:0;font-size:15px;opacity:.85;line-height:1.45;}
+  .route-head{display:flex;align-items:baseline;gap:12px;margin:0 0 6px;}
+  .route-head .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9A7F4E;font-weight:600;}
+  .prompt{background:#fff;border:1px solid var(--gold);border-radius:10px;padding:16px 18px;margin:12px 0 16px;font-size:16px;line-height:1.55;color:var(--graphite);}
+  .prompt .lbl{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe);margin-bottom:6px;font-weight:500;}
+  .callout{border-left:3px solid var(--gold);padding:4px 0 4px 16px;margin:16px 0;font-family:'Playfair Display',serif;font-style:italic;font-size:19px;color:var(--bordeaux);line-height:1.45;}
+  .groups{display:grid;gap:10px;margin:8px 0 16px;}
+  .grp{background:#fff;border:1px solid rgba(201,169,110,.55);border-radius:10px;padding:14px 16px;}
+  .grp h4{margin:0 0 6px;font-family:'Playfair Display',serif;font-style:italic;font-weight:600;font-size:18px;color:var(--bordeaux);}
+  .grp p{margin:0;font-size:15px;line-height:1.5;}
+  .grp code{font-size:.85em;}
+
+  .facts{display:grid;gap:10px;margin:8px 0 8px;}
+  .fact{background:#fff;border:1px solid rgba(201,169,110,.55);border-radius:10px;padding:14px 16px;font-size:16px;line-height:1.5;}
+  .fact .k{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9A7F4E;font-weight:600;margin-bottom:4px;}
+  .cmp-wrap{overflow-x:auto;margin:8px 0 16px;border:1px solid var(--gold);border-radius:10px;background:#fff;}
+  .cmp{border-collapse:collapse;width:100%;min-width:0;font-size:15px;line-height:1.4;}
+  .cmp th{font-family:'Playfair Display',serif;font-style:italic;font-weight:600;color:var(--cream);background:var(--wine);padding:12px 10px;text-align:left;font-size:17px;}
+  .cmp td{padding:11px 10px;border-top:1px solid rgba(87,14,28,.12);vertical-align:top;color:var(--graphite);}
+  .cmp td:first-child{color:var(--bordeaux);font-weight:500;width:24%;}
+  div.route{cursor:default;}
+  @media (max-width:480px){.cmp{font-size:13px;}.cmp th{font-size:15px;padding:10px 6px;}.cmp td{padding:9px 6px;}}
+  .shot{margin:8px 0 18px;border:1px solid var(--gold);border-radius:12px;overflow:hidden;background:#fff;}
+  .shot img{display:block;width:100%;height:auto;}
+  .shot figcaption{font-family:"Playfair Display",serif;font-style:italic;font-size:14px;color:var(--soft-bordeaux);text-align:center;padding:8px 10px;line-height:1.35;}
+  .shot-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0 6px;}
+  .shot-pair .shot{margin:0 0 12px;}
+  .shot-pair{align-items:start;}
+  @media (max-width:480px){.shot figcaption{font-size:12.5px;padding:6px 8px;}}
+  .credit{font-size:13px;color:var(--taupe);margin-top:6px;}
+  .cmp{table-layout:fixed;}
+  .cmp td,.cmp th{overflow-wrap:anywhere;hyphens:auto;}
+  @media (max-width:480px){.cmp{font-size:12px;}.cmp th{font-size:14px;padding:9px 5px;}.cmp td{padding:8px 5px;}.cmp td:first-child{width:23%;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <img src="assets/cover.jpg" alt="Катерина Арта" loading="eager">
+  <div class="cover-caption">Dots · Muse · Grok Bot</div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Три ИИ-агента, которые работают вместо тебя. Честное сравнение</h1>
+    <p class="subtitle">OpenAI Dots, Meta Muse и Grok Bot от xAI вышли почти одновременно и выглядят похоже. На деле это три разных сотрудника: для работы, для быта и для команды. Что умеет каждый, сколько стоит, куда он полезет в твоих данных и чем его заменить</p>
+    <p class="byline">Катерина Арта · @katerinarta_ · октябрь 2026</p>
+  </header>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Чем агент отличается от чата</h2>
+    <p class="lead">Чат отвечает, пока ты с ним разговариваешь. Агент получает задачу, заходит в твои сервисы и продолжает работать, когда вкладка уже закрыта</p>
+<figure class="shot"><img src="assets/trio.jpg" alt="Dots, Muse и Grok Bot" loading="lazy"><figcaption>С виду три одинаковых милых персонажа. Внутри три разные работы</figcaption></figure>
+    <p>У всех трёх новинок есть своё облачное рабочее место: компьютер с браузером, где агент открывает сайты и приложения, как человек. Разница в том, на кого они работают</p>
+    <ul class="does">
+      <li><b>Dots</b>ведёт твою рабочую задачу внутри ChatGPT</li>
+      <li><b>Muse</b>закрывает личные дела: покупки, брони, анкеты</li>
+      <li><b>Grok Bot</b>собирает команду ботов, у каждого своя роль</li>
+    </ul>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <div class="route-head"><span class="tag">Агент 1 · OpenAI</span></div>
+    <h2>Dots: сотрудник, который не уходит домой</h2>
+    <p>Вышел 29 сентября 2026. Живёт внутри ChatGPT, работает на модели GPT-6 Astra. Ставишь ему цель, например «держи запуск по плану», подключаешь приложения (их больше 4 000), и он сам продолжает работу между разговорами: собирает информацию, готовит письма, документы и посты, обновляет предложения</p>
+<div class="shot-pair">
+<figure class="shot"><img src="assets/dots.jpg" alt="OpenAI Dots" loading="lazy"><figcaption>Dots - агент OpenAI, который работает всегда</figcaption></figure>
+<figure class="shot"><img src="assets/dots-ui.jpg" alt="Цель Dots и подключённые приложения" loading="lazy"><figcaption>Цель «держи запуск по плану», подключены Slack, GitHub и Teams</figcaption></figure>
+</div>
+    <div class="facts">
+      <div class="fact"><span class="k">Сколько стоит</span>Нет в бесплатном, Go и Plus за $20. Самый дешёвый вход: Pro 100 за $100 в месяц, первый агент включён. Бизнес-тариф Business Premium: $125 за место</div>
+      <div class="fact"><span class="k">Данные</span>Забирает память из ChatGPT и копит свою из подключённых приложений. Посмотреть или стереть отдельное воспоминание нельзя, только удалить агента целиком</div>
+      <div class="fact"><span class="k">Где сильный</span>Лучшая модель из трёх и отдельный проверяющий: перед каждым действием сверяет его с твоими правилами. Деньги, пароли, удаление и покупки картой без тебя не делает</div>
+      <div class="fact"><span class="k">Где слабый</span>Агент личный, одну задачу на команду не разделить. Дополнительных агентов пока купить нельзя, цену не объявили. На тарифе Pro не работает в ЕС, Великобритании и Швейцарии</div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <div class="route-head"><span class="tag">Агент 2 · Meta</span></div>
+    <h2>Muse: личный помощник по быту</h2>
+    <p>Вышел в начале сентября 2026. Работает в приложении, в браузере и в WhatsApp. Отправляет письма, заполняет формы, бронирует перелёты и отели, снижает счета и покупает. Авиабилеты берёт напрямую больше чем у 500 авиакомпаний, отели ищет на сайтах бронирования сам, как человек</p>
+<div class="shot-pair">
+<figure class="shot"><img src="assets/muse.jpg" alt="Meta Muse" loading="lazy"><figcaption>Muse - личный помощник от Meta</figcaption></figure>
+<figure class="shot"><img src="assets/muse-shop.jpg" alt="Muse: брони, покупки, формы" loading="lazy"><figcaption>Брони, покупки, анкеты, напоминания и долгие цели в одном окне</figcaption></figure>
+</div>
+    <div class="facts">
+      <div class="fact"><span class="k">Сколько стоит</span>Бесплатно для большинства. Платные тарифы: Power за $20 и Maximum за $100 в месяц. Meta зарабатывает комиссией с покупок, которые делает агент</div>
+      <div class="fact"><span class="k">Данные</span>Чтобы работать хорошо, просит много: почту, календарь, платежи, здоровье. Журналисты WIRED заметили, что он постоянно предлагает дать ещё доступов. Meta обещает не передавать переписку в рекламу, обучение можно отключить</div>
+      <div class="fact"><span class="k">Где сильный</span>Покупки через одноразовую карту: сайт не видит твоих настоящих данных. Отдельный сторож проверяет всё, что агент отправляет в интернет</div>
+      <div class="fact"><span class="k">Где слабый</span>Пока только в США. Был скандал: пользователь сообщил, что Muse выгрузил 187 000 строк личных сообщений без разрешения. Amazon закрыл ему доступ к своему магазину</div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <div class="route-head"><span class="tag">Агент 3 · xAI</span></div>
+    <h2>Grok Bot: отдел из ботов</h2>
+    <p>Ранний доступ открыли 11 августа 2026, командные боты вышли 28 сентября. Здесь ты не один агент настраиваешь, а собираешь штат: каждому боту роль, свои инструменты и память. Готовые роли: продажи, поиск кандидатов, реклама, расходы, аналитика продукта, руководитель аппарата и другие</p>
+<div class="shot-pair">
+<figure class="shot"><img src="assets/grok.jpg" alt="Grok Bot от xAI" loading="lazy"><figcaption>Grok Bot - ИИ-коллеги от компании Илона Маска</figcaption></figure>
+<figure class="shot"><img src="assets/grok-roles.jpg" alt="Роли ботов Grok Bot" loading="lazy"><figcaption>Каждому боту своя роль: поиск, продажи, маркетинг, операционка</figcaption></figure>
+</div>
+    <div class="facts">
+      <div class="fact"><span class="k">Сколько стоит</span>На старте входил в SuperGrok Heavy за $300 в месяц и в тарифы Cursor от $120 до $200. Сейчас доступ расширили на обычную подписку SuperGrok и на Cursor Pro от $20</div>
+      <div class="fact"><span class="k">Данные</span>Пароли бот не хранит: вход в сервис делаешь ты, а он работает в открытой сессии. Но все боты сидят на одном компьютере, и файлы и входы одного видны остальным</div>
+      <div class="fact"><span class="k">Где сильный</span>Работает даже с программами, у которых нет никаких подключений для ИИ: просто кликает в интерфейсе. Боты умеют передавать задачи друг другу</div>
+      <div class="fact"><span class="k">Где слабый</span>Нет тестового режима: проба сразу делает настоящую работу, а подтверждение не отменяет то, что уже сделано. Журнал действий только обещают</div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Всё на одном экране</h2>
+    <div class="cmp-wrap">
+      <table class="cmp">
+        <thead><tr><th></th><th>Dots</th><th>Muse</th><th>Grok Bot</th></tr></thead>
+        <tbody>
+          <tr><td>Для чего</td><td>Рабочая задача</td><td>Личные дела</td><td>Команда ботов</td></tr>
+          <tr><td>Вход</td><td>$100 в месяц</td><td>Бесплатно</td><td>Подписка SuperGrok или Cursor от $20</td></tr>
+          <tr><td>Где работает</td><td>ChatGPT, Slack, Teams</td><td>Приложение, веб, WhatsApp</td><td>Slack и твои сервисы</td></tr>
+          <tr><td>Приватность</td><td>Память не почистить по частям</td><td>Просит максимум доступов</td><td>Боты видят входы друг друга</td></tr>
+          <tr><td>Подстраховка</td><td>Проверяющий перед каждым действием</td><td>Одноразовая карта и сторож</td><td>Подтверждения, но без отмены</td></tr>
+          <tr><td>Главный минус</td><td>Дорогой вход</td><td>Только США</td><td>Нет пробного режима</td></tr>
+        </tbody>
+      </table>
+    </div>
+<figure class="shot"><img src="assets/summary.jpg" alt="Итог: Dots, Muse, Grok Bot" loading="lazy"><figcaption>Dots - текущая работа, Muse - личные дела, Grok Bot - команда</figcaption></figure>
+    <div class="callout">Коротко: Dots ведёт задачу, Muse ведёт быт, Grok собирает тебе отдел</div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Какой выбрать</h2>
+    <div class="routes">
+      <div class="route"><span class="rn">1</span><div><h3>Ты уже работаешь в ChatGPT</h3><p>Dots. Если один проект надо вести каждый день и не держать всё в голове. Но только если $100 в месяц окупаются</p></div></div>
+      <div class="route"><span class="rn">2</span><div><h3>Хочешь разгрузить быт</h3><p>Muse. Брони, покупки, анкеты и напоминания. Давай доступы по одному и не подключай всё сразу</p></div></div>
+      <div class="route"><span class="rn">3</span><div><h3>У тебя есть команда или поток рутины</h3><p>Grok Bot. Продажи, реклама, разбор заявок. Сначала дай ботам задачи, где ошибка ничего не стоит</p></div></div>
+    </div>
+    <p class="note">Из России ни один из трёх не оплатить российской картой, а Muse пока открыт только в США</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Три альтернативы</h2>
+    <div class="groups">
+      <div class="grp"><h4>Claude Cowork · Anthropic</h4><p>Агент внутри Claude, входит в любую платную подписку: Pro от $20, Max от $100. Самая предсказуемая цена из всех. Я сама работаю в Claude каждый день</p></div>
+      <div class="grp"><h4>Microsoft 365 Copilot</h4><p>Для тех, кто живёт в Word, Excel и Outlook. Лицензия $30 за человека в месяц плюс оплата за каждое действие: лёгкая задача примерно $1-3</p></div>
+      <div class="grp"><h4>OpenClaw</h4><p>Бесплатная программа с открытым кодом, ставится на свой компьютер или сервер. Платишь только за модель и хостинг, в среднем $30-60 в месяц. Нужно уметь настроить</p></div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Грабли, о которые спотыкаются</h2>
+    <ol class="grabli-list">
+      <li><b>Дать все доступы в первый день.</b> Агент работает в твоей почте и платежах. Начни с одной задачи и одного сервиса</li>
+      <li><b>Ждать, что агент сам знает правила.</b> Что можно делать без спроса, а что нет, пропиши словами. У Grok Bot это вообще единственный способ</li>
+      <li><b>Проверять на живых клиентах.</b> Тестового режима нет ни у кого. Первые задачи - черновики, которые ты сначала читаешь</li>
+      <li><b>Вставлять пароли в чат.</b> Пароль, вставленный в переписку или документ, агент видит открытым текстом</li>
+    </ol>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Источники</h2>
+    <div class="altlinks">
+      <ul>
+        <li><a href="https://www.eesel.ai/blog/openai-dots" target="_blank" rel="noopener">OpenAI Dots: возможности, тарифы, ограничения</a></li>
+        <li><a href="https://www.techrepublic.com/article/news-meta-muse-ai-agent-us-launch/" target="_blank" rel="noopener">Запуск Meta Muse в США</a> · <a href="https://skift.com/2026/09/09/meta-says-its-muse-agent-books-travel-heres-what-that-actually-means/" target="_blank" rel="noopener">как Muse бронирует</a> · <a href="https://www.eesel.ai/blog/meta-muse-agent-review" target="_blank" rel="noopener">обзор приватности</a></li>
+        <li><a href="https://www.eesel.ai/blog/grok-bot" target="_blank" rel="noopener">Grok Bot: роли, цены, безопасность</a> · <a href="https://cellcog.ai/blog/grok-team-bots/" target="_blank" rel="noopener">командные боты</a></li>
+        <li><a href="https://www.datacamp.com/blog/claude-cowork-alternatives" target="_blank" rel="noopener">Claude Cowork и альтернативы</a> · <a href="https://www.softr.io/blog/claude-cowork-vs-openclaw" target="_blank" rel="noopener">Cowork против OpenClaw</a></li>
+      </ul>
+      <p class="note">Иллюстрации - кадры из ролика @sanjai.builds про трёх агентов. Цены и условия на 7 октября 2026, у всех трёх они меняются почти каждую неделю</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Агент - это сотрудник, <i>а не волшебная кнопка</i></h2>
+    <p>Я одна, в декрете, без команды. Вместо штата у меня свои ИИ-помощники: один ведёт календарь и время, второй считает деньги, третий ищет клиентов. Ни один из них не работает сам по себе: каждый знает мои правила, мои продукты и что ему нельзя трогать</p>
+
+    <div class="stat-block">
+      <span class="stat-num">1.5</span>
+      <span class="stat-text">млн ₽ оборота проектов за год, с нуля и из декрета</span>
+    </div>
+
+    <p>Подписаться на агента - пять минут. Понять, какую часть твоего дня ему отдать, как описать задачу так, чтобы он не наломал дров, и как связать нескольких помощников в одну систему, которая приносит заявки и деньги, - это уже работа над твоим бизнесом</p>
+    <p>На консультации разбираю твою неделю и продукты и собираем план: какие задачи забирают ИИ-сотрудники, в каком порядке их подключать и с какого начать завтра</p>
+
+    <p class="say-word">Напиши слово</p>
+    <div class="pill-outline">КОНСУЛЬТАЦИЯ</div>
+
+    <p class="say-word">мне в личку Telegram</p>
+    <a class="pill-gold" href="https://t.me/katerinarta" target="_blank" rel="noopener">Написать</a>
+
+    <p class="eyebrow-label">Мои каналы и страницы</p>
+    <div class="channel-grid">
+      <a class="pill-dark" href="https://t.me/+CNtsc57EWnQzZTk6" target="_blank" rel="noopener">Канал в Telegram</a>
+      <a class="pill-dark" href="https://max.ru/join/7j3M_9BFNWEfFMFmVd6DDz227jGaAVLpVvy3mObA93o" target="_blank" rel="noopener">Канал в MAX</a>
+      <a class="pill-dark" href="https://instagram.com/katerinarta_" target="_blank" rel="noopener">Instagram</a>
+      <a class="pill-dark" href="https://vk.ru/katerinarta" target="_blank" rel="noopener">ВКонтакте</a>
+      <a class="pill-dark" href="https://youtube.com/@katerinarta" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>@katerinarta_ · три ИИ-агента: честное сравнение</footer>
+
+</body>
+</html>

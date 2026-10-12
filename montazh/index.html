@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Автомонтаж видео нейросетью: ChatGPT, Claude и свой агент - Катерина Арта</title>
+<meta name="description" content="Как монтировать видео нейросетью: плагин Remotion в ChatGPT, video-use в Claude Code и свой агент автомонтажа. Пошагово, со скринами, от Катерины Арта.">
+<style>
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-VariableFont_wght.ttf");font-weight:100 900;font-style:normal}
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf");font-weight:100 900;font-style:italic}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Light.otf");font-weight:300}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Regular.otf");font-weight:400}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Medium.otf");font-weight:500}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-SemiBold.otf");font-weight:600}
+  :root{
+    --cream:#F2E8D9;
+    --wine:#570E1C;
+    --bordeaux:#82091B;
+    --soft-bordeaux:#8A3542;
+    --gold:#C9A96E;
+    --taupe:#B8A995;
+    --graphite:#20201E;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--wine);
+    font-family:'Inter',-apple-system,sans-serif;
+    font-weight:300;
+    line-height:1.65;
+    font-size:18px;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px;}
+  .cover{position:relative;width:100%;overflow:hidden;background:var(--graphite);}
+  .cover img{display:block;width:100%;height:auto;max-height:78vh;object-fit:cover;object-position:center 22%;}
+  .cover-caption{
+    position:absolute;left:24px;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--cream);
+    font-size:14px;
+    letter-spacing:.04em;
+    opacity:.85;
+  }
+  header.hero{padding:40px 0 8px;}
+  h1{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:36px;
+    line-height:1.2;
+    margin:0 0 14px;
+    color:var(--wine);
+  }
+  .subtitle{
+    font-size:18px;
+    color:var(--soft-bordeaux);
+    margin:0 0 6px;
+  }
+  .byline{
+    font-size:14px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin:0 0 32px;
+  }
+  section{padding:8px 0 32px;}
+  h2{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:24px;
+    color:var(--bordeaux);
+    margin:0 0 16px;
+    padding-top:8px;
+  }
+  p{margin:0 0 16px;}
+  .divider{border:none;border-top:1px solid var(--taupe);opacity:.5;margin:0;}
+  .stat-row{
+    display:flex;gap:16px;flex-wrap:wrap;
+    margin:24px 0 8px;
+  }
+  .stat{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 20px;
+    flex:1;
+    min-width:140px;
+  }
+  .stat .num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--wine);
+    font-size:32px;
+    display:block;
+    line-height:1;
+    margin-bottom:6px;
+  }
+  .stat .label{font-size:14px;color:var(--wine);opacity:.85;}
+  .note{
+    font-size:15px;
+    color:var(--soft-bordeaux);
+    font-style:italic;
+    margin-top:10px;
+  }
+  .step{
+    counter-increment:step;
+    position:relative;
+    padding:24px 0 24px 56px;
+    border-bottom:1px solid rgba(87,14,28,.12);
+  }
+  .step:last-of-type{border-bottom:none;}
+  .step::before{
+    content:counter(step);
+    position:absolute;
+    left:0;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:34px;
+    color:var(--gold);
+    line-height:1;
+  }
+  .steps{counter-reset:step;}
+  .step h3{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:20px;
+    margin:0 0 12px;
+    color:var(--wine);
+  }
+  .tri{margin:0 0 10px;}
+  .tri b{color:var(--bordeaux);}
+  code{
+    background:rgba(87,14,28,.08);
+    padding:2px 7px;
+    border-radius:4px;
+    font-size:.92em;
+    color:var(--wine);
+  }
+  .code-line{
+    display:block;
+    background:var(--graphite);
+    color:var(--cream);
+    padding:14px 18px;
+    border-radius:6px;
+    font-family:ui-monospace,Menlo,monospace;
+    font-size:15px;
+    margin:12px 0 16px;
+    overflow-x:auto;
+  }
+  .grabli-list{margin:0;padding-left:22px;}
+  .grabli-list li{margin-bottom:12px;}
+  .altlinks{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 22px;
+    margin-top:8px;
+  }
+  .altlinks a{color:var(--bordeaux);}
+  .altlinks ul{margin:8px 0 0;padding-left:20px;}
+  a{color:var(--bordeaux);}
+  .stat-block{
+    display:flex;align-items:baseline;gap:16px;
+    padding:22px 0;margin:24px 0;
+    border-top:1px solid var(--taupe);
+    border-bottom:1px solid var(--taupe);
+  }
+  .stat-num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:48px;
+    line-height:1;
+    flex:0 0 auto;
+  }
+  .stat-text{font-size:16px;color:var(--wine);line-height:1.4;}
+  .proof-wide{margin:0 0 12px;border:1px solid var(--gold);border-radius:10px;overflow:hidden;background:#fff;}
+  .proof-wide img{width:100%;height:auto;display:block;}
+  .proof-wide figcaption{font-family:"Playfair Display",serif;font-style:italic;font-size:12.5px;color:var(--taupe);text-align:center;padding:6px;}
+  .proof-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+  @media (max-width:520px){.proof-row{grid-template-columns:1fr;}}
+  .proof-row img{border:1px solid var(--gold);border-radius:8px;width:100%;}
+  .proof-cap{font-family:"Playfair Display",serif;font-style:italic;font-size:15px;color:var(--bordeaux);}
+  .say-word{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--soft-bordeaux);
+    margin:24px 0 10px;
+  }
+  .pill-outline{
+    display:inline-block;
+    border:2px solid var(--gold);
+    border-radius:999px;
+    padding:14px 32px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:26px;
+    color:var(--bordeaux);
+    letter-spacing:.03em;
+    margin-bottom:8px;
+  }
+  .pill-gold{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--graphite);
+    border-radius:999px;
+    padding:15px 34px;
+    font-weight:600;
+    font-size:16px;
+    text-decoration:none;
+    border:none;
+  }
+  .eyebrow-label{
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--taupe);margin:32px 0 12px;
+  }
+  .channel-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  }
+  .pill-dark{
+    display:flex;align-items:center;justify-content:center;
+    background:var(--wine);color:var(--cream);
+    border-radius:999px;
+    padding:15px 12px;
+    font-size:15px;font-weight:500;
+    text-decoration:none;text-align:center;
+  }
+  @media (max-width:480px){
+    .channel-grid{grid-template-columns:1fr;}
+    .pill-outline{font-size:21px;padding:12px 24px;display:block;text-align:center;}
+  }
+  footer{
+    text-align:center;
+    padding:32px 0 48px;
+    color:var(--taupe);
+    font-size:13px;
+  }
+  @media (max-width:480px){
+    body{font-size:16.5px;}
+    h1{font-size:29px;}
+    .cover img{max-height:62vh;}
+    .step{padding-left:44px;}
+    .step::before{font-size:28px;}
+  }
+
+  .lead{font-size:20px;color:var(--wine);font-weight:400;}
+  .does{list-style:none;margin:8px 0 24px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .does li{background:#fff;border:1px solid rgba(201,169,110,.55);border-radius:10px;padding:14px 16px;font-size:16px;line-height:1.4;}
+  .does li b{display:block;font-family:'Playfair Display',serif;font-style:italic;font-weight:600;color:var(--bordeaux);font-size:18px;margin-bottom:2px;}
+  @media (max-width:520px){.does{grid-template-columns:1fr;}}
+  .wave{margin:0 0 6px;background:#fff;border:1px solid rgba(201,169,110,.55);border-radius:10px;padding:14px 16px 10px;}
+  .wave .row{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;margin-bottom:6px;color:var(--soft-bordeaux);}
+  .wave .row b{font-family:'Playfair Display',serif;font-style:italic;font-size:22px;color:var(--wine);font-weight:600;}
+  .wave img{display:block;height:64px;}
+  .wave.before img{width:100%;}
+  .wave.after img{width:81.4%;}
+  .routes{display:grid;gap:12px;margin:8px 0 8px;}
+  .route{display:flex;gap:16px;align-items:flex-start;background:var(--wine);color:var(--cream);border-radius:12px;padding:18px 20px;text-decoration:none;}
+  .route .rn{font-family:'Playfair Display',serif;font-style:italic;font-size:34px;line-height:1;color:var(--gold);flex:0 0 28px;}
+  .route h3{margin:0 0 4px;font-family:'Playfair Display',serif;font-weight:600;font-size:19px;color:var(--cream);}
+  .route p{margin:0;font-size:15px;opacity:.85;line-height:1.45;}
+  .route-head{display:flex;align-items:baseline;gap:12px;margin:0 0 6px;}
+  .route-head .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;}
+  .prompt{background:#fff;border:1px solid var(--gold);border-radius:10px;padding:16px 18px;margin:12px 0 16px;font-size:16px;line-height:1.55;color:var(--graphite);}
+  .prompt .lbl{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe);margin-bottom:6px;font-weight:500;}
+  .prompt .tok{background:#2F5BEA;color:#fff;border-radius:5px;padding:1px 7px;font-family:ui-monospace,Menlo,monospace;font-size:.92em;}
+  .rules{background:var(--graphite);color:var(--cream);border-radius:10px;padding:18px 20px;margin:12px 0 16px;font-family:ui-monospace,Menlo,monospace;font-size:14px;line-height:1.7;}
+  .rules .c{color:var(--gold);}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 6px;}
+  .pair figure{margin:0;position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--gold);}
+  .pair img{display:block;width:100%;height:auto;}
+  .pair .badge{position:absolute;left:10px;top:10px;background:var(--cream);color:var(--wine);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600;}
+  .pair .badge.gold{background:var(--gold);color:var(--graphite);}
+  .callout{border-left:3px solid var(--gold);padding:4px 0 4px 16px;margin:16px 0;font-family:'Playfair Display',serif;font-style:italic;font-size:19px;color:var(--bordeaux);line-height:1.45;}
+  .toc{margin:0 0 8px;padding:0;list-style:none;}
+  .toc a{text-decoration:none;}
+  .client{background:var(--wine);color:var(--cream);border-radius:12px;padding:8px 20px 16px;margin:0 0 8px;}
+  .crow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:12px 0;border-bottom:1px solid rgba(242,232,217,.18);}
+  .crow.last{border-bottom:none;}
+  .cl{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);flex:0 0 auto;}
+  .cv{font-family:'Playfair Display',serif;font-weight:600;font-size:21px;text-align:right;}
+  .cv i{color:var(--gold);font-style:normal;}
+  .cv.sm{font-family:'Inter',sans-serif;font-weight:400;font-size:15px;}
+  .cv.big{color:var(--gold);font-style:italic;font-size:26px;}
+  .cnote{margin:6px 0 0;font-size:13px;opacity:.7;font-style:italic;}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <img src="assets/cover.jpg" alt="Катерина Арта" loading="eager">
+  <div class="cover-caption">автомонтаж</div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Видео теперь монтирует нейросеть. Три способа, от одной кнопки до своего агента</h1>
+    <p class="subtitle">Загружаешь исходник, а нейросеть сама режет паузы, ставит субтитры и собирает готовый ролик. Пошагово, со скринами и проверкой на моих рилсах</p>
+    <p class="byline">Катерина Арта · @katerinarta_ · октябрь 2026</p>
+  </header>
+  <hr class="divider">
+
+  <section>
+    <h2>Что нейросеть делает за тебя</h2>
+    <p class="lead">Раньше рилс с говорящей головой - это час в монтажке: найти паузы, вырезать оговорки, набить субтитры, подогнать по времени. Теперь ты пишешь задачу словами, как монтажёру</p>
+    <ul class="does">
+      <li><b>Режет паузы</b>вырезает тишину и оговорки между фразами</li>
+      <li><b>Ставит субтитры</b>по словам, ровно в момент, когда слово звучит</li>
+      <li><b>Анимирует</b>акценты, переходы, карточки поверх видео</li>
+      <li><b>Отдаёт файл</b>готовый MP4 в папке на твоём компьютере</li>
+    </ul>
+    <p>Звучит как реклама, поэтому вот замер на моём настоящем рилсе. Сверху дорожка голоса до монтажа, снизу после. Тишину между фразами вырезало автоматически, ни одной склейки руками</p>
+    <div class="wave before">
+      <div class="row"><span>До: сырая запись</span><b>45,5 сек</b></div>
+      <img src="assets/wave-before.png" alt="Звуковая дорожка до монтажа: 45,5 секунды">
+    </div>
+    <div class="wave after">
+      <div class="row"><span>После автомонтажа</span><b>37 сек</b></div>
+      <img src="assets/wave-after.png" alt="Звуковая дорожка после монтажа: 37 секунд">
+    </div>
+    <p class="note">Рилс «Трамп и соглашение по ИИ», 6 октября 2026. Восемь с половиной секунд тишины ушли, текст не потерял ни слова</p>
+  </section>
+  <hr class="divider">
+
+  <section>
+    <h2>Какой способ выбрать</h2>
+    <div class="routes">
+      <a class="route" href="#chatgpt"><span class="rn">1</span><div><h3>ChatGPT + плагин Remotion</h3><p>Начать сегодня. Ставишь плагин в приложении ChatGPT и пишешь задачу в чат</p></div></a>
+      <a class="route" href="#claude"><span class="rn">2</span><div><h3>Claude Code + video-use</h3><p>Для говорящей головы: вырезает слова-паразиты и паузы, красит цвет, жжёт субтитры</p></div></a>
+      <a class="route" href="#agent"><span class="rn">3</span><div><h3>Свой агент автомонтажа</h3><p>Правила записываешь один раз, дальше просто скидываешь исходник</p></div></a>
+    </div>
+  </section>
+  <hr class="divider">
+
+  <section class="steps" id="chatgpt">
+    <div class="route-head"><span class="tag">Способ 1</span></div>
+    <h2>ChatGPT монтирует прямо в чате</h2>
+    <p>Remotion - это движок, который собирает видео по команде. Его разработчики сами выпустили плагин для ChatGPT, вот их официальная страница</p>
+    <figure class="proof-wide"><img src="assets/remotion-docs.jpg" alt="Официальная страница плагина Remotion для ChatGPT"><figcaption>remotion.dev: плагин ставится во вкладке Plugins приложения ChatGPT, вызывается командой $remotion</figcaption></figure>
+
+    <div class="step">
+      <h3>Поставь приложение ChatGPT на компьютер</h3>
+      <p class="tri"><b>Куда нажать.</b> Скачай приложение с <a href="https://chatgpt.com/download" target="_blank" rel="noopener">chatgpt.com/download</a> и войди своим аккаунтом. Есть для Mac и для Windows</p>
+      <p class="tri"><b>Что увидишь.</b> Слева в меню пункты «Чаты», «Codex», «Плагины», «Настройки»</p>
+      <p class="tri"><b>Что это даёт.</b> Плагины живут в приложении для компьютера, в обычной вкладке браузера их нет</p>
+    </div>
+    <div class="step">
+      <h3>Добавь плагин Remotion</h3>
+      <p class="tri"><b>Куда нажать.</b> Вкладка «Плагины» → в поиске набери <code>Remotion</code> → «Добавить»</p>
+      <p class="tri"><b>Что увидишь.</b> Плагин Remotion в списке подключённых</p>
+      <p class="tri"><b>Что это даёт.</b> Ставится один раз и дальше работает для каждого ролика</p>
+    </div>
+    <div class="step">
+      <h3>Загрузи видео и вставь промпт</h3>
+      <p class="tri"><b>Куда нажать.</b> Создай новый проект, прикрепи своё видео и напиши в начале сообщения <code>$remotion</code>. Когда ChatGPT предложит плагин, прими его. Вот промпт, которым можно начать:</p>
+      <div class="prompt"><span class="lbl">Промпт, скопируй и вставь</span><span class="tok">$remotion</span> Смонтируй это видео как рилс 9:16. Вырежи паузы и оговорки, не трогая слова. Добавь крупные субтитры по 1-2 слова, ровно в момент, когда слово звучит, по центру ниже лица. На ключевых мыслях сделай акцент: зум или карточку с цифрой. Отдай готовый MP4</div>
+      <p class="tri"><b>Что увидишь.</b> Нейросеть расшифрует речь, найдёт тишину, вырежет её, наложит субтитры и сохранит готовый MP4 в папку на компьютере</p>
+      <p class="tri"><b>Что это даёт.</b> Готовый ролик без монтажной программы и без таймлайна</p>
+    </div>
+    <div class="step">
+      <h3>Не понравилось - скажи словами</h3>
+      <p class="tri"><b>Куда нажать.</b> Пиши правку в этом же чате, как монтажёру: «субтитры выше», «убери зум в начале», «сделай темп быстрее»</p>
+      <p class="tri"><b>Что увидишь.</b> Переделанный ролик в той же папке</p>
+      <p class="tri"><b>Что это даёт.</b> Правки за минуты, а не перемонтаж с нуля</p>
+    </div>
+  </section>
+  <hr class="divider">
+
+  <section class="steps" id="claude">
+    <div class="route-head"><span class="tag">Способ 2</span></div>
+    <h2>Claude Code + video-use: монтажёр для говорящей головы</h2>
+    <p>video-use - открытый бесплатный инструмент, у него 28 тысяч звёзд на GitHub. Ты кладёшь сырые записи в папку, говоришь с Claude, и на выходе получаешь готовый <code>final.mp4</code>. Он вырезает «эээ» и неудачные дубли, делает плавные склейки без щелчков, красит цвет и жжёт субтитры</p>
+    <figure class="proof-wide"><img src="assets/video-use.jpg" alt="Репозиторий video-use на GitHub"><figcaption>github.com/browser-use/video-use: открытый код, лицензия MIT, 28,3 тысячи звёзд</figcaption></figure>
+    <div class="step">
+      <h3>Поставь video-use одной фразой</h3>
+      <p class="tri"><b>Куда нажать.</b> Открой Claude Code и вставь в чат официальную фразу установки из README:</p>
+      <span class="code-line">Set up https://github.com/browser-use/video-use for me. Read install.md first to install this repo, wire up ffmpeg, register the skill with whichever agent you're running under, and set up the ElevenLabs API key.</span>
+      <p class="tri"><b>Что увидишь.</b> Claude сам скачает инструмент, поставит ffmpeg (программу, которая собирает видео) и попросит ключ ElevenLabs</p>
+      <p class="tri"><b>Что это даёт.</b> Не нужно разбираться в установке, всё делает агент</p>
+    </div>
+    <div class="step">
+      <h3>Дай ключ ElevenLabs</h3>
+      <p class="tri"><b>Куда нажать.</b> Зарегистрируйся на elevenlabs.io, в профиле создай API-ключ и отдай его Claude, когда он спросит</p>
+      <p class="tri"><b>Что увидишь.</b> Ключ попадёт в файл <code>.env</code> внутри инструмента</p>
+      <p class="tri"><b>Что это даёт.</b> ElevenLabs расшифровывает речь до долей секунды, по этой расшифровке и режется видео</p>
+    </div>
+    <div class="step">
+      <h3>Положи видео в папку и попроси смонтировать</h3>
+      <p class="tri"><b>Куда нажать.</b> Открой Claude Code в папке со своими записями и напиши задачу обычными словами:</p>
+      <div class="prompt"><span class="lbl">Промпт</span>Смонтируй эти записи в рилс 9:16 на 40 секунд. Убери паузы, «эээ» и неудачные дубли. Субтитры по 1-2 слова крупно, тёплый цвет</div>
+      <p class="tri"><b>Что увидишь.</b> Сначала Claude расскажет план монтажа простыми словами и спросит, согласна ли ты. После «да» соберёт ролик и сам его проверит. Файл появится в папке <code>edit/final.mp4</code></p>
+      <p class="tri"><b>Что это даёт.</b> Ты утверждаешь смысл, а нарезку делает он</p>
+    </div>
+  </section>
+  <hr class="divider">
+
+  <section id="agent">
+    <div class="route-head"><span class="tag">Способ 3</span></div>
+    <h2>Свой агент: объясняешь один раз</h2>
+    <p>Первые два способа хороши, но каждый раз приходится заново объяснять, как ты хочешь. Решение - записать свои правила в один файл-навык. Агент читает его перед каждым роликом и уже знает твой стиль</p>
+    <p>Вот так выглядят мои правила монтажа. Это сокращённая выдержка из настоящего файла, по которому собираются мои рилсы:</p>
+    <div class="rules">
+      <span class="c"># Мои правила монтажа</span><br>
+      формат: 1080x1920, H.264<br>
+      паузы: вырезать, слова не резать<br>
+      субтитры: по 1-2 слова, бордовая пилюля,<br>
+      &nbsp;&nbsp;бежевый текст, никогда не на лице<br>
+      сплит: сверху экран, снизу я<br>
+      громкость: выровнять до -14 LUFS<br>
+      звуки: только на смене сцены, не на каждой склейке
+    </div>
+    <p>Теперь на каждый новый ролик я пишу одну фразу: «смонтируй по моим правилам». Вот что получается на выходе:</p>
+    <div class="pair">
+      <figure><img src="assets/before.jpg" alt="Сырая запись двойника"><span class="badge">До</span></figure>
+      <figure><img src="assets/after.jpg" alt="Готовый рилс"><span class="badge gold">После</span></figure>
+    </div>
+    <p class="note">Слева сырая запись, справа тот же момент в готовом рилсе: сплит, субтитр в пилюле на шве, ни одной ручной склейки</p>
+    <div class="callout">Агент не устаёт и не забывает правила. Ошибся один раз - дописываешь правило в файл, и больше эта ошибка не повторяется</div>
+    <div style="padding-top:8px">
+      <h3 style="margin-top:8px">Как собрать такого агента</h3>
+      <ol class="grabli-list">
+        <li>Возьми способ 1 или 2 и смонтируй 3-5 роликов, каждый раз поправляя результат словами</li>
+        <li>Попроси нейросеть: «собери все мои правки в один файл правил монтажа»</li>
+        <li>В Claude Code сохрани этот файл как навык (скилл), в ChatGPT - как инструкцию проекта</li>
+        <li>Дальше просто скидывай исходник: агент уже знает твой стиль и все твои правила</li>
+      </ol>
+    </div>
+  </section>
+  <hr class="divider">
+
+  <section>
+    <h2>Грабли, о которые спотыкаются</h2>
+    <ol class="grabli-list">
+      <li><b>Плохой звук - плохой монтаж.</b> Нейросеть не смотрит видео глазами, она режет по расшифровке речи. Записывай в тишине и ближе к микрофону</li>
+      <li><b>Не ищи плагины в браузере.</b> Плагин Remotion ставится в приложении ChatGPT для компьютера</li>
+      <li><b>Для video-use нужен ключ ElevenLabs.</b> Без него инструмент не расшифрует речь и не сможет резать</li>
+      <li><b>Смотри результат до публикации.</b> Агент проверяет себя, но последнее слово за тобой</li>
+    </ol>
+  </section>
+  <hr class="divider">
+
+  <section>
+    <h2>Где смотреть подробности</h2>
+    <div class="altlinks">
+      <ul>
+        <li><a href="https://www.remotion.dev/docs/ai/codex-plugin" target="_blank" rel="noopener"><code>remotion.dev/docs/ai/codex-plugin</code></a> - официальная страница плагина Remotion для ChatGPT</li>
+        <li><a href="https://github.com/browser-use/video-use" target="_blank" rel="noopener"><code>github.com/browser-use/video-use</code></a> - video-use: установка, примеры, все возможности</li>
+      </ul>
+    </div>
+  </section>
+  <hr class="divider">
+
+  <section>
+    <h2>Я построила контент-завод <i>на нейросетях</i></h2>
+    <p>Автомонтаж - только один его цех. Ролики, тексты, обложки, воронки и выдачу материалов у меня делают нейросети по моим правилам, а я отвечаю за смысл. Вот что этот завод дал мне и моим клиентам</p>
+    <p class="eyebrow-label" style="margin-top:8px">Мой блог</p>
+    <figure class="proof-wide"><img src="assets/insights.jpg" alt="Статистика профиля"><figcaption>Статистика профиля: просмотры, взаимодействия, новые подписчики</figcaption></figure>
+    <figure class="proof-wide"><img src="assets/panel30.jpg" alt="Панель: 4,6 млн просмотров за 30 дней"><figcaption>Профессиональная панель: 4,6 млн просмотров за 30 дней</figcaption></figure>
+    <div class="proof-row">
+      <img src="assets/r19.jpg" alt="Рилс">
+      <img src="assets/r1a.jpg" alt="Рилс">
+      <img src="assets/r1b.jpg" alt="Рилс">
+    </div>
+    <p class="proof-cap">Три рилса по миллиону и больше. Без рекламы и без команды: производство занимает минуты, время уходит на смысл</p>
+    <p class="eyebrow-label">Клиент: психолог в нише отношений</p>
+    <div class="client">
+      <div class="crow"><span class="cl">Аудитория</span><span class="cv">45 000 <i>→</i> 75 000</span></div>
+      <div class="crow"><span class="cl">Цена услуги</span><span class="cv">5 000 ₽ <i>→</i> 8 000 ₽</span></div>
+      <div class="crow"><span class="cl">Запущено</span><span class="cv sm">два интенсива, личная работа, мини-продукт, школа</span></div>
+      <div class="crow last"><span class="cl">Оборот</span><span class="cv big">более 1 200 000 ₽</span></div>
+      <p class="cnote">Всё за полгода работы со мной. Имя клиента не называю</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Плагин - это инструмент, а не завод</h2>
+    <p>Я одна, в декрете, без команды собрала этот завод сама. Автомонтаж - один кирпич. Какие ролики снимать, как превращать их в заявки и как соединить монтаж, тексты и воронку в одну машину, за тебя никто не решит</p>
+    <div class="stat-block">
+      <span class="stat-num">1.5</span>
+      <span class="stat-text">млн ₽ оборота проектов за год, с нуля и из декрета</span>
+    </div>
+    <p>Поставить плагин - десять минут. Собрать свой контент-завод под то, чем ты занимаешься, - другая работа, и начинается она с разбора твоих задач</p>
+    <p>На консультации разбираю, как выстроить такой завод у тебя</p>
+
+    <p class="say-word">Напиши слово</p>
+    <div class="pill-outline">КОНСУЛЬТАЦИЯ</div>
+
+    <p class="say-word">мне в личку Telegram</p>
+    <a class="pill-gold" href="https://t.me/katerinarta" target="_blank" rel="noopener">Написать</a>
+
+    <p class="eyebrow-label">Мои каналы и страницы</p>
+    <div class="channel-grid">
+      <a class="pill-dark" href="https://t.me/+CNtsc57EWnQzZTk6" target="_blank" rel="noopener">Канал в Telegram</a>
+      <a class="pill-dark" href="https://max.ru/join/7j3M_9BFNWEfFMFmVd6DDz227jGaAVLpVvy3mObA93o" target="_blank" rel="noopener">Канал в MAX</a>
+      <a class="pill-dark" href="https://instagram.com/katerinarta_" target="_blank" rel="noopener">Instagram</a>
+      <a class="pill-dark" href="https://vk.ru/katerinarta" target="_blank" rel="noopener">ВКонтакте</a>
+      <a class="pill-dark" href="https://youtube.com/@katerinarta" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>@katerinarta_ · автомонтаж видео нейросетью</footer>
+
+</body>
+</html>
