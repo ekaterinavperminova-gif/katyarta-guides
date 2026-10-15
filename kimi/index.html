@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kimi Work: одна задача, сотня ИИ-агентов - Катерина Арта</title>
+<meta name="description" content="Kimi Work - десктопный ИИ-агент от Moonshot AI, который делит задачу между сотнями агентов. Что он умеет, сколько стоит на самом деле, как поставить и как дать агентам задачу, чтобы получить готовую работу. Разбор от Катерины Арта.">
+<style>
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-VariableFont_wght.ttf");font-weight:100 900;font-style:normal}
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf");font-weight:100 900;font-style:italic}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Light.otf");font-weight:300}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Regular.otf");font-weight:400}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Medium.otf");font-weight:500}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-SemiBold.otf");font-weight:600}
+  :root{
+    --cream:#F2E8D9;
+    --wine:#570E1C;
+    --bordeaux:#82091B;
+    --soft-bordeaux:#8A3542;
+    --gold:#C9A96E;
+    --taupe:#B8A995;
+    --graphite:#20201E;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--wine);
+    font-family:'Inter',-apple-system,sans-serif;
+    font-weight:300;
+    line-height:1.65;
+    font-size:18px;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px;}
+  .cover{position:relative;width:100%;overflow:hidden;background:var(--graphite);}
+  .cover img{display:block;width:100%;height:auto;max-height:78vh;object-fit:cover;object-position:center 22%;}
+  .cover-caption{
+    position:absolute;left:24px;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--cream);
+    font-size:14px;
+    letter-spacing:.04em;
+    opacity:.85;
+  }
+  header.hero{padding:40px 0 8px;}
+  h1{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:36px;
+    line-height:1.2;
+    margin:0 0 14px;
+    color:var(--wine);
+  }
+  .subtitle{
+    font-size:18px;
+    color:var(--soft-bordeaux);
+    margin:0 0 6px;
+  }
+  .byline{
+    font-size:14px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin:0 0 32px;
+  }
+  section{padding:8px 0 32px;}
+  h2{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:24px;
+    color:var(--bordeaux);
+    margin:0 0 16px;
+    padding-top:8px;
+  }
+  p{margin:0 0 16px;}
+  .divider{border:none;border-top:1px solid var(--taupe);opacity:.5;margin:0;}
+  .stat-row{
+    display:flex;gap:16px;flex-wrap:wrap;
+    margin:24px 0 8px;
+  }
+  .stat{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 20px;
+    flex:1;
+    min-width:140px;
+  }
+  .stat .num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--wine);
+    font-size:32px;
+    display:block;
+    line-height:1;
+    margin-bottom:6px;
+  }
+  .stat .label{font-size:14px;color:var(--wine);opacity:.85;}
+  .note{
+    font-size:15px;
+    color:var(--soft-bordeaux);
+    font-style:italic;
+    margin-top:10px;
+  }
+  .step{
+    counter-increment:step;
+    position:relative;
+    padding:24px 0 24px 56px;
+    border-bottom:1px solid rgba(87,14,28,.12);
+  }
+  .step:last-of-type{border-bottom:none;}
+  .step::before{
+    content:counter(step);
+    position:absolute;
+    left:0;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:34px;
+    color:var(--gold);
+    line-height:1;
+  }
+  .steps{counter-reset:step;}
+  .step h3{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:20px;
+    margin:0 0 12px;
+    color:var(--wine);
+  }
+  .tri{margin:0 0 10px;}
+  .tri b{color:var(--bordeaux);}
+  code{
+    background:rgba(87,14,28,.08);
+    padding:2px 7px;
+    border-radius:4px;
+    font-size:.92em;
+    color:var(--wine);
+  }
+  .code-line{
+    display:block;
+    background:var(--graphite);
+    color:var(--cream);
+    padding:14px 18px;
+    border-radius:6px;
+    font-family:ui-monospace,Menlo,monospace;
+    font-size:15px;
+    margin:12px 0 16px;
+    overflow-x:auto;
+  }
+  .grabli-list{margin:0;padding-left:22px;}
+  .grabli-list li{margin-bottom:12px;}
+  .altlinks{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 22px;
+    margin-top:8px;
+  }
+  .altlinks a{color:var(--bordeaux);}
+  .altlinks ul{margin:8px 0 0;padding-left:20px;}
+  a{color:var(--bordeaux);}
+  .stat-block{
+    display:flex;align-items:baseline;gap:16px;
+    padding:22px 0;margin:24px 0;
+    border-top:1px solid var(--taupe);
+    border-bottom:1px solid var(--taupe);
+  }
+  .stat-num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:48px;
+    line-height:1;
+    flex:0 0 auto;
+  }
+  .stat-text{font-size:16px;color:var(--wine);line-height:1.4;}
+  .proof-wide{margin:0 0 12px;border:1px solid var(--gold);border-radius:10px;overflow:hidden;background:#fff;}
+  .proof-wide img{width:100%;height:auto;display:block;}
+  .proof-wide figcaption{font-family:"Playfair Display",serif;font-style:italic;font-size:12.5px;color:var(--taupe);text-align:center;padding:6px;}
+  .proof-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+  @media (max-width:520px){.proof-row{grid-template-columns:1fr;}}
+  .proof-row img{border:1px solid var(--gold);border-radius:8px;width:100%;}
+  .proof-cap{font-family:"Playfair Display",serif;font-style:italic;font-size:15px;color:var(--bordeaux);}
+  .say-word{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--soft-bordeaux);
+    margin:24px 0 10px;
+  }
+  .pill-outline{
+    display:inline-block;
+    border:2px solid var(--gold);
+    border-radius:999px;
+    padding:14px 32px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:26px;
+    color:var(--bordeaux);
+    letter-spacing:.03em;
+    margin-bottom:8px;
+  }
+  .pill-gold{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--graphite);
+    border-radius:999px;
+    padding:15px 34px;
+    font-weight:600;
+    font-size:16px;
+    text-decoration:none;
+    border:none;
+  }
+  .eyebrow-label{
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--taupe);margin:32px 0 12px;
+  }
+  .channel-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  }
+  .pill-dark{
+    display:flex;align-items:center;justify-content:center;
+    background:var(--wine);color:var(--cream);
+    border-radius:999px;
+    padding:15px 12px;
+    font-size:15px;font-weight:500;
+    text-decoration:none;text-align:center;
+  }
+  @media (max-width:480px){
+    .channel-grid{grid-template-columns:1fr;}
+    .pill-outline{font-size:21px;padding:12px 24px;display:block;text-align:center;}
+  }
+  footer{
+    text-align:center;
+    padding:32px 0 48px;
+    color:var(--taupe);
+    font-size:13px;
+  }
+  @media (max-width:480px){
+    body{font-size:16.5px;}
+    h1{font-size:29px;}
+    .cover img{max-height:62vh;}
+    .step{padding-left:44px;}
+    .step::before{font-size:28px;}
+  }
+
+  .lead{font-size:20px;color:var(--wine);font-weight:400;}
+  .does{list-style:none;margin:8px 0 24px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .does li{background:#fff;border:1px solid rgba(201,169,110,.55);border-radius:10px;padding:14px 16px;font-size:16px;line-height:1.4;}
+  .does li b{display:block;font-family:'Playfair Display',serif;font-style:italic;font-weight:600;color:var(--bordeaux);font-size:18px;margin-bottom:2px;}
+  @media (max-width:520px){.does{grid-template-columns:1fr;}}
+  .routes{display:grid;gap:12px;margin:8px 0 8px;}
+  .route{display:flex;gap:16px;align-items:flex-start;background:var(--wine);color:var(--cream);border-radius:12px;padding:18px 20px;text-decoration:none;}
+  .route .rn{font-family:'Playfair Display',serif;font-style:italic;font-size:34px;line-height:1;color:var(--gold);flex:0 0 28px;}
+  .route h3{margin:0 0 4px;font-family:'Playfair Display',serif;font-weight:600;font-size:19px;color:var(--cream);}
+  .route p{margin:0;font-size:15px;opacity:.85;line-height:1.45;}
+  .route-head{display:flex;align-items:baseline;gap:12px;margin:0 0 6px;}
+  .route-head .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9A7F4E;font-weight:600;}
+  .prompt{background:#fff;border:1px solid var(--gold);border-radius:10px;padding:16px 18px;margin:12px 0 16px;font-size:16px;line-height:1.55;color:var(--graphite);}
+  .prompt .lbl{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe);margin-bottom:6px;font-weight:500;}
+  .callout{border-left:3px solid var(--gold);padding:4px 0 4px 16px;margin:16px 0;font-family:'Playfair Display',serif;font-style:italic;font-size:19px;color:var(--bordeaux);line-height:1.45;}
+  .groups{display:grid;gap:10px;margin:8px 0 16px;}
+  .grp{background:#fff;border:1px solid rgba(201,169,110,.55);border-radius:10px;padding:14px 16px;}
+  .grp h4{margin:0 0 6px;font-family:'Playfair Display',serif;font-style:italic;font-weight:600;font-size:18px;color:var(--bordeaux);}
+  .grp p{margin:0;font-size:15px;line-height:1.5;}
+  .grp code{font-size:.85em;}
+  .proof-h{font-family:'Playfair Display',serif;font-weight:600;font-size:21px;color:var(--wine);margin:32px 0 10px;text-wrap:balance;}
+  .proof-narrow{max-width:420px;margin-left:auto;margin-right:auto;}
+</style>
+<body>
+<div class="cover">
+  <img src="assets/cover.jpg" alt="Катерина Арта" loading="eager">
+  <div class="cover-caption">Kimi Work</div>
+</div>
+<div class="wrap">
+  <header class="hero">
+    <h1>Одна задача - сотня ИИ-агентов. Как работает Kimi Work</h1>
+    <p class="subtitle">Китайский ИИ-агент, который сам делит работу между сотнями помощников и приносит готовый результат файлом. Что он умеет, сколько стоит на самом деле, как поставить и как дать ему задачу</p>
+    <p class="byline">Катерина Арта · @katerinarta_ · октябрь 2026</p>
+  </header>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Что это и зачем</h2>
+    <p class="lead">Обычный чат с нейросетью делает задачу по шагам, один за другим. Kimi Work берёт большую задачу, режет её на куски и раздаёт каждый кусок отдельному агенту. Они работают одновременно, а в конце ты получаешь собранный результат: таблицу, документ, папку с файлами</p>
+    <p>Это программа на компьютер от китайской компании Moonshot AI. Что она умеет:</p>
+    <ul class="does">
+      <li><b>Работает роем</b>до 300 агентов параллельно, каждый видно на карте задачи</li>
+      <li><b>Видит твои папки</b>читает и складывает файлы прямо у тебя на компьютере</li>
+      <li><b>Ходит в интернет</b>через твой браузер: ищет, открывает сайты, собирает данные</li>
+      <li><b>Спрашивает перед действием</b>прежде чем записать файл или запустить код, просит подтверждение</li>
+      <li><b>Помнит контекст</b>у агентов общая рабочая папка и память, задачу не надо объяснять заново</li>
+      <li><b>Ставится на Mac и Windows</b>на Mac нужен компьютер на процессоре Apple (M1 и новее)</li>
+    </ul>
+
+    <figure class="proof-wide"><img src="assets/kimi-home.jpg" alt="Главный экран Kimi"><figcaption>Главный экран Kimi: одно поле, куда пишешь вопрос или задачу для агента</figcaption></figure>
+    <figure class="proof-wide"><img src="assets/kimi-sheets.jpg" alt="Режим Sheets в Kimi"><figcaption>Режим Sheets: таблицу можно загрузить или попросить собрать с нуля</figcaption></figure>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Сколько стоит, <i>если честно</i></h2>
+    <p>В роликах пишут «полностью бесплатно». Это правда наполовину</p>
+    <div class="stat-row">
+      <div class="stat"><span class="num">0 $</span><span class="label">скачать программу и попробовать: новым пользователям дают пробные кредиты</span></div>
+      <div class="stat"><span class="num">от 19 $</span><span class="label">в месяц за тариф, на котором открывается рой агентов (Agent Swarm)</span></div>
+    </div>
+    <p>То есть познакомиться с программой и прогнать первые задачи можно бесплатно. Если захочешь регулярно запускать сотни агентов, понадобится подписка. Совет: сначала потрать пробные кредиты на маленькую задачу и посмотри, нравится ли результат, а потом решай про оплату</p>
+    <p class="note">Цены и условия на 15 октября 2026. У Kimi тарифы меняются часто, актуальные смотри на kimi.com в разделе Pricing</p>
+  </section>
+
+  <hr class="divider">
+
+  <section class="steps">
+    <h2>Как поставить за десять минут</h2>
+    <div class="step">
+      <h3>Скачай программу</h3>
+      <p class="tri"><b>Куда нажать.</b> Открой <a href="https://www.kimi.com" target="_blank" rel="noopener">kimi.com</a>, справа вверху нажми Download for Desktop и выбери свою систему</p>
+      <p class="tri"><b>Что увидишь.</b> Установочный файл для Mac или Windows</p>
+      <p class="tri"><b>Что это даёт.</b> Агент будет работать у тебя на компьютере, а не только в окне браузера</p>
+    </div>
+    <figure class="proof-wide"><img src="assets/kimi-download.jpg" alt="Кнопка Download for Desktop на kimi.com"><figcaption>Кнопка скачивания на kimi.com, снято 15 октября 2026</figcaption></figure>
+    <div class="step">
+      <h3>Установи и войди в аккаунт</h3>
+      <p class="tri"><b>Куда нажать.</b> Открой скачанный файл, установи как обычную программу, запусти и зарегистрируйся</p>
+      <p class="tri"><b>Что увидишь.</b> Окно с полем для задачи, как в обычном чате</p>
+      <p class="tri"><b>Что это даёт.</b> На аккаунт начисляются пробные кредиты, можно сразу пробовать</p>
+    </div>
+    <div class="step">
+      <h3>Дай доступ к одной отдельной папке</h3>
+      <p class="tri"><b>Куда нажать.</b> Заведи на компьютере пустую папку, например «Kimi-работа», и при первом запросе доступа укажи её</p>
+      <p class="tri"><b>Что увидишь.</b> Агент будет складывать результаты туда</p>
+      <p class="tri"><b>Что это даёт.</b> Агент не трогает остальные твои файлы. Доступ ко всему диску на старте не давай</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Как дать задачу, <i>чтобы получить готовую работу</i></h2>
+    <p>Сотня агентов работает ровно настолько хорошо, насколько понятно поставлена задача. Расплывчатое «найди клиентов» вернёт расплывчатый результат, только в сто раз больше. В хорошей задаче пять частей:</p>
+    <div class="groups">
+      <div class="grp"><h4>1. Что на выходе</h4><p>Файл и его вид: «таблица Excel с колонками: название, город, телефон, почта, ссылка на соцсети»</p></div>
+      <div class="grp"><h4>2. Сколько и каких</h4><p>Число и признаки отбора: «50 салонов красоты в Казани, у которых нет своего сайта»</p></div>
+      <div class="grp"><h4>3. Где искать</h4><p>Источники: «карты, каталоги, соцсети». И где не искать</p></div>
+      <div class="grp"><h4>4. Что сделать с каждым</h4><p>Работа на одну строку: «для каждого набросай одностраничный сайт и положи ссылку в таблицу»</p></div>
+      <div class="grp"><h4>5. Как проверить</h4><p>Правило качества: «если контакт не нашёлся, так и пиши, не придумывай»</p></div>
+    </div>
+    <div class="callout">Сначала прогони задачу на пяти строках. Понравилось - увеличивай до пятидесяти. Так ты тратишь кредиты на результат, а не на ошибки в постановке</div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Три готовые задачи</h2>
+    <p>Скопируй, поменяй то, что в скобках, и вставь в Kimi Work</p>
+    <div class="prompt"><span class="lbl">Клиенты без сайта</span>Найди 50 компаний в сфере (твоя сфера) в городе (город), у которых нет своего сайта. Собери таблицу Excel: название, адрес, телефон, почта, ссылки на соцсети, есть ли сайт. Бери только публичные контакты компаний. Если контакт не нашёлся, пиши «нет данных», ничего не придумывай. Сначала сделай 5 строк и покажи мне</div>
+    <div class="prompt"><span class="lbl">Разбор конкурентов</span>Найди 20 экспертов в нише (ниша), которые продают онлайн-курсы на русском. Для каждого собери в таблицу: ссылка на блог, число подписчиков, главный продукт и его цена, формат воронки (бот, вебинар, марафон). В конце выпиши три приёма, которые повторяются у самых крупных</div>
+    <div class="prompt"><span class="lbl">Язык аудитории</span>Собери 100 реальных вопросов и жалоб людей на тему (тема) из открытых отзывов, форумов и комментариев. Разложи их по группам, в каждой группе оставь дословные цитаты и ссылку на источник. Итог - документ, по которому можно писать посты</div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Грабли, о которые спотыкаются</h2>
+    <ul class="grabli-list">
+      <li><b>Кредиты уходят быстро.</b> Сотня агентов тратит в сотню раз больше. Большие задачи запускай, когда маленькая версия уже дала нужный результат</li>
+      <li><b>Агенты ошибаются.</b> Телефоны и почты из таблицы проверяй выборочно до того, как писать людям. Особенно строки, где всё подозрительно гладко</li>
+      <li><b>Сайты от агента - черновики.</b> Их удобно показать клиенту как идею, но публиковать без твоей проверки нельзя</li>
+      <li><b>Доступ к файлам.</b> Не давай агенту всю папку «Документы» с паспортами и договорами. Одна рабочая папка закрывает почти все задачи</li>
+      <li><b>Личные данные.</b> Собирай контакты компаний, а не частных людей. Базы с личными телефонами и почтами в России подпадают под закон о персональных данных</li>
+    </ul>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Источники</h2>
+    <div class="altlinks">
+      <ul>
+        <li><a href="https://www.kimi.com" target="_blank" rel="noopener"><code>kimi.com</code></a> - официальный сайт, скачивание и тарифы</li>
+        <li><a href="https://www.marktechpost.com/2026/06/12/moonshot-ai-launches-kimi-work-a-local-desktop-agent-reportedly-running-on-kimi-k2-6-with-a-300-sub-agent-agent-swarm/" target="_blank" rel="noopener">MarkTechPost</a> - запуск Kimi Work, рой до 300 агентов, июнь 2026</li>
+        <li><a href="https://pasqualepillitteri.it/en/news/4554/kimi-for-work-desktop-ai-agent-300-parallel-agents" target="_blank" rel="noopener">Обзор Kimi for Work</a> - Mac и Windows, подтверждение перед действием, память агентов</li>
+        <li><a href="https://geotoolbox.ai/blog/kimi-pricing" target="_blank" rel="noopener">Разбор тарифов Kimi</a> - бесплатный план и платные от 19 $</li>
+      </ul>
+      <p class="note">Цены и условия на 15 октября 2026</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Сотня агентов - это руки, <i>а не план</i></h2>
+    <p>Я Катерина Арта, продюсер EdTech. Внедряю нейросети в бизнес, контент и продажи. Сама работаю без команды: вместо штата у меня ИИ-помощники, и каждый знает мои правила и продукты</p>
+
+    <div class="stat-block">
+      <span class="stat-num">1.5</span>
+      <span class="stat-text">млн ₽ оборота проектов за год на нейросетях, с нуля, из декрета, без команды</span>
+    </div>
+
+    <h3 class="proof-h">Блог растёт на контент-заводе из ИИ-агентов</h3>
+    <p>Мой блог ведут ИИ-агенты: находят темы, которые уже залетели, пишут сценарии, собирают рилсы с цифровым двойником и выдают материалы по кодовым словам. Я проверяю и принимаю решения</p>
+    <figure class="proof-wide"><img src="assets/panel30.jpg" alt="4,6 млн просмотров за 30 дней"><figcaption>Профессиональная панель: 4,6 млн просмотров за 30 дней</figcaption></figure>
+    <figure class="proof-wide"><img src="assets/insights.jpg" alt="Статистика профиля: просмотры, взаимодействия, новые подписчики"><figcaption>Статистика профиля: 4,3 млн просмотров, 89,4 тыс. взаимодействий, 1 301 новый подписчик</figcaption></figure>
+    <div class="proof-row">
+      <img src="assets/r19.jpg" alt="Рилс">
+      <img src="assets/r1a.jpg" alt="Рилс">
+      <img src="assets/r1b.jpg" alt="Рилс">
+    </div>
+    <p class="proof-cap">Три рилса по миллиону просмотров и больше, без рекламы и без команды</p>
+
+    <h3 class="proof-h">Растут деньги и аудитория клиентов</h3>
+    <p>Ту же систему из нейросетей я собираю для экспертов: контент, автоворонки, боты, сайты и продажи. Дизайнер, монтажёр, таргетолог, копирайтер и менеджер по продажам в проекте не нанимались, их работу закрыли нейросети</p>
+    <div class="stat-row">
+      <div class="stat"><span class="num">1,2 млн ₽</span><span class="label">оборот проекта клиента за полгода</span></div>
+      <div class="stat"><span class="num">45 → 75 тыс.</span><span class="label">выросла аудитория клиента</span></div>
+    </div>
+
+    <div class="callout">Я понимаю, как привлечь внимание и превратить его в деньги. И делаю это с помощью нейросетей</div>
+
+    <p>Скачать Kimi - десять минут. Понять, какие задачи в твоём бизнесе отдать агентам, как связать найденных клиентов с продажей и что делать с таблицей на 50 компаний дальше, - это уже работа над твоим бизнесом</p>
+    <p>На консультации разбираю твои продукты и неделю и собираем план: какую работу забирают ИИ-агенты и с какой задачи начать завтра</p>
+
+    <p class="say-word">Напиши слово</p>
+    <div class="pill-outline">КОНСУЛЬТАЦИЯ</div>
+
+    <p class="say-word">мне в личку Telegram</p>
+    <a class="pill-gold" href="https://t.me/katerinarta" target="_blank" rel="noopener">Написать</a>
+
+    <p class="eyebrow-label">Мои каналы и страницы</p>
+    <div class="channel-grid">
+      <a class="pill-dark" href="https://t.me/+CNtsc57EWnQzZTk6" target="_blank" rel="noopener">Канал в Telegram</a>
+      <a class="pill-dark" href="https://max.ru/join/7j3M_9BFNWEfFMFmVd6DDz227jGaAVLpVvy3mObA93o" target="_blank" rel="noopener">Канал в MAX</a>
+      <a class="pill-dark" href="https://instagram.com/katerinarta_" target="_blank" rel="noopener">Instagram</a>
+      <a class="pill-dark" href="https://vk.ru/katerinarta" target="_blank" rel="noopener">ВКонтакте</a>
+      <a class="pill-dark" href="https://youtube.com/@katerinarta" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>@katerinarta_ · Kimi Work: одна задача, сотня агентов</footer>
+
+</body>
+</html>

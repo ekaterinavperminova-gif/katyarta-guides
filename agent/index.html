@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Три ИИ-агента вместо сотрудников: Dots, Muse и Grok Bot - Катерина Арта</title>
-<meta name="description" content="Честное сравнение ИИ-агентов OpenAI Dots, Meta Muse и Grok Bot: что умеют, сколько стоят, что делают с твоими данными, где слабые и чем заменить. Катерина Арта, октябрь 2026">
+<title>Шесть ИИ-агентов вместо сотрудников: Dots, Muse, Grok Bot, OpenClaw, Hermes и MausBot - Катерина Арта</title>
+<meta name="description" content="Честное сравнение шести ИИ-агентов: OpenAI Dots, Meta Muse, Grok Bot, OpenClaw, Hermes и MausBot. Что умеют, сколько стоят, что делают с твоими данными, где слабые. Катерина Арта, октябрь 2026">
 <style>
   @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-VariableFont_wght.ttf");font-weight:100 900;font-style:normal}
   @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf");font-weight:100 900;font-style:italic}
@@ -285,20 +285,36 @@
   .cmp{table-layout:fixed;}
   .cmp td,.cmp th{overflow-wrap:anywhere;hyphens:auto;}
   @media (max-width:480px){.cmp{font-size:12px;}.cmp th{font-size:14px;padding:9px 5px;}.cmp td{padding:8px 5px;}.cmp td:first-child{width:23%;}}
+
+  /* блок пруфов (шаблон 15.10.2026) */
+  .pf-h{font-family:'Playfair Display',serif;font-weight:600;font-size:21px;line-height:1.3;color:var(--wine);margin:32px 0 10px;text-wrap:balance;}
+  .pf-p{margin:0 0 16px;}
+  .pf-fig{margin:0 0 12px;border:1px solid var(--gold);border-radius:10px;overflow:hidden;background:#fff;}
+  .pf-fig img{width:100%;height:auto;display:block;}
+  .pf-fig figcaption{font-family:'Playfair Display',serif;font-style:italic;font-size:12.5px;color:var(--taupe);text-align:center;padding:6px;}
+  .pf-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+  .pf-row img{border:1px solid var(--gold);border-radius:8px;width:100%;display:block;}
+  @media (max-width:520px){.pf-row{grid-template-columns:1fr;}}
+  .pf-cap{font-family:'Playfair Display',serif;font-style:italic;font-size:15px;color:var(--bordeaux);margin:0 0 8px;}
+  .pf-stats{display:flex;gap:16px;flex-wrap:wrap;margin:8px 0 8px;}
+  .pf-stat{background:var(--taupe);border-radius:6px;padding:18px 20px;flex:1;min-width:140px;}
+  .pf-stat b{display:block;font-family:'Playfair Display',serif;font-style:italic;font-weight:400;color:var(--wine);font-size:28px;line-height:1.1;margin-bottom:6px;}
+  .pf-stat span{font-size:14px;color:var(--wine);opacity:.85;}
+  .pf-callout{border-left:3px solid var(--gold);padding:4px 0 4px 16px;margin:24px 0;font-family:'Playfair Display',serif;font-style:italic;font-size:19px;color:var(--bordeaux);line-height:1.45;}
 </style>
 </head>
 <body>
 
 <div class="cover">
   <img src="assets/cover.jpg" alt="Катерина Арта" loading="eager">
-  <div class="cover-caption">Dots · Muse · Grok Bot</div>
+  <div class="cover-caption">Dots · Muse · Grok Bot · OpenClaw · Hermes · MausBot</div>
 </div>
 
 <div class="wrap">
 
   <header class="hero">
-    <h1>Три ИИ-агента, которые работают вместо тебя. Честное сравнение</h1>
-    <p class="subtitle">OpenAI Dots, Meta Muse и Grok Bot от xAI вышли почти одновременно и выглядят похоже. На деле это три разных сотрудника: для работы, для быта и для команды. Что умеет каждый, сколько стоит, куда он полезет в твоих данных и чем его заменить</p>
+    <h1>Шесть ИИ-агентов, которые работают вместо тебя. Честное сравнение</h1>
+    <p class="subtitle">Три агента живут в чужом облаке: OpenAI Dots, Meta Muse и Grok Bot от xAI. Три бесплатные, с открытым кодом, ставятся к тебе: OpenClaw, Hermes и MausBot, причём последний вообще не агент, а руководитель над агентами. Что умеет каждый, сколько стоит, куда он полезет в твоих данных и с какого начать</p>
     <p class="byline">Катерина Арта · @katerinarta_ · октябрь 2026</p>
   </header>
 
@@ -308,11 +324,14 @@
     <h2>Чем агент отличается от чата</h2>
     <p class="lead">Чат отвечает, пока ты с ним разговариваешь. Агент получает задачу, заходит в твои сервисы и продолжает работать, когда вкладка уже закрыта</p>
 <figure class="shot"><img src="assets/trio.jpg" alt="Dots, Muse и Grok Bot" loading="lazy"><figcaption>С виду три одинаковых милых персонажа. Внутри три разные работы</figcaption></figure>
-    <p>У всех трёх новинок есть своё облачное рабочее место: компьютер с браузером, где агент открывает сайты и приложения, как человек. Разница в том, на кого они работают</p>
+    <p>У трёх облачных агентов есть своё рабочее место на чужом сервере: компьютер с браузером, где агент открывает сайты и приложения, как человек. Три открытых ставятся на твой компьютер или сервер, и за модель платишь отдельно</p>
     <ul class="does">
       <li><b>Dots</b>ведёт твою рабочую задачу внутри ChatGPT</li>
       <li><b>Muse</b>закрывает личные дела: покупки, брони, анкеты</li>
       <li><b>Grok Bot</b>собирает команду ботов, у каждого своя роль</li>
+      <li><b>OpenClaw</b>помощник, которому пишешь в мессенджер, как знакомому</li>
+      <li><b>Hermes</b>агент, который учится и сам пишет себе навыки</li>
+      <li><b>MausBot</b>руководитель, который собирает твоих агентов в одну команду</li>
     </ul>
   </section>
 
@@ -373,10 +392,64 @@
   <hr class="divider">
 
   <section>
+    <div class="route-head"><span class="tag">Агент 4 · открытый код</span></div>
+    <h2>OpenClaw: помощник в твоём мессенджере</h2>
+    <p>Бесплатная программа с открытым кодом (лицензия MIT). Ставится один раз на компьютер или сервер и дальше работает в фоне: сам просыпается по расписанию и проверяет, нет ли дел. Пишешь ему в WhatsApp, Telegram, Slack, iMessage и ещё два десятка мессенджеров, как обычному контакту. Умеет управлять браузером, выполнять команды на компьютере, вести почту, календарь и файлы</p>
+<div class="shot-pair">
+<figure class="shot"><img src="assets/openclaw.jpg" alt="OpenClaw" loading="lazy"><figcaption>OpenClaw работает в фоне, а пишешь ты ему из мессенджера</figcaption></figure>
+<figure class="shot"><img src="assets/openclaw-skills.jpg" alt="Сообщество и навыки OpenClaw" loading="lazy"><figcaption>Самое большое сообщество и десятки тысяч готовых навыков</figcaption></figure>
+</div>
+    <div class="facts">
+      <div class="fact"><span class="k">Сколько стоит</span>Сама программа бесплатная. Платишь за модель и хостинг, в среднем $30-60 в месяц</div>
+      <div class="fact"><span class="k">Данные</span>Живут у тебя на компьютере или сервере. Но агент получает доступ к системе, браузеру и почте, поэтому за безопасность отвечаешь ты сам</div>
+      <div class="fact"><span class="k">Где сильный</span>Самое большое сообщество. В каталоге навыков ClawHub десятки тысяч готовых умений (в августе 2026 было больше 67 000), каждое ставится одной командой</div>
+      <div class="fact"><span class="k">Где слабый</span>Навыки в каталог выкладывает кто угодно, без проверки кода. Исследователи нашли больше 900 заражённых навыков. По умолчанию агент выполняет команды, не спрашивая тебя. Нужно уметь настроить</div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <div class="route-head"><span class="tag">Агент 5 · Nous Research</span></div>
+    <h2>Hermes: агент, который учится</h2>
+    <p>Вышел в феврале 2026, бесплатный, с открытым кодом (лицензия MIT). Есть приложение для macOS, Windows и Linux и версия для терминала, писать ему можно из Telegram, Discord, Slack и WhatsApp. Создаёшь ботов, у каждого своя роль, модель и память, и они общаются в общем чате. Главная фишка: после каждой задачи он сам записывает себе новый навык и потом его улучшает</p>
+<div class="shot-pair">
+<figure class="shot"><img src="assets/hermes.jpg" alt="Hermes Agent" loading="lazy"><figcaption>Hermes: один агент со своим приложением и ботами под роли</figcaption></figure>
+<figure class="shot"><img src="assets/hermes-skills.jpg" alt="Hermes пишет себе навыки" loading="lazy"><figcaption>Сам пишет себе навыки, а опасные команды проверяет второй ИИ</figcaption></figure>
+</div>
+    <div class="facts">
+      <div class="fact"><span class="k">Сколько стоит</span>Программа бесплатная, платишь за модель: свои ключи с оплатой за использование, бесплатные локальные модели или подписка Nous Portal (есть бесплатный тариф, Plus $20, Super $100, Ultra $200 в месяц)</div>
+      <div class="fact"><span class="k">Данные</span>Всё лежит у тебя: память между разговорами хранится обычными текстовыми файлами. Облака под ключ нет, сервер или компьютер обеспечиваешь сам</div>
+      <div class="fact"><span class="k">Где сильный</span>Растёт вместе с тобой: чем больше задач, тем больше своих навыков. Подозрительные команды перед запуском проверяет отдельная умная проверка. Около 230 000 звёзд на GitHub за полгода</div>
+      <div class="fact"><span class="k">Где слабый</span>Настройка через файлы конфигурации, без терминала не обойтись. Нет приложения для iPhone. Если модель с оплатой за использование работает без остановки, счёт ничем не ограничен</div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <div class="route-head"><span class="tag">Шестой · руководитель</span></div>
+    <h2>MausBot: начальник над твоими агентами</h2>
+    <p>Это не ещё один агент. MausBot - бесплатное приложение с открытым кодом (лицензия Apache 2.0) для Mac, Windows и Linux, которое собирает в одну команду программы Claude Code, Codex и Grok у тебя на компьютере. Бот-руководитель раздаёт задачи, каждый бот работает на той модели, которую ты выбрала: Claude на одной задаче, Codex на другой, Grok на третьей, все в одном чате. По словам автора ролика, в команду можно добавить и Hermes с OpenClaw</p>
+<div class="shot-pair">
+<figure class="shot"><img src="assets/mausbot.jpg" alt="MausBot" loading="lazy"><figcaption>Claude Code, Codex, Grok, Hermes и OpenClaw в одной команде</figcaption></figure>
+<figure class="shot"><img src="assets/mausbot-phone.jpg" alt="Подтверждение с телефона" loading="lazy"><figcaption>Руководитель раздаёт работу, ты подтверждаешь с компьютера или телефона</figcaption></figure>
+</div>
+    <div class="facts">
+      <div class="fact"><span class="k">Сколько стоит</span>Само приложение бесплатное. Работает на твоих же подписках Claude, ChatGPT (Codex) или SuperGrok, новых аккаунтов не нужно</div>
+      <div class="fact"><span class="k">Данные</span>Остаются на твоём компьютере, посредника между тобой и моделями нет</div>
+      <div class="fact"><span class="k">Где сильный</span>Каждая команда, правка файла и вопрос бота приходят тебе карточкой «Разрешить / Запретить». С телефона подтверждаешь через веб-версию, которая ставится как приложение. Если у тебя уже есть Claude Code или Codex, боты стартуют сразу</div>
+      <div class="fact"><span class="k">Где слабый</span>Нужна хотя бы одна платная подписка и установленная программа Claude Code, Codex или Grok. Ставится через терминал. Версия для Linux пока бета</div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
     <h2>Всё на одном экране</h2>
     <div class="cmp-wrap">
       <table class="cmp">
-        <thead><tr><th></th><th>Dots</th><th>Muse</th><th>Grok Bot</th></tr></thead>
+        <thead><tr><th>Облачные</th><th>Dots</th><th>Muse</th><th>Grok Bot</th></tr></thead>
         <tbody>
           <tr><td>Для чего</td><td>Рабочая задача</td><td>Личные дела</td><td>Команда ботов</td></tr>
           <tr><td>Вход</td><td>$100 в месяц</td><td>Бесплатно</td><td>Подписка SuperGrok или Cursor от $20</td></tr>
@@ -387,8 +460,21 @@
         </tbody>
       </table>
     </div>
-<figure class="shot"><img src="assets/summary.jpg" alt="Итог: Dots, Muse, Grok Bot" loading="lazy"><figcaption>Dots - текущая работа, Muse - личные дела, Grok Bot - команда</figcaption></figure>
-    <div class="callout">Коротко: Dots ведёт задачу, Muse ведёт быт, Grok собирает тебе отдел</div>
+    <div class="cmp-wrap">
+      <table class="cmp">
+        <thead><tr><th>Открытые</th><th>OpenClaw</th><th>Hermes</th><th>MausBot</th></tr></thead>
+        <tbody>
+          <tr><td>Для чего</td><td>Помощник в мессенджере</td><td>Агент, который учится</td><td>Команда из твоих агентов</td></tr>
+          <tr><td>Вход</td><td>Бесплатно + модель и хостинг $30-60</td><td>Бесплатно + модель</td><td>Бесплатно + твоя подписка Claude, ChatGPT или SuperGrok</td></tr>
+          <tr><td>Где работает</td><td>Твой компьютер или сервер, 20+ мессенджеров</td><td>Mac, Windows, Linux, Telegram, Slack</td><td>Mac, Windows, Linux, телефон</td></tr>
+          <tr><td>Приватность</td><td>Данные у тебя, но доступ к системе</td><td>Данные у тебя</td><td>Данные у тебя</td></tr>
+          <tr><td>Подстраховка</td><td>По умолчанию без вопросов</td><td>Проверка опасных команд</td><td>Разрешить / Запретить на каждое действие</td></tr>
+          <tr><td>Главный минус</td><td>Непроверенные навыки</td><td>Настройка через файлы</td><td>Нужна платная подписка</td></tr>
+        </tbody>
+      </table>
+    </div>
+<figure class="shot"><img src="assets/summary6.jpg" alt="Итог: шесть агентов" loading="lazy"><figcaption>Dots - текущая работа, Muse - личные дела, Grok Bot - команда, OpenClaw - мессенджер, Hermes учится, MausBot руководит</figcaption></figure>
+    <div class="callout">Коротко: Dots ведёт задачу, Muse ведёт быт, Grok собирает отдел, OpenClaw сидит в мессенджере, Hermes учится, MausBot руководит всеми</div>
   </section>
 
   <hr class="divider">
@@ -399,18 +485,20 @@
       <div class="route"><span class="rn">1</span><div><h3>Ты уже работаешь в ChatGPT</h3><p>Dots. Если один проект надо вести каждый день и не держать всё в голове. Но только если $100 в месяц окупаются</p></div></div>
       <div class="route"><span class="rn">2</span><div><h3>Хочешь разгрузить быт</h3><p>Muse. Брони, покупки, анкеты и напоминания. Давай доступы по одному и не подключай всё сразу</p></div></div>
       <div class="route"><span class="rn">3</span><div><h3>У тебя есть команда или поток рутины</h3><p>Grok Bot. Продажи, реклама, разбор заявок. Сначала дай ботам задачи, где ошибка ничего не стоит</p></div></div>
+      <div class="route"><span class="rn">4</span><div><h3>Хочешь писать агенту в Телеграм</h3><p>OpenClaw. Только навыки ставь от проверенных авторов и сразу включи подтверждение команд</p></div></div>
+      <div class="route"><span class="rn">5</span><div><h3>Нужен помощник, который растёт с тобой</h3><p>Hermes. Если не боишься терминала и готова следить за расходом на модель</p></div></div>
+      <div class="route"><span class="rn">6</span><div><h3>У тебя уже есть Claude Code или Codex</h3><p>MausBot. Собери из них команду с руководителем и подтверждай работу с телефона</p></div></div>
     </div>
-    <p class="note">Из России ни один из трёх не оплатить российской картой, а Muse пока открыт только в США</p>
+    <p class="note">Из России ни одного из облачных не оплатить российской картой, а Muse пока открыт только в США. Открытые ставятся бесплатно, но модель для них тоже придётся оплачивать</p>
   </section>
 
   <hr class="divider">
 
   <section>
-    <h2>Три альтернативы</h2>
+    <h2>Ещё две альтернативы</h2>
     <div class="groups">
       <div class="grp"><h4>Claude Cowork · Anthropic</h4><p>Агент внутри Claude, входит в любую платную подписку: Pro от $20, Max от $100. Самая предсказуемая цена из всех. Я сама работаю в Claude каждый день</p></div>
       <div class="grp"><h4>Microsoft 365 Copilot</h4><p>Для тех, кто живёт в Word, Excel и Outlook. Лицензия $30 за человека в месяц плюс оплата за каждое действие: лёгкая задача примерно $1-3</p></div>
-      <div class="grp"><h4>OpenClaw</h4><p>Бесплатная программа с открытым кодом, ставится на свой компьютер или сервер. Платишь только за модель и хостинг, в среднем $30-60 в месяц. Нужно уметь настроить</p></div>
     </div>
   </section>
 
@@ -422,6 +510,7 @@
       <li><b>Дать все доступы в первый день.</b> Агент работает в твоей почте и платежах. Начни с одной задачи и одного сервиса</li>
       <li><b>Ждать, что агент сам знает правила.</b> Что можно делать без спроса, а что нет, пропиши словами. У Grok Bot это вообще единственный способ</li>
       <li><b>Проверять на живых клиентах.</b> Тестового режима нет ни у кого. Первые задачи - черновики, которые ты сначала читаешь</li>
+      <li><b>Ставить чужие навыки не глядя.</b> В открытых каталогах навыков уже находили вредоносные. Ставь только от авторов, которым доверяешь</li>
       <li><b>Вставлять пароли в чат.</b> Пароль, вставленный в переписку или документ, агент видит открытым текстом</li>
     </ol>
   </section>
@@ -435,9 +524,12 @@
         <li><a href="https://www.eesel.ai/blog/openai-dots" target="_blank" rel="noopener">OpenAI Dots: возможности, тарифы, ограничения</a></li>
         <li><a href="https://www.techrepublic.com/article/news-meta-muse-ai-agent-us-launch/" target="_blank" rel="noopener">Запуск Meta Muse в США</a> · <a href="https://skift.com/2026/09/09/meta-says-its-muse-agent-books-travel-heres-what-that-actually-means/" target="_blank" rel="noopener">как Muse бронирует</a> · <a href="https://www.eesel.ai/blog/meta-muse-agent-review" target="_blank" rel="noopener">обзор приватности</a></li>
         <li><a href="https://www.eesel.ai/blog/grok-bot" target="_blank" rel="noopener">Grok Bot: роли, цены, безопасность</a> · <a href="https://cellcog.ai/blog/grok-team-bots/" target="_blank" rel="noopener">командные боты</a></li>
+        <li><a href="https://parallel.ai/articles/best-clawhub-skills-for-openclaw" target="_blank" rel="noopener">OpenClaw и каталог ClawHub</a> · <a href="https://hackernoon.com/lang/ru/openclaw-is-a-security-nightmare-here-are-the-alternatives-to-use-instead" target="_blank" rel="noopener">безопасность OpenClaw</a></li>
+        <li><a href="https://www.vellum.ai/blog/official-hermes-agent-breakdown" target="_blank" rel="noopener">Hermes Agent: разбор</a> · <a href="https://amplifying.ai/coding-agents/hermes-agent" target="_blank" rel="noopener">Nous Research</a></li>
+        <li><a href="https://mausbot.com/" target="_blank" rel="noopener">MausBot</a> · <a href="https://github.com/milind-soni/OpenMausBot" target="_blank" rel="noopener">код на GitHub</a></li>
         <li><a href="https://www.datacamp.com/blog/claude-cowork-alternatives" target="_blank" rel="noopener">Claude Cowork и альтернативы</a> · <a href="https://www.softr.io/blog/claude-cowork-vs-openclaw" target="_blank" rel="noopener">Cowork против OpenClaw</a></li>
       </ul>
-      <p class="note">Иллюстрации - кадры из ролика @sanjai.builds про трёх агентов. Цены и условия на 7 октября 2026, у всех трёх они меняются почти каждую неделю</p>
+      <p class="note">Иллюстрации - кадры из роликов @sanjai.builds и @buildwithomkar про ИИ-агентов. Цены и условия на 14 октября 2026, они меняются почти каждую неделю</p>
     </div>
   </section>
 
@@ -449,8 +541,30 @@
 
     <div class="stat-block">
       <span class="stat-num">1.5</span>
-      <span class="stat-text">млн ₽ оборота проектов за год, с нуля и из декрета</span>
+      <span class="stat-text">млн ₽ оборота проектов за год на нейросетях, с нуля, из декрета, без команды</span>
     </div>
+
+    <h3 class="pf-h">Блог растёт на контент-заводе из ИИ-агентов</h3>
+    <p class="pf-p">Мой блог ведут ИИ-агенты: находят темы, которые уже залетели, пишут сценарии, собирают рилсы с цифровым двойником и выдают материалы по кодовым словам. Я проверяю и принимаю решения</p>
+    <figure class="pf-fig"><img src="assets/panel30.jpg" alt="4,6 млн просмотров за 30 дней"><figcaption>Профессиональная панель: 4,6 млн просмотров за 30 дней</figcaption></figure>
+    <figure class="pf-fig"><img src="assets/insights.jpg" alt="Статистика профиля: просмотры, взаимодействия, новые подписчики"><figcaption>Статистика профиля: 4,3 млн просмотров, 89,4 тыс. взаимодействий, 1 301 новый подписчик</figcaption></figure>
+    <div class="pf-row">
+      <img src="assets/r19.jpg" alt="Рилс">
+      <img src="assets/r1a.jpg" alt="Рилс">
+      <img src="assets/r1b.jpg" alt="Рилс">
+    </div>
+    <p class="pf-cap">Три рилса по миллиону просмотров и больше, без рекламы и без команды</p>
+
+    <h3 class="pf-h">Растут деньги и аудитория клиентов</h3>
+    <p class="pf-p">Ту же систему из нейросетей я собираю для экспертов: контент, автоворонки, боты, сайты и продажи. Дизайнер, монтажёр, таргетолог, копирайтер и менеджер по продажам в проекте не нанимались, их работу закрыли нейросети</p>
+    <div class="pf-stats">
+      <div class="pf-stat"><b>1,2 млн ₽</b><span>оборот проекта клиента за полгода</span></div>
+      <div class="pf-stat"><b>45 → 75 тыс.</b><span>выросла аудитория клиента</span></div>
+    </div>
+
+    <div class="pf-callout">Я понимаю, как привлечь внимание и превратить его в деньги. И делаю это с помощью нейросетей</div>
+
+
 
     <p>Подписаться на агента - пять минут. Понять, какую часть твоего дня ему отдать, как описать задачу так, чтобы он не наломал дров, и как связать нескольких помощников в одну систему, которая приносит заявки и деньги, - это уже работа над твоим бизнесом</p>
     <p>На консультации разбираю твою неделю и продукты и собираем план: какие задачи забирают ИИ-сотрудники, в каком порядке их подключать и с какого начать завтра</p>
@@ -473,7 +587,7 @@
 
 </div>
 
-<footer>@katerinarta_ · три ИИ-агента: честное сравнение</footer>
+<footer>@katerinarta_ · шесть ИИ-агентов: честное сравнение</footer>
 
 </body>
 </html>

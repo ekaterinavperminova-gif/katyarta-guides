@@ -137,6 +137,22 @@ p{margin:0 0 14px}
   border:1px solid var(--gold);border-radius:10px;padding:11px;font-size:13.5px;text-decoration:none}
 
 footer{padding:26px 0 40px;text-align:center;color:var(--olive);font-family:var(--serif);font-style:italic;font-size:14px}
+
+  /* блок пруфов (шаблон 15.10.2026) */
+  .pf-h{font-family:'Playfair Display',serif;font-weight:600;font-size:21px;line-height:1.3;color:var(--wine);margin:32px 0 10px;text-wrap:balance;}
+  .pf-p{margin:0 0 16px;}
+  .pf-fig{margin:0 0 12px;border:1px solid var(--gold);border-radius:10px;overflow:hidden;background:#fff;}
+  .pf-fig img{width:100%;height:auto;display:block;}
+  .pf-fig figcaption{font-family:'Playfair Display',serif;font-style:italic;font-size:12.5px;color:var(--taupe);text-align:center;padding:6px;}
+  .pf-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+  .pf-row img{border:1px solid var(--gold);border-radius:8px;width:100%;display:block;}
+  @media (max-width:520px){.pf-row{grid-template-columns:1fr;}}
+  .pf-cap{font-family:'Playfair Display',serif;font-style:italic;font-size:15px;color:var(--bordeaux);margin:0 0 8px;}
+  .pf-stats{display:flex;gap:16px;flex-wrap:wrap;margin:8px 0 8px;}
+  .pf-stat{background:var(--taupe);border-radius:6px;padding:18px 20px;flex:1;min-width:140px;}
+  .pf-stat b{display:block;font-family:'Playfair Display',serif;font-style:italic;font-weight:400;color:var(--wine);font-size:28px;line-height:1.1;margin-bottom:6px;}
+  .pf-stat span{font-size:14px;color:var(--wine);opacity:.85;}
+  .pf-callout{border-left:3px solid var(--gold);padding:4px 0 4px 16px;margin:24px 0;font-family:'Playfair Display',serif;font-style:italic;font-size:19px;color:var(--bordeaux);line-height:1.45;}
 </style>
 </head>
 <body>
@@ -326,25 +342,32 @@ footer{padding:26px 0 40px;text-align:center;color:var(--olive);font-family:var(
       <li>В тексте навыка напиши то же самое, что обычно говорится вслух при записи: когда включаться, что делать по шагам, чего не делать, в каком виде результат. Образец - пример из шага 4</li>
       <li>Сохрани и проверь на новом примере, как в шаге 7</li>
     </ol>
-  </div>
+  </div><div class="sec">
+    <h2>Один навык - <i>первый кирпич</i></h2>
+    <p class="lead">Я одна, в декрете, без команды, строю свои проекты на нейросетях. Код я не пишу. Вместо команды у меня система: Claude и навыки под каждую рутину, которую раньше делала руками или отдавала людям</p>
+    <div class="num-row light"><div class="num">1.5 <span>млн ₽</span></div><div class="num-t">оборота проектов за год на нейросетях, с нуля, из декрета, без команды</div></div>
 
-  <div class="sec">
-    <h2>Что происходит с блогом, <i>когда рутину забирает система</i></h2>
-    <p class="lead">Годами мой блог стоял на месте: рилс еле добирался до 500 просмотров. Навыки забрали производство, и впервые появилось время на то, что растит блог по-настоящему: смыслы, ритм, истории. Цифры ниже пришли после этого</p>
-    <figure class="stat-wide"><img src="assets/insights.jpg" alt="Статистика профиля"><figcaption>Статистика профиля: просмотры, взаимодействия, новые подписчики</figcaption></figure>
-    <figure class="stat-wide"><img src="assets/panel30.jpg" alt="Панель: 4,6 млн просмотров за 30 дней"><figcaption>Профессиональная панель: 4,6 млн просмотров за 30 дней</figcaption></figure>
-    <div class="stat-row">
+    <h3 class="pf-h">Блог растёт на контент-заводе из ИИ-агентов</h3>
+    <p class="pf-p">Мой блог ведут ИИ-агенты: находят темы, которые уже залетели, пишут сценарии, собирают рилсы с цифровым двойником и выдают материалы по кодовым словам. Я проверяю и принимаю решения</p>
+    <figure class="pf-fig"><img src="assets/panel30.jpg" alt="4,6 млн просмотров за 30 дней"><figcaption>Профессиональная панель: 4,6 млн просмотров за 30 дней</figcaption></figure>
+    <figure class="pf-fig"><img src="assets/insights.jpg" alt="Статистика профиля: просмотры, взаимодействия, новые подписчики"><figcaption>Статистика профиля: 4,3 млн просмотров, 89,4 тыс. взаимодействий, 1 301 новый подписчик</figcaption></figure>
+    <div class="pf-row">
       <img src="assets/r19.jpg" alt="Рилс">
       <img src="assets/r1a.jpg" alt="Рилс">
       <img src="assets/r1b.jpg" alt="Рилс">
     </div>
-    <p class="stat-cap">Три рилса по миллиону и больше. Без рекламы и без команды: производство занимает минуты, время уходит на смысл</p>
-  </div>
+    <p class="pf-cap">Три рилса по миллиону просмотров и больше, без рекламы и без команды</p>
 
-  <div class="sec">
-    <h2>Один навык - <i>первый кирпич</i></h2>
-    <p class="lead">Я одна, в декрете, без команды, строю свои проекты на нейросетях. Код я не пишу. Вместо команды у меня система: Claude и навыки под каждую рутину, которую раньше делала руками или отдавала людям</p>
-    <div class="num-row light"><div class="num">1.5 <span>млн ₽</span></div><div class="num-t">оборота проектов за год, с нуля и из декрета</div></div>
+    <h3 class="pf-h">Растут деньги и аудитория клиентов</h3>
+    <p class="pf-p">Ту же систему из нейросетей я собираю для экспертов: контент, автоворонки, боты, сайты и продажи. Дизайнер, монтажёр, таргетолог, копирайтер и менеджер по продажам в проекте не нанимались, их работу закрыли нейросети</p>
+    <div class="pf-stats">
+      <div class="pf-stat"><b>1,2 млн ₽</b><span>оборот проекта клиента за полгода</span></div>
+      <div class="pf-stat"><b>45 → 75 тыс.</b><span>выросла аудитория клиента</span></div>
+    </div>
+
+    <div class="pf-callout">Я понимаю, как привлечь внимание и превратить его в деньги. И делаю это с помощью нейросетей</div>
+
+
     <p>Хочешь собрать такую систему под свой блог или продукт: разбираю на консультации, что у тебя забирает время, какие навыки это закрывают и с какого начать</p>
 
     <p class="say-word">Напиши слово</p>
