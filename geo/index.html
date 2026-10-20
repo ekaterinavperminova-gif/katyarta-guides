@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Нейросеть нашла место по одной фотографии: скилл geo-sleuth для Claude - Катерина Арта</title>
+<meta name="description" content="geo-sleuth - бесплатный скилл для Claude, который по одной фотографии находит место съёмки с точностью до нескольких метров. Как он ищет, как поставить одной командой и как проверить свои фото, пока это не сделал кто-то другой. Разбор от Катерины Арта.">
+<style>
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-VariableFont_wght.ttf");font-weight:100 900;font-style:normal}
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf");font-weight:100 900;font-style:italic}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Light.otf");font-weight:300}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Regular.otf");font-weight:400}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Medium.otf");font-weight:500}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-SemiBold.otf");font-weight:600}
+  :root{
+    --cream:#F2E8D9;
+    --wine:#570E1C;
+    --bordeaux:#82091B;
+    --soft-bordeaux:#8A3542;
+    --gold:#C9A96E;
+    --taupe:#B8A995;
+    --graphite:#20201E;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--wine);
+    font-family:'Inter',-apple-system,sans-serif;
+    font-weight:300;
+    line-height:1.65;
+    font-size:18px;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px;}
+  .cover{position:relative;width:100%;overflow:hidden;background:var(--graphite);}
+  .cover img{display:block;width:100%;height:auto;max-height:78vh;object-fit:cover;object-position:center 22%;}
+  .cover-caption{
+    position:absolute;left:24px;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--cream);
+    font-size:14px;
+    letter-spacing:.04em;
+    opacity:.85;
+  }
+  header.hero{padding:40px 0 8px;}
+  h1{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:36px;
+    line-height:1.2;
+    margin:0 0 14px;
+    color:var(--wine);
+  }
+  .subtitle{
+    font-size:18px;
+    color:var(--soft-bordeaux);
+    margin:0 0 6px;
+  }
+  .byline{
+    font-size:14px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin:0 0 32px;
+  }
+  section{padding:8px 0 32px;}
+  h2{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:24px;
+    color:var(--bordeaux);
+    margin:0 0 16px;
+    padding-top:8px;
+  }
+  p{margin:0 0 16px;}
+  .divider{border:none;border-top:1px solid var(--taupe);opacity:.5;margin:0;}
+  .stat-row{
+    display:flex;gap:16px;flex-wrap:wrap;
+    margin:24px 0 8px;
+  }
+  .stat{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 20px;
+    flex:1;
+    min-width:140px;
+  }
+  .stat .num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--wine);
+    font-size:32px;
+    display:block;
+    line-height:1;
+    margin-bottom:6px;
+  }
+  .stat .label{font-size:14px;color:var(--wine);opacity:.85;}
+  .note{
+    font-size:15px;
+    color:var(--soft-bordeaux);
+    font-style:italic;
+    margin-top:10px;
+  }
+  .step{
+    counter-increment:step;
+    position:relative;
+    padding:24px 0 24px 56px;
+    border-bottom:1px solid rgba(87,14,28,.12);
+  }
+  .step:last-of-type{border-bottom:none;}
+  .step::before{
+    content:counter(step);
+    position:absolute;
+    left:0;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:34px;
+    color:var(--gold);
+    line-height:1;
+  }
+  .steps{counter-reset:step;}
+  .step h3{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:20px;
+    margin:0 0 12px;
+    color:var(--wine);
+  }
+  .tri{margin:0 0 10px;}
+  .tri b{color:var(--bordeaux);}
+  code{
+    background:rgba(87,14,28,.08);
+    padding:2px 7px;
+    border-radius:4px;
+    font-size:.92em;
+    color:var(--wine);
+  }
+  .code-line{
+    display:block;
+    background:var(--graphite);
+    color:var(--cream);
+    padding:14px 18px;
+    border-radius:6px;
+    font-family:ui-monospace,Menlo,monospace;
+    font-size:15px;
+    margin:12px 0 16px;
+    overflow-x:auto;
+  }
+  .grabli-list{margin:0;padding-left:22px;}
+  .grabli-list li{margin-bottom:12px;}
+  .altlinks{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 22px;
+    margin-top:8px;
+  }
+  .altlinks a{color:var(--bordeaux);}
+  .altlinks ul{margin:8px 0 0;padding-left:20px;}
+  a{color:var(--bordeaux);}
+  .stat-block{
+    display:flex;align-items:baseline;gap:16px;
+    padding:22px 0;margin:24px 0;
+    border-top:1px solid var(--taupe);
+    border-bottom:1px solid var(--taupe);
+  }
+  .stat-num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:48px;
+    line-height:1;
+    flex:0 0 auto;
+  }
+  .stat-text{font-size:16px;color:var(--wine);line-height:1.4;}
+  .proof-wide{margin:0 0 12px;border:1px solid var(--gold);border-radius:10px;overflow:hidden;background:#fff;}
+  .proof-wide img{width:100%;height:auto;display:block;}
+  .proof-wide figcaption{font-family:"Playfair Display",serif;font-style:italic;font-size:12.5px;color:var(--taupe);text-align:center;padding:6px;}
+  .proof-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+  @media (max-width:520px){.proof-row{grid-template-columns:1fr;}}
+  .proof-row img{border:1px solid var(--gold);border-radius:8px;width:100%;}
+  .proof-cap{font-family:"Playfair Display",serif;font-style:italic;font-size:15px;color:var(--bordeaux);}
+  .say-word{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--soft-bordeaux);
+    margin:24px 0 10px;
+  }
+  .pill-outline{
+    display:inline-block;
+    border:2px solid var(--gold);
+    border-radius:999px;
+    padding:14px 32px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:26px;
+    color:var(--bordeaux);
+    letter-spacing:.03em;
+    margin-bottom:8px;
+  }
+  .pill-gold{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--graphite);
+    border-radius:999px;
+    padding:15px 34px;
+    font-weight:600;
+    font-size:16px;
+    text-decoration:none;
+    border:none;
+  }
+  .eyebrow-label{
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--taupe);margin:32px 0 12px;
+  }
+  .channel-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  }
+  .pill-dark{
+    display:flex;align-items:center;justify-content:center;
+    background:var(--wine);color:var(--cream);
+    border-radius:999px;
+    padding:15px 12px;
+    font-size:15px;font-weight:500;
+    text-decoration:none;text-align:center;
+  }
+  @media (max-width:480px){
+    .channel-grid{grid-template-columns:1fr;}
+    .pill-outline{font-size:21px;padding:12px 24px;display:block;text-align:center;}
+  }
+  footer{
+    text-align:center;
+    padding:32px 0 48px;
+    color:var(--taupe);
+    font-size:13px;
+  }
+  @media (max-width:480px){
+    body{font-size:16.5px;}
+    h1{font-size:29px;}
+    .cover img{max-height:62vh;}
+    .step{padding-left:44px;}
+    .step::before{font-size:28px;}
+  }
+
+  .lead{font-size:20px;color:var(--wine);font-weight:400;}
+  .does{list-style:none;margin:8px 0 24px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .does li{background:#fff;border:1px solid rgba(201,169,110,.55);border-radius:10px;padding:14px 16px;font-size:16px;line-height:1.4;}
+  .does li b{display:block;font-family:'Playfair Display',serif;font-style:italic;font-weight:600;color:var(--bordeaux);font-size:18px;margin-bottom:2px;}
+  @media (max-width:520px){.does{grid-template-columns:1fr;}}
+  .routes{display:grid;gap:12px;margin:8px 0 8px;}
+  .route{display:flex;gap:16px;align-items:flex-start;background:var(--wine);color:var(--cream);border-radius:12px;padding:18px 20px;text-decoration:none;}
+  .route .rn{font-family:'Playfair Display',serif;font-style:italic;font-size:34px;line-height:1;color:var(--gold);flex:0 0 28px;}
+  .route h3{margin:0 0 4px;font-family:'Playfair Display',serif;font-weight:600;font-size:19px;color:var(--cream);}
+  .route p{margin:0;font-size:15px;opacity:.85;line-height:1.45;}
+  .route-head{display:flex;align-items:baseline;gap:12px;margin:0 0 6px;}
+  .route-head .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9A7F4E;font-weight:600;}
+  .prompt{background:#fff;border:1px solid var(--gold);border-radius:10px;padding:16px 18px;margin:12px 0 16px;font-size:16px;line-height:1.55;color:var(--graphite);}
+  .prompt .lbl{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe);margin-bottom:6px;font-weight:500;}
+  .callout{border-left:3px solid var(--gold);padding:4px 0 4px 16px;margin:16px 0;font-family:'Playfair Display',serif;font-style:italic;font-size:19px;color:var(--bordeaux);line-height:1.45;}
+  .groups{display:grid;gap:10px;margin:8px 0 16px;}
+  .grp{background:#fff;border:1px solid rgba(201,169,110,.55);border-radius:10px;padding:14px 16px;}
+  .grp h4{margin:0 0 6px;font-family:'Playfair Display',serif;font-style:italic;font-weight:600;font-size:18px;color:var(--bordeaux);}
+  .grp p{margin:0;font-size:15px;line-height:1.5;}
+  .grp code{font-size:.85em;}
+  .proof-h{font-family:'Playfair Display',serif;font-weight:600;font-size:21px;color:var(--wine);margin:32px 0 10px;text-wrap:balance;}
+  .proof-narrow{max-width:420px;margin-left:auto;margin-right:auto;}
+</style>
+<body>
+<div class="cover">
+  <img src="assets/cover.jpg" alt="Катерина Арта" loading="eager">
+  <div class="cover-caption">geo-sleuth</div>
+</div>
+<div class="wrap">
+  <header class="hero">
+    <h1>Нейросеть нашла место по одной фотографии. Как работает geo-sleuth</h1>
+    <p class="subtitle">Бесплатный скилл для Claude, который по снимку без вывесок и геометок находит, где стоял фотограф. Как он ищет, как поставить одной командой и как проверить свои фото первой</p>
+    <p class="byline">Катерина Арта · @katerinarta_ · октябрь 2026</p>
+  </header>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Коротко</h2>
+    <p class="lead">geo-sleuth - это скилл для Claude Code с открытым кодом. Даёшь ему фото и пишешь «найди, где это снято». Он сверяет горы с картой высот, считает опоры мостов, тени машин и деревья из открытых баз и возвращает точку съёмки с радиусом ошибки. В примерах автора промах 2-3 метра, один поиск идёт 30-70 минут</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Как он находит место <i>без единой подписи</i></h2>
+    <p>Обычный поиск по картинке ищет похожие фото в интернете. geo-sleuth работает как сыщик: читает в кадре геометрию и сверяет её с открытыми картами. Что он использует:</p>
+    <ul class="does">
+      <li><b>Горы как отпечаток</b>строит силуэт хребта по карте высот с тысяч точек, пока он не совпадёт с фото</li>
+      <li><b>Мост как линейка</b>по расстоянию между опорами считает, где стоял фотограф</li>
+      <li><b>Открытые базы</b>в Ванкувере каждое уличное дерево есть в данных города, вплоть до толщины ствола</li>
+      <li><b>Тени</b>по теням машин понимает, где солнце и куда смотрела камера</li>
+      <li><b>Панорамы улиц</b>сверяет стены, фонари и ступеньки со снимками разных лет</li>
+      <li><b>Ответ с доказательством</b>точка на карте, направление камеры, радиус ошибки и картинка-улика</li>
+    </ul>
+    <figure class="proof-wide"><img src="assets/geo-hero.jpg" alt="Страница geo-sleuth на GitHub: ответ - позиция камеры с точностью 2 метра"><figcaption>Страница скилла на GitHub: по фото печки найдена точка съёмки, камера ±2 м. Снято 19 октября 2026</figcaption></figure>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Три фото, <i>три попадания</i></h2>
+    <p>Ни у одного снимка не было координат внутри файла. Автор скилла расписал каждый поиск по шагам</p>
+    <div class="stat-row">
+      <div class="stat"><span class="num">±2 м</span><span class="label">печка у рисового поля, Китай. Сверка хребта и 17 опор моста, около 72 минут</span></div>
+      <div class="stat"><span class="num">до 100 м</span><span class="label">пустыня и голые горы, Китай. Помогли опоры ЛЭП и наклон телефона на 1°</span></div>
+      <div class="stat"><span class="num">3 м</span><span class="label">вишня на улице Ванкувера. Данные о деревьях, тени и панорамы, 53 минуты</span></div>
+    </div>
+    <figure class="proof-wide"><img src="assets/geo-cases.jpg" alt="Три кейса geo-sleuth: рисовое поле, пустыня, улица с вишней"><figcaption>Три кейса из описания скилла на GitHub</figcaption></figure>
+    <figure class="proof-wide"><img src="assets/geo-piers.jpg" alt="17 опор моста размечены как линейка"><figcaption>Опоры моста как линейка: слева промежутки шире, значит ближе, справа уже, значит дальше. Иллюстрация автора скилла</figcaption></figure>
+    <p class="note">Автор честно пишет: это записи конкретных прогонов. Другая модель или другие решения агента могут не прийти к тому же результату</p>
+  </section>
+
+  <hr class="divider">
+
+  <section class="steps">
+    <h2>Как поставить</h2>
+    <p>Понадобится Claude Code: это Claude, который работает с файлами на твоём компьютере. Сам скилл бесплатный</p>
+    <div class="step">
+      <h3>Поставь скилл одной командой</h3>
+      <p class="tri"><b>Куда вставить.</b> В Терминал на Mac (или PowerShell на Windows)</p>
+      <span class="code-line">npx skills add Oldcircle/geo-sleuth</span>
+      <p class="tri"><b>Что увидишь.</b> Вопрос, для каких агентов ставить. Отметь Claude Code. Если пишет, что npx не найдена, значит нет Node.js: попроси Claude его поставить</p>
+      <p class="tri"><b>Что это даёт.</b> Папка скилла ляжет туда, где Claude её найдёт. Можно и проще: напиши Claude «поставь скилл geo-sleuth с GitHub Oldcircle», он выполнит команду сам</p>
+    </div>
+    <div class="step">
+      <h3>Попроси Claude проверить компьютер</h3>
+      <p class="tri"><b>Что написать.</b> «Запусти doctor.py из скилла geo-sleuth и почини всё, что не прошло»</p>
+      <p class="tri"><b>Что увидишь.</b> Список проверок: Python 3.10 и новее, uv, curl, браузер Chrome</p>
+      <p class="tri"><b>Что это даёт.</b> Недостающее Claude поставит сам. При первом поиске скачается около 2,4 ГБ, держи место на диске</p>
+    </div>
+    <div class="step">
+      <h3>Дай фото и одну фразу</h3>
+      <p class="tri"><b>Что написать.</b> Приложи снимок и напиши «найди, где это снято»</p>
+      <p class="tri"><b>Что увидишь.</b> Агент читает кадр, сужает район и через 30-70 минут возвращает точку, направление камеры и картинку-улику</p>
+      <p class="tri"><b>Что это даёт.</b> Ты видишь, какие детали фото выдали место. Это и есть список того, что закрывать</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Проверь свои фото <i>первой</i></h2>
+    <p>Если geo-sleuth находит улицу по вишне и теням, то вид из окна в сторис выдаёт адрес ещё проще. Вот что агент читает в кадре:</p>
+    <figure class="proof-wide proof-narrow"><img src="assets/geo-cherry.jpg" alt="Фото улицы с вишней и отмеченными уликами"><figcaption>Что выдало фото: номера машин провинции, тёмно-зелёный фонарь на газоне, тени машин, подпорная стена у дворов, терраса на крыше соседнего дома. Иллюстрация автора скилла</figcaption></figure>
+    <div class="groups">
+      <div class="grp"><h4>1. Вид из окна</h4><p>Силуэт гор, мост, трубы, высотки на горизонте. По ним место ищется без единой надписи</p></div>
+      <div class="grp"><h4>2. Улица у дома</h4><p>Деревья, фонари, заборы, форма бордюров, номера машин. Некоторые города, как Ванкувер, выкладывают это в открытые данные</p></div>
+      <div class="grp"><h4>3. Тени и время</h4><p>По теням видно, куда смотрит окно. Вместе со временем публикации это сужает поиск до стороны дома</p></div>
+      <div class="grp"><h4>4. Повторы</h4><p>Один и тот же вид из окна в десяти сторис - это десять подсказок вместо одной</p></div>
+    </div>
+    <div class="prompt"><span class="lbl">Проверка без поиска места</span>Посмотри на это фото глазами геолокатора. Место не ищи. Перечисли все детали в кадре, по которым можно понять, где оно снято, и для каждой скажи, как её убрать: обрезать, размыть или снять с другого ракурса</div>
+    <div class="callout">Сначала прогони через эту проверку фото из окна и со двора. Это пять минут, и после них ты знаешь, что в кадре лишнее</div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Грабли, о которые спотыкаются</h2>
+    <ul class="grabli-list">
+      <li><b>Это не пять секунд.</b> Один поиск идёт 30-70 минут, половина времени уходит на расчёты</li>
+      <li><b>Первый запуск тяжёлый.</b> Скилл скачивает модели примерно на 2,4 ГБ. Без места на диске и нормального интернета не заведётся</li>
+      <li><b>Сервисы могут не пустить.</b> Поиск по картинке иногда упирается в капчу или ограничения. Автор советует подождать и повторить</li>
+      <li><b>Нужен оригинал.</b> Скриншот или пережатая картинка из соцсети хуже исходного снимка. Автор отдельно пишет, что уменьшенные копии не годятся</li>
+      <li><b>Только свои фото.</b> Автор просит искать места только на своих снимках или с разрешения и никогда не искать людей, которые не хотят, чтобы их нашли</li>
+    </ul>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Источники</h2>
+    <div class="altlinks">
+      <ul>
+        <li><a href="https://github.com/Oldcircle/geo-sleuth" target="_blank" rel="noopener"><code>github.com/Oldcircle/geo-sleuth</code></a> - скилл, установка, кейсы и требования, лицензия MIT</li>
+      </ul>
+      <p class="note">Данные на 19 октября 2026</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Один скилл - это пример, <i>а не система</i></h2>
+    <p>Я Катерина Арта, продюсер EdTech. Внедряю нейросети в бизнес, контент и продажи. Сама работаю без команды: вместо штата у меня ИИ-помощники, и каждый знает мои правила и продукты</p>
+
+    <div class="stat-block">
+      <span class="stat-num">1.5</span>
+      <span class="stat-text">млн ₽ оборота проектов за год на нейросетях, с нуля, из декрета, без команды</span>
+    </div>
+
+    <h3 class="proof-h">Блог растёт на контент-заводе из ИИ-агентов</h3>
+    <p>Мой блог ведут ИИ-агенты: находят темы, которые уже залетели, пишут сценарии, собирают рилсы с цифровым двойником и выдают материалы по кодовым словам. Я проверяю и принимаю решения</p>
+    <figure class="proof-wide"><img src="assets/panel30.jpg" alt="4,8 млн просмотров за 30 дней"><figcaption>Профессиональная панель: 4,8 млн просмотров за 30 дней</figcaption></figure>
+    <figure class="proof-wide"><img src="assets/insights.jpg" alt="Статистика профиля: просмотры, взаимодействия, новые подписчики"><figcaption>Статистика профиля: 4,3 млн просмотров, 89,4 тыс. взаимодействий, 1 301 новый подписчик</figcaption></figure>
+    <div class="proof-row">
+      <img src="assets/r19.jpg" alt="Рилс">
+      <img src="assets/r1a.jpg" alt="Рилс">
+      <img src="assets/r1b.jpg" alt="Рилс">
+    </div>
+    <p class="proof-cap">Три рилса по миллиону просмотров и больше, без рекламы и без команды</p>
+
+    <h3 class="proof-h">Растут деньги и аудитория клиентов</h3>
+    <p>Ту же систему из нейросетей я собираю для экспертов: контент, автоворонки, боты, сайты и продажи. Дизайнер, монтажёр, таргетолог, копирайтер и менеджер по продажам в проекте не нанимались, их работу закрыли нейросети</p>
+    <div class="stat-row">
+      <div class="stat"><span class="num">1,2 млн ₽</span><span class="label">оборот проекта клиента за полгода</span></div>
+      <div class="stat"><span class="num">45 → 75 тыс.</span><span class="label">выросла аудитория клиента</span></div>
+    </div>
+
+    <div class="callout">Я понимаю, как привлечь внимание и превратить его в деньги. И делаю это с помощью нейросетей</div>
+
+    <p>Поставить geo-sleuth - пара минут. Понять, какие скиллы и агенты нужны именно твоему бизнесу, как связать их с контентом и продажами и что поручить им первым, - это уже работа над твоим бизнесом</p>
+    <p>На консультации разбираю твои продукты и неделю и собираем план: какую работу забирают ИИ-агенты и с какой задачи начать завтра</p>
+
+    <p class="say-word">Напиши слово</p>
+    <div class="pill-outline">КОНСУЛЬТАЦИЯ</div>
+
+    <p class="say-word">мне в личку Telegram</p>
+    <a class="pill-gold" href="https://t.me/katerinarta" target="_blank" rel="noopener">Написать</a>
+
+    <p class="eyebrow-label">Мои каналы и страницы</p>
+    <div class="channel-grid">
+      <a class="pill-dark" href="https://t.me/+CNtsc57EWnQzZTk6" target="_blank" rel="noopener">Канал в Telegram</a>
+      <a class="pill-dark" href="https://max.ru/join/7j3M_9BFNWEfFMFmVd6DDz227jGaAVLpVvy3mObA93o" target="_blank" rel="noopener">Канал в MAX</a>
+      <a class="pill-dark" href="https://instagram.com/katerinarta_" target="_blank" rel="noopener">Instagram</a>
+      <a class="pill-dark" href="https://vk.ru/katerinarta" target="_blank" rel="noopener">ВКонтакте</a>
+      <a class="pill-dark" href="https://youtube.com/@katerinarta" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>@katerinarta_ · geo-sleuth: место по одной фотографии</footer>
+
+</body>
+</html>
