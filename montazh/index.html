@@ -319,8 +319,8 @@ document.addEventListener("click",function(e){var a=e.target.closest&&e.target.c
 <div class="wrap">
 
   <header class="hero">
-    <h1>Видео теперь монтирует нейросеть. Три способа, от одной кнопки до своего агента</h1>
-    <p class="subtitle">Загружаешь исходник, а нейросеть сама режет паузы, ставит субтитры и собирает готовый ролик. Пошагово, со скринами и проверкой на моих рилсах</p>
+    <h1>Видео теперь монтирует нейросеть. Три способа, от одной кнопки до своего агента, и 5 мощных навыков для своего стиля</h1>
+    <p class="subtitle">Загружаешь исходник, а нейросеть сама режет паузы, ставит субтитры и собирает готовый ролик. Плюс 5 открытых навыков, чтобы видео не было похоже на чужие. Пошагово, со скринами и проверкой на моих рилсах</p>
     <p class="byline">Катерина Арта · @katerinarta_ · октябрь 2026</p>
   </header>
   <hr class="divider">
@@ -353,6 +353,7 @@ document.addEventListener("click",function(e){var a=e.target.closest&&e.target.c
       <a class="route" href="#chatgpt"><span class="rn">1</span><div><h3>ChatGPT + плагин Remotion</h3><p>Начать сегодня. Ставишь плагин в приложении ChatGPT и пишешь задачу в чат</p></div></a>
       <a class="route" href="#claude"><span class="rn">2</span><div><h3>Claude Code + video-use</h3><p>Для говорящей головы: вырезает слова-паразиты и паузы, красит цвет, жжёт субтитры</p></div></a>
       <a class="route" href="#agent"><span class="rn">3</span><div><h3>Свой агент автомонтажа</h3><p>Правила записываешь один раз, дальше просто скидываешь исходник</p></div></a>
+      <a class="route" href="#stil"><span class="rn">+</span><div><h3>5 навыков для своего стиля</h3><p>Чтобы видео из Claude не было похоже на чужие: моушн, коллаж, мультики, один план, кино кодом</p></div></a>
     </div>
   </section>
   <hr class="divider">
@@ -453,6 +454,45 @@ document.addEventListener("click",function(e){var a=e.target.closest&&e.target.c
   </section>
   <hr class="divider">
 
+  <section class="steps" id="stil">
+    <div class="route-head"><span class="tag">Бонус</span></div>
+    <h2>5 навыков, чтобы видео из Claude не было похоже на чужие</h2>
+    <p>Видео через Claude сейчас делают все, и ролики выходят на одно лицо. Эти пять открытых навыков дают пять совершенно разных стилей. Все лежат на GitHub, цифры сверены 21 октября 2026</p>
+    <div class="step">
+      <h3>HyperFrames от HeyGen</h3>
+      <p>Пишешь страницу кодом (HTML), на выходе готовая анимация. Подходит для моушн-графики, карточек, титров и вставок поверх видео. Сделан для агентов, Claude работает с ним напрямую</p>
+      <p class="tri"><b>Где взять.</b> <a href="https://github.com/heygen-com/hyperframes" target="_blank" rel="noopener"><code style="word-break:break-all">github.com/heygen-com/hyperframes</code></a> · 68,7 тыс. звёзд · Apache-2.0</p>
+    </div>
+    <div class="step">
+      <h3>Collage B-roll</h3>
+      <p>Короткие вставки в стиле журнального коллажа: вырезки из бумаги с растром сами складываются в кадр. Анимацию делает Gemini Omni Flash по первому и последнему кадру</p>
+      <p class="tri"><b>Где взять.</b> <a href="https://github.com/pyang5166/gbro-collage-broll" target="_blank" rel="noopener"><code style="word-break:break-all">github.com/pyang5166/gbro-collage-broll</code></a> · 1,5 тыс. звёзд · MIT</p>
+    </div>
+    <div class="step">
+      <h3>Claude Animation Base</h3>
+      <p>Набор для мультиков, будто нарисованных кистью: p5.js и p5.brush, персонаж Clawd, 31 эмоция и инструкция для модели</p>
+      <p class="tri"><b>Где взять.</b> <a href="https://github.com/JohnHeibel/ClaudeAnimationBase" target="_blank" rel="noopener"><code style="word-break:break-all">github.com/JohnHeibel/ClaudeAnimationBase</code></a> · 1,4 тыс. звёзд · MIT</p>
+    </div>
+    <div class="step">
+      <h3>onetake</h3>
+      <p>Ролик одним планом: камера ни разу не режет кадр, каждый момент вырастает из прошлого. Бесплатно только для личных, учебных и некоммерческих задач, для коммерции у автора есть платная версия</p>
+      <p class="tri"><b>Где взять.</b> <a href="https://github.com/feitangyuan/onetake" target="_blank" rel="noopener"><code style="word-break:break-all">github.com/feitangyuan/onetake</code></a> · 2,8 тыс. звёзд · некоммерческая лицензия</p>
+    </div>
+    <div class="step">
+      <h3>Lemo-Opuscar</h3>
+      <p>Навык Claude Code для короткого кино без видеомодели: 51 стиль, к каждому промпт стиля и демо-фильм, снятый целиком кодом. Ни генерации видео, ни стоков</p>
+      <p class="tri"><b>Где взять.</b> <a href="https://github.com/lemomo-ai/lemo-opuscar" target="_blank" rel="noopener"><code style="word-break:break-all">github.com/lemomo-ai/lemo-opuscar</code></a> · 4,6 тыс. звёзд · MIT</p>
+    </div>
+    <div class="step">
+      <h3>Как поставить любой из пяти</h3>
+      <p class="tri"><b>Куда нажать.</b> Открой Claude Code и вставь фразу, подставив ссылку нужного навыка:</p>
+      <div class="prompt"><span class="lbl">Промпт, скопируй и вставь</span>Поставь мне навык из https://github.com/heygen-com/hyperframes. Сначала прочитай README и сделай установку так, как там написано, потом покажи, что навык работает</div>
+      <p class="tri"><b>Что увидишь.</b> Claude сам скачает репозиторий, поставит что нужно и сделает пробный ролик</p>
+      <p class="tri"><b>Что это даёт.</b> Не нужно разбираться в установке, а стиль появляется у тебя сразу в работе</p>
+    </div>
+  </section>
+  <hr class="divider">
+
   <section>
     <h2>Грабли, о которые спотыкаются</h2>
     <ol class="grabli-list">
@@ -470,6 +510,11 @@ document.addEventListener("click",function(e){var a=e.target.closest&&e.target.c
       <ul>
         <li><a href="https://www.remotion.dev/docs/ai/codex-plugin" target="_blank" rel="noopener"><code>remotion.dev/docs/ai/codex-plugin</code></a> - официальная страница плагина Remotion для ChatGPT</li>
         <li><a href="https://github.com/browser-use/video-use" target="_blank" rel="noopener"><code>github.com/browser-use/video-use</code></a> - video-use: установка, примеры, все возможности</li>
+        <li><a href="https://github.com/heygen-com/hyperframes" target="_blank" rel="noopener"><code>github.com/heygen-com/hyperframes</code></a> - HyperFrames от HeyGen</li>
+        <li><a href="https://github.com/pyang5166/gbro-collage-broll" target="_blank" rel="noopener"><code style="word-break:break-all">github.com/pyang5166/gbro-collage-broll</code></a> - Collage B-roll</li>
+        <li><a href="https://github.com/JohnHeibel/ClaudeAnimationBase" target="_blank" rel="noopener"><code style="word-break:break-all">github.com/JohnHeibel/ClaudeAnimationBase</code></a> - Claude Animation Base</li>
+        <li><a href="https://github.com/feitangyuan/onetake" target="_blank" rel="noopener"><code>github.com/feitangyuan/onetake</code></a> - onetake</li>
+        <li><a href="https://github.com/lemomo-ai/lemo-opuscar" target="_blank" rel="noopener"><code>github.com/lemomo-ai/lemo-opuscar</code></a> - Lemo-Opuscar</li>
       </ul>
     </div>
   </section><hr class="divider">
@@ -484,7 +529,7 @@ document.addEventListener("click",function(e){var a=e.target.closest&&e.target.c
 
     <h3 class="pf-h">Блог растёт на контент-заводе из ИИ-агентов</h3>
     <p class="pf-p">Мой блог ведут ИИ-агенты: находят темы, которые уже залетели, пишут сценарии, собирают рилсы с цифровым двойником и выдают материалы по кодовым словам. Я проверяю и принимаю решения</p>
-    <figure class="pf-fig"><img src="assets/panel30.jpg" alt="4,6 млн просмотров за 30 дней"><figcaption>Профессиональная панель: 4,6 млн просмотров за 30 дней</figcaption></figure>
+    <figure class="pf-fig"><img src="assets/panel30.jpg" alt="4,8 млн просмотров за 30 дней"><figcaption>Профессиональная панель: 4,8 млн просмотров за 30 дней</figcaption></figure>
     <figure class="pf-fig"><img src="assets/insights.jpg" alt="Статистика профиля: просмотры, взаимодействия, новые подписчики"><figcaption>Статистика профиля: 4,3 млн просмотров, 89,4 тыс. взаимодействий, 1 301 новый подписчик</figcaption></figure>
     <div class="pf-row">
       <img src="assets/r19.jpg" alt="Рилс">
