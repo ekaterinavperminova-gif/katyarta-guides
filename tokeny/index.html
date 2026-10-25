@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<!-- Yandex.Metrika counter -->
+<script>
+(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js?id=113709011","ym");
+ym(113709011,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:false});
+document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(!a)return;var h=a.href,g=null;if(/^https?:\/\/(t|telegram)\.me\//.test(h))g="click_telegram";else if(/^https?:\/\/(wa\.me|api\.whatsapp\.com|chat\.whatsapp\.com)\//.test(h))g="click_whatsapp";if(g&&window.ym)ym(113709011,"reachGoal",g)},true);
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/113709011" style="position:absolute;left:-9999px" alt=""></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Как перестать сжигать токены на документах: Markitdown - Катерина Арта</title>
+<meta name="description" content="Markitdown - бесплатный инструмент Microsoft, который превращает PDF, Word и Excel в чистый текст для нейросети. Почему документы съедают токены, сколько это экономит на самом деле и как подключить Markitdown к Claude за пять минут. Разбор от Катерины Арта.">
+<style>
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-VariableFont_wght.ttf");font-weight:100 900;font-style:normal}
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf");font-weight:100 900;font-style:italic}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Light.otf");font-weight:300}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Regular.otf");font-weight:400}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Medium.otf");font-weight:500}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-SemiBold.otf");font-weight:600}
+  :root{
+    --cream:#F2E8D9;
+    --wine:#570E1C;
+    --bordeaux:#82091B;
+    --soft-bordeaux:#8A3542;
+    --gold:#C9A96E;
+    --taupe:#B8A995;
+    --graphite:#20201E;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--wine);
+    font-family:'Inter',-apple-system,sans-serif;
+    font-weight:300;
+    line-height:1.65;
+    font-size:18px;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px;}
+  .cover{position:relative;width:100%;overflow:hidden;background:var(--graphite);}
+  .cover img{display:block;width:100%;height:auto;max-height:78vh;object-fit:cover;object-position:center 22%;}
+  .cover-caption{
+    position:absolute;left:24px;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--cream);
+    font-size:14px;
+    letter-spacing:.04em;
+    opacity:.85;
+  }
+  header.hero{padding:40px 0 8px;}
+  h1{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:36px;
+    line-height:1.2;
+    margin:0 0 14px;
+    color:var(--wine);
+  }
+  .subtitle{
+    font-size:18px;
+    color:var(--soft-bordeaux);
+    margin:0 0 6px;
+  }
+  .byline{
+    font-size:14px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin:0 0 32px;
+  }
+  section{padding:8px 0 32px;}
+  h2{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:24px;
+    color:var(--bordeaux);
+    margin:0 0 16px;
+    padding-top:8px;
+  }
+  p{margin:0 0 16px;}
+  .divider{border:none;border-top:1px solid var(--taupe);opacity:.5;margin:0;}
+  .stat-row{
+    display:flex;gap:16px;flex-wrap:wrap;
+    margin:24px 0 8px;
+  }
+  .stat{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 20px;
+    flex:1;
+    min-width:140px;
+  }
+  .stat .num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--wine);
+    font-size:32px;
+    display:block;
+    line-height:1;
+    margin-bottom:6px;
+  }
+  .stat .label{font-size:14px;color:var(--wine);opacity:.85;}
+  .note{
+    font-size:15px;
+    color:var(--soft-bordeaux);
+    font-style:italic;
+    margin-top:10px;
+  }
+  .step{
+    counter-increment:step;
+    position:relative;
+    padding:24px 0 24px 56px;
+    border-bottom:1px solid rgba(87,14,28,.12);
+  }
+  .step:last-of-type{border-bottom:none;}
+  .step::before{
+    content:counter(step);
+    position:absolute;
+    left:0;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:34px;
+    color:var(--gold);
+    line-height:1;
+  }
+  .steps{counter-reset:step;}
+  .step h3{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:20px;
+    margin:0 0 12px;
+    color:var(--wine);
+  }
+  .tri{margin:0 0 10px;}
+  .tri b{color:var(--bordeaux);}
+  code{
+    background:rgba(87,14,28,.08);
+    padding:2px 7px;
+    border-radius:4px;
+    font-size:.92em;
+    color:var(--wine);
+  }
+  .code-line{
+    display:block;
+    background:var(--graphite);
+    color:var(--cream);
+    padding:14px 18px;
+    border-radius:6px;
+    font-family:ui-monospace,Menlo,monospace;
+    font-size:15px;
+    margin:12px 0 16px;
+    overflow-x:auto;
+  }
+  .grabli-list{margin:0;padding-left:22px;}
+  .grabli-list li{margin-bottom:12px;}
+  .altlinks{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 22px;
+    margin-top:8px;
+  }
+  .altlinks a{color:var(--bordeaux);}
+  .altlinks ul{margin:8px 0 0;padding-left:20px;}
+  a{color:var(--bordeaux);}
+  .stat-block{
+    display:flex;align-items:baseline;gap:16px;
+    padding:22px 0;margin:24px 0;
+    border-top:1px solid var(--taupe);
+    border-bottom:1px solid var(--taupe);
+  }
+  .stat-num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:48px;
+    line-height:1;
+    flex:0 0 auto;
+  }
+  .stat-text{font-size:16px;color:var(--wine);line-height:1.4;}
+  .proof-wide{margin:0 0 12px;border:1px solid var(--gold);border-radius:10px;overflow:hidden;background:#fff;}
+  .proof-wide img{width:100%;height:auto;display:block;}
+  .proof-wide figcaption{font-family:"Playfair Display",serif;font-style:italic;font-size:12.5px;color:var(--taupe);text-align:center;padding:6px;}
+  .proof-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+  @media (max-width:520px){.proof-row{grid-template-columns:1fr;}}
+  .proof-row img{border:1px solid var(--gold);border-radius:8px;width:100%;}
+  .proof-cap{font-family:"Playfair Display",serif;font-style:italic;font-size:15px;color:var(--bordeaux);}
+  .say-word{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--soft-bordeaux);
+    margin:24px 0 10px;
+  }
+  .pill-outline{
+    display:inline-block;
+    border:2px solid var(--gold);
+    border-radius:999px;
+    padding:14px 32px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:26px;
+    color:var(--bordeaux);
+    letter-spacing:.03em;
+    margin-bottom:8px;
+  }
+  .pill-gold{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--graphite);
+    border-radius:999px;
+    padding:15px 34px;
+    font-weight:600;
+    font-size:16px;
+    text-decoration:none;
+    border:none;
+  }
+  .eyebrow-label{
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--taupe);margin:32px 0 12px;
+  }
+  .channel-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  }
+  .pill-dark{
+    display:flex;align-items:center;justify-content:center;
+    background:var(--wine);color:var(--cream);
+    border-radius:999px;
+    padding:15px 12px;
+    font-size:15px;font-weight:500;
+    text-decoration:none;text-align:center;
+  }
+  @media (max-width:480px){
+    .channel-grid{grid-template-columns:1fr;}
+    .pill-outline{font-size:21px;padding:12px 24px;display:block;text-align:center;}
+  }
+  footer{
+    text-align:center;
+    padding:32px 0 48px;
+    color:var(--taupe);
+    font-size:13px;
+  }
+  @media (max-width:480px){
+    body{font-size:16.5px;}
+    h1{font-size:29px;}
+    .cover img{max-height:62vh;}
+    .step{padding-left:44px;}
+    .step::before{font-size:28px;}
+  }
+
+  .lead{font-size:20px;color:var(--wine);font-weight:400;}
+  .does{list-style:none;margin:8px 0 24px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .does li{background:#fff;border:1px solid rgba(201,169,110,.55);border-radius:10px;padding:14px 16px;font-size:16px;line-height:1.4;}
+  .does li b{display:block;font-family:'Playfair Display',serif;font-style:italic;font-weight:600;color:var(--bordeaux);font-size:18px;margin-bottom:2px;}
+  @media (max-width:520px){.does{grid-template-columns:1fr;}}
+  .routes{display:grid;gap:12px;margin:8px 0 8px;}
+  .route{display:flex;gap:16px;align-items:flex-start;background:var(--wine);color:var(--cream);border-radius:12px;padding:18px 20px;text-decoration:none;}
+  .route .rn{font-family:'Playfair Display',serif;font-style:italic;font-size:34px;line-height:1;color:var(--gold);flex:0 0 28px;}
+  .route h3{margin:0 0 4px;font-family:'Playfair Display',serif;font-weight:600;font-size:19px;color:var(--cream);}
+  .route p{margin:0;font-size:15px;opacity:.85;line-height:1.45;}
+  .route-head{display:flex;align-items:baseline;gap:12px;margin:0 0 6px;}
+  .route-head .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9A7F4E;font-weight:600;}
+  .prompt{background:#fff;border:1px solid var(--gold);border-radius:10px;padding:16px 18px;margin:12px 0 16px;font-size:16px;line-height:1.55;color:var(--graphite);}
+  .prompt .lbl{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe);margin-bottom:6px;font-weight:500;}
+  .callout{border-left:3px solid var(--gold);padding:4px 0 4px 16px;margin:16px 0;font-family:'Playfair Display',serif;font-style:italic;font-size:19px;color:var(--bordeaux);line-height:1.45;}
+  .groups{display:grid;gap:10px;margin:8px 0 16px;}
+  .grp{background:#fff;border:1px solid rgba(201,169,110,.55);border-radius:10px;padding:14px 16px;}
+  .grp h4{margin:0 0 6px;font-family:'Playfair Display',serif;font-style:italic;font-weight:600;font-size:18px;color:var(--bordeaux);}
+  .grp p{margin:0;font-size:15px;line-height:1.5;}
+  .grp code{font-size:.85em;}
+  .proof-h{font-family:'Playfair Display',serif;font-weight:600;font-size:21px;color:var(--wine);margin:32px 0 10px;text-wrap:balance;}
+  .proof-narrow{max-width:420px;margin-left:auto;margin-right:auto;}
+</style>
+<body>
+<div class="cover">
+  <img src="assets/cover.jpg" alt="Катерина Арта" loading="eager">
+  <div class="cover-caption">Markitdown</div>
+</div>
+<div class="wrap">
+  <header class="hero">
+    <h1>Как перестать сжигать токены на документах</h1>
+    <p class="subtitle">Бесплатный инструмент от Microsoft, который превращает PDF, Word и Excel в чистый текст для нейросети. Почему документ съедает лимит ещё до первого вопроса, сколько на самом деле экономит Markitdown и как подключить его к Claude за пять минут</p>
+    <p class="byline">Катерина Арта · @katerinarta_ · октябрь 2026</p>
+  </header>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Куда уходят токены</h2>
+    <p class="lead">Когда ты кидаешь в нейросеть PDF, она читает его дважды: вытаскивает текст и вдобавок смотрит на каждую страницу как на картинку. Платишь ты за оба прочтения, даже если в документе один текст без единого графика</p>
+    <div class="stat-row">
+      <div class="stat"><span class="num">1,5-3 тыс.</span><span class="label">токенов на одну страницу PDF только за текст. Картинка страницы считается сверху</span></div>
+      <div class="stat"><span class="num">в 7 раз</span><span class="label">больше токенов: три страницы PDF целиком (около 7 000) против того же текста (около 1 000)</span></div>
+    </div>
+    <p>Первая цифра из документации Anthropic для Claude. Вторая из замера на Amazon Bedrock: разница в семь раз, и вся она приходится на картинки страниц. Документ на 20-30 страниц съедает десятки тысяч токенов ещё до первого вопроса. Лимит подписки кончается быстрее, а длинный документ вытесняет из памяти чата всё, о чём вы говорили раньше</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Что такое Markitdown</h2>
+    <p>Это бесплатная программа от Microsoft с открытым кодом. Она берёт файл и превращает его в Markdown: обычный текст, где заголовки, списки и таблицы сохранены простыми значками. Нейросети этот формат понимают лучше всего, а картинок страниц в нём нет, поэтому токенов уходит в разы меньше</p>
+    <ul class="does">
+      <li><b>Документы</b>PDF, Word, PowerPoint, Excel, EPUB</li>
+      <li><b>Веб и данные</b>HTML, CSV, JSON, XML, ZIP-архивы</li>
+      <li><b>Медиа</b>картинки, аудио с расшифровкой, ссылки на YouTube</li>
+      <li><b>Бесплатно навсегда</b>лицензия MIT, работает у тебя на компьютере, файлы никуда не отправляет</li>
+    </ul>
+    <figure class="proof-wide"><img src="assets/github.jpg" alt="Страница microsoft/markitdown на GitHub, 192 тысячи звёзд"><figcaption>Markitdown на GitHub: 192 тысячи звёзд, снято 22 октября 2026</figcaption></figure>
+    <figure class="proof-wide"><img src="assets/pdf-vs-md.jpg" alt="PDF на 9 страниц и тот же текст в Markdown"><figcaption>Мой тест: PDF на 9 страниц весил 1,3 МБ, после Markitdown тот же текст занял 13 КБ</figcaption></figure>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Сколько экономит, <i>если честно</i></h2>
+    <p>В роликах обещают «минус 70%». Своей цифры Microsoft не публикует. Независимые замеры дают от половины до 80% экономии, и всё зависит от документа:</p>
+    <ul class="grabli-list">
+      <li><b>Текстовые документы</b> (договоры, отчёты, методички, расшифровки) - экономия самая большая, потому что картинки страниц тут чистый расход</li>
+      <li><b>Документы, где смысл в графиках и схемах</b> - экономия есть, но Markitdown график не опишет. Такой файл лучше отдавать нейросети как есть</li>
+      <li><b>Сканы и фото страниц</b> - текста внутри нет, Markitdown вернёт пустоту. Тут нужен отдельный плагин распознавания markitdown-ocr</li>
+    </ul>
+  </section>
+
+  <hr class="divider">
+
+  <section class="steps">
+    <h2>Как подключить к Claude Code за пять минут</h2>
+    <p>Подключаем через MCP: это способ дать нейросети новый инструмент. Настраивается один раз, дальше Claude сам переводит файл в текст, когда ты просишь его прочитать документ</p>
+    <div class="step">
+      <h3>Поставь uv</h3>
+      <p class="tri"><b>Что это.</b> Маленькая программа, которая сама скачает Python нужной версии и Markitdown. Ставить Python руками не придётся</p>
+      <p class="tri"><b>Mac.</b> В Терминале:</p>
+      <span class="code-line">curl -LsSf https://astral.sh/uv/install.sh | sh</span>
+      <p class="tri"><b>Windows.</b> В PowerShell:</p>
+      <span class="code-line">powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"</span>
+      <p class="tri"><b>Что увидишь.</b> Строку об успешной установке. Закрой терминал и открой заново</p>
+    </div>
+    <div class="step">
+      <h3>Подключи Markitdown одной командой</h3>
+      <p class="tri"><b>Куда вставить.</b> В тот же терминал:</p>
+      <span class="code-line">claude mcp add markitdown -- uvx markitdown-mcp</span>
+      <p class="tri"><b>Что это даёт.</b> Claude Code получает инструмент convert_to_markdown, который превращает любой файл или ссылку в текст</p>
+    </div>
+    <div class="step">
+      <h3>Проверь, что всё работает</h3>
+      <p class="tri"><b>Куда нажать.</b> Запусти Claude Code, напиши в поле чата <code>/mcp</code> и нажми Enter</p>
+      <p class="tri"><b>Что увидишь.</b> В списке подключений markitdown. Первый запуск занимает около минуты: программа скачивает около 80 своих частей. Дальше запускается сразу</p>
+    </div>
+    <div class="step">
+      <h3>Дай документ</h3>
+      <p class="tri"><b>Как просить.</b> Укажи путь к файлу и попроси сначала перевести его в текст:</p>
+      <div class="prompt"><span class="lbl">Пример запроса</span>Переведи в Markdown файл ~/Downloads/отчёт.pdf через markitdown и ответь по нему: какие три вывода главные?</div>
+      <p class="tri"><b>Что это даёт.</b> Claude читает чистый текст вместо картинок страниц и тратит на документ в разы меньше</p>
+    </div>
+    <div class="callout">Неудобно в терминале? Вставь Claude Code просьбу: «Установи uv, если его нет, и подключи MCP-сервер markitdown командой claude mcp add markitdown -- uvx markitdown-mcp. Потом проверь, что он появился в /mcp». Он сделает это сам и попросит разрешения на каждую команду</div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Без MCP и в Claude Desktop</h2>
+    <p><b>Разово, без подключения.</b> После установки uv любой файл переводится в текст одной командой, а готовый .md ты кидаешь в любую нейросеть, хоть в ChatGPT:</p>
+    <span class="code-line">uvx --from 'markitdown[all]' markitdown отчёт.pdf -o отчёт.md</span>
+    <p><b>Claude Desktop.</b> Открой Настройки → Developer → Edit Config и добавь в файл claude_desktop_config.json:</p>
+    <span class="code-line">{"mcpServers": {"markitdown": {"command": "uvx", "args": ["markitdown-mcp"]}}}</span>
+    <p class="note">Если после перезапуска Claude Desktop не видит сервер, замени "uvx" на полный путь к нему. На Mac его покажет команда <code>which uvx</code> в Терминале</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Грабли, о которые спотыкаются</h2>
+    <ul class="grabli-list">
+      <li><b>Сканы.</b> Если PDF - это фото страниц, Markitdown вернёт почти пустой файл. Проверь: если текст в PDF нельзя выделить мышкой, это скан</li>
+      <li><b>Сложные таблицы.</b> Объединённые ячейки и таблицы на разворот иногда разъезжаются. Важные цифры сверяй с оригиналом</li>
+      <li><b>Графики пропадают.</b> Markitdown переносит текст, а не смысл картинок. Отчёт, где главное на диаграммах, лучше отдать нейросети целиком</li>
+      <li><b>Первый запуск долгий.</b> Около минуты на скачивание. Это один раз, не поломка</li>
+      <li><b>Только на своём компьютере.</b> Сам Microsoft предупреждает: сервер Markitdown рассчитан на локальную работу. Не открывай его в сеть и не давай ему файлы из непроверенных источников</li>
+    </ul>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Источники</h2>
+    <div class="altlinks">
+      <ul>
+        <li><a href="https://github.com/microsoft/markitdown" target="_blank" rel="noopener"><code>github.com/microsoft/markitdown</code></a> - официальный репозиторий, форматы, установка, лицензия MIT</li>
+        <li><a href="https://github.com/microsoft/markitdown/tree/main/packages/markitdown-mcp" target="_blank" rel="noopener">markitdown-mcp</a> - MCP-сервер и предупреждение о локальной работе</li>
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/pdf-support" target="_blank" rel="noopener">Документация Claude о PDF</a> - 1 500-3 000 токенов на страницу плюс картинка страницы</li>
+        <li><a href="https://agentsroom.dev/blog/convert-pdf-to-markdown-save-tokens" target="_blank" rel="noopener">AgentsRoom</a> - замер Amazon Bedrock: 3 страницы PDF около 7 000 токенов против 1 000 в виде текста, июнь 2026</li>
+        <li><a href="https://docs.astral.sh/uv/getting-started/installation/" target="_blank" rel="noopener">uv</a> - официальная инструкция по установке</li>
+      </ul>
+      <p class="note">Данные на 22 октября 2026. Команды проверены на Mac</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Сэкономить токены - это гигиена, <i>а не система</i></h2>
+    <p>Я Катерина Арта, продюсер EdTech. Внедряю нейросети в бизнес, контент и продажи. Сама работаю без команды: вместо штата у меня ИИ-помощники, и каждый знает мои правила и продукты</p>
+
+    <div class="stat-block">
+      <span class="stat-num">1.5</span>
+      <span class="stat-text">млн ₽ оборота проектов за год на нейросетях, с нуля, из декрета, без команды</span>
+    </div>
+
+    <h3 class="proof-h">Блог растёт на контент-заводе из ИИ-агентов</h3>
+    <p>Мой блог ведут ИИ-агенты: находят темы, которые уже залетели, пишут сценарии, собирают рилсы с цифровым двойником и выдают материалы по кодовым словам. Я проверяю и принимаю решения</p>
+    <figure class="proof-wide"><img src="assets/panel30.jpg" alt="4,8 млн просмотров за 30 дней"><figcaption>Профессиональная панель: 4,8 млн просмотров за 30 дней</figcaption></figure>
+    <figure class="proof-wide"><img src="assets/insights.jpg" alt="Статистика профиля: просмотры, взаимодействия, новые подписчики"><figcaption>Статистика профиля: 4,3 млн просмотров, 89,4 тыс. взаимодействий, 1 301 новый подписчик</figcaption></figure>
+    <div class="proof-row">
+      <img src="assets/r19.jpg" alt="Рилс">
+      <img src="assets/r1a.jpg" alt="Рилс">
+      <img src="assets/r1b.jpg" alt="Рилс">
+    </div>
+    <p class="proof-cap">Три рилса по миллиону просмотров и больше, без рекламы и без команды</p>
+
+    <h3 class="proof-h">Растут деньги и аудитория клиентов</h3>
+    <p>Ту же систему из нейросетей я собираю для экспертов: контент, автоворонки, боты, сайты и продажи. Дизайнер, монтажёр, таргетолог, копирайтер и менеджер по продажам в проекте не нанимались, их работу закрыли нейросети</p>
+    <div class="stat-row">
+      <div class="stat"><span class="num">1,2 млн ₽</span><span class="label">оборот проекта клиента за полгода</span></div>
+      <div class="stat"><span class="num">45 → 75 тыс.</span><span class="label">выросла аудитория клиента</span></div>
+    </div>
+
+    <div class="callout">Я понимаю, как привлечь внимание и превратить его в деньги. И делаю это с помощью нейросетей</div>
+
+    <p>Подключить Markitdown - пять минут. Понять, какую работу в твоём бизнесе отдать нейросетям, чтобы лимит уходил на результат, а не на перечитывание документов, - это уже работа над твоим бизнесом</p>
+    <p>На консультации разбираю твои продукты и неделю и собираем план: какие задачи забирают нейросети и с какой начать завтра</p>
+
+    <p class="say-word">Напиши слово</p>
+    <div class="pill-outline">КОНСУЛЬТАЦИЯ</div>
+
+    <p class="say-word">мне в личку Telegram</p>
+    <a class="pill-gold" href="https://t.me/katerinarta" target="_blank" rel="noopener">Написать</a>
+
+    <p class="eyebrow-label">Мои каналы и страницы</p>
+    <div class="channel-grid">
+      <a class="pill-dark" href="https://t.me/+CNtsc57EWnQzZTk6" target="_blank" rel="noopener">Канал в Telegram</a>
+      <a class="pill-dark" href="https://max.ru/join/7j3M_9BFNWEfFMFmVd6DDz227jGaAVLpVvy3mObA93o" target="_blank" rel="noopener">Канал в MAX</a>
+      <a class="pill-dark" href="https://instagram.com/katerinarta_" target="_blank" rel="noopener">Instagram</a>
+      <a class="pill-dark" href="https://vk.ru/katerinarta" target="_blank" rel="noopener">ВКонтакте</a>
+      <a class="pill-dark" href="https://youtube.com/@katerinarta" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>@katerinarta_ · Как перестать сжигать токены на документах</footer>
+
+</body>
+</html>
