@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude находит клиентов, пока ты спишь: карта, сайт-превью, форма - Катерина Арта</title>
+<meta name="description" content="Вся схема, как Claude сам находит клиентов: проходит по картам, находит бизнес с устаревшим сайтом, собирает каждому новый сайт на живой ссылке-превью и отдаёт через их форму. Пошагово, со скринами, от Катерины Арта.">
+<style>
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-VariableFont_wght.ttf");font-weight:100 900;font-style:normal}
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf");font-weight:100 900;font-style:italic}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Light.otf");font-weight:300}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Regular.otf");font-weight:400}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Medium.otf");font-weight:500}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-SemiBold.otf");font-weight:600}
+  :root{
+    --cream:#F2E8D9;
+    --wine:#570E1C;
+    --bordeaux:#82091B;
+    --soft-bordeaux:#8A3542;
+    --gold:#C9A96E;
+    --taupe:#B8A995;
+    --graphite:#20201E;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--wine);
+    font-family:'Inter',-apple-system,sans-serif;
+    font-weight:300;
+    line-height:1.65;
+    font-size:18px;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px;}
+  .cover{position:relative;width:100%;overflow:hidden;background:var(--graphite);}
+  .cover img{display:block;width:100%;height:auto;max-height:78vh;object-fit:cover;object-position:center 22%;}
+  .cover-caption{
+    position:absolute;left:24px;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--cream);
+    font-size:14px;
+    letter-spacing:.04em;
+    opacity:.85;
+  }
+  header.hero{padding:40px 0 8px;}
+  h1{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:36px;
+    line-height:1.2;
+    margin:0 0 14px;
+    color:var(--wine);
+  }
+  .subtitle{
+    font-size:18px;
+    color:var(--soft-bordeaux);
+    margin:0 0 6px;
+  }
+  .byline{
+    font-size:14px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin:0 0 32px;
+  }
+  section{padding:8px 0 32px;}
+  h2{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:24px;
+    color:var(--bordeaux);
+    margin:0 0 16px;
+    padding-top:8px;
+  }
+  p{margin:0 0 16px;}
+  .divider{border:none;border-top:1px solid var(--taupe);opacity:.5;margin:0;}
+  .note{
+    font-size:15px;
+    color:var(--soft-bordeaux);
+    font-style:italic;
+    margin-top:10px;
+  }
+  .step{
+    counter-increment:step;
+    position:relative;
+    padding:24px 0 24px 56px;
+    border-bottom:1px solid rgba(87,14,28,.12);
+  }
+  .step:last-of-type{border-bottom:none;}
+  .step::before{
+    content:counter(step);
+    position:absolute;
+    left:0;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:34px;
+    color:var(--gold);
+    line-height:1;
+  }
+  .steps{counter-reset:step;}
+  .step h3{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:20px;
+    margin:0 0 12px;
+    color:var(--wine);
+  }
+  .tri{margin:0 0 10px;}
+  .tri b{color:var(--bordeaux);}
+  code{
+    background:rgba(87,14,28,.08);
+    padding:2px 7px;
+    border-radius:4px;
+    font-size:.92em;
+    color:var(--wine);
+  }
+  .grabli-list{margin:0;padding-left:22px;}
+  .grabli-list li{margin-bottom:12px;}
+  .altlinks{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 22px;
+    margin-top:8px;
+  }
+  .altlinks a{color:var(--bordeaux);}
+  .altlinks ul{margin:8px 0 0;padding-left:20px;}
+  a{color:var(--bordeaux);}
+  .stat-block{
+    display:flex;align-items:baseline;gap:16px;
+    padding:22px 0;margin:24px 0;
+    border-top:1px solid var(--taupe);
+    border-bottom:1px solid var(--taupe);
+  }
+  .stat-num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:48px;
+    line-height:1;
+    flex:0 0 auto;
+  }
+  .stat-text{font-size:16px;color:var(--wine);line-height:1.4;}
+  .say-word{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--soft-bordeaux);
+    margin:24px 0 10px;
+  }
+  .pill-outline{
+    display:inline-block;
+    border:2px solid var(--gold);
+    border-radius:999px;
+    padding:14px 32px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:26px;
+    color:var(--bordeaux);
+    letter-spacing:.03em;
+    margin-bottom:8px;
+  }
+  .pill-gold{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--graphite);
+    border-radius:999px;
+    padding:15px 34px;
+    font-weight:600;
+    font-size:16px;
+    text-decoration:none;
+    border:none;
+  }
+  .eyebrow-label{
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--taupe);margin:32px 0 12px;
+  }
+  .channel-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  }
+  .pill-dark{
+    display:flex;align-items:center;justify-content:center;
+    background:var(--wine);color:var(--cream);
+    border-radius:999px;
+    padding:15px 12px;
+    font-size:15px;font-weight:500;
+    text-decoration:none;text-align:center;
+  }
+  @media (max-width:480px){
+    .channel-grid{grid-template-columns:1fr;}
+    .pill-outline{font-size:21px;padding:12px 24px;display:block;text-align:center;}
+  }
+  footer{
+    text-align:center;
+    padding:32px 0 48px;
+    color:var(--taupe);
+    font-size:13px;
+  }
+  @media (max-width:480px){
+    body{font-size:16.5px;}
+    h1{font-size:29px;}
+    .cover img{max-height:62vh;}
+    .step{padding-left:44px;}
+    .step::before{font-size:28px;}
+  }
+
+  .lead{font-size:20px;color:var(--wine);font-weight:400;}
+  .does{list-style:none;margin:8px 0 24px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .does li{background:#fff;border:1px solid rgba(201,169,110,.55);border-radius:10px;padding:14px 16px;font-size:16px;line-height:1.4;}
+  .does li b{display:block;font-family:'Playfair Display',serif;font-style:italic;font-weight:600;color:var(--bordeaux);font-size:18px;margin-bottom:2px;}
+  @media (max-width:520px){.does{grid-template-columns:1fr;}}
+  .routes{display:grid;gap:12px;margin:8px 0 8px;}
+  .route{display:flex;gap:16px;align-items:flex-start;background:var(--wine);color:var(--cream);border-radius:12px;padding:18px 20px;text-decoration:none;}
+  .route .rn{font-family:'Playfair Display',serif;font-style:italic;font-size:34px;line-height:1;color:var(--gold);flex:0 0 28px;}
+  .route h3{margin:0 0 4px;font-family:'Playfair Display',serif;font-weight:600;font-size:19px;color:var(--cream);}
+  .route p{margin:0;font-size:15px;opacity:.85;line-height:1.45;}
+  .route-head{display:flex;align-items:baseline;gap:12px;margin:0 0 6px;}
+  .route-head .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;}
+  .prompt{background:#fff;border:1px solid var(--gold);border-radius:10px;padding:16px 18px;margin:12px 0 16px;font-size:16px;line-height:1.55;color:var(--graphite);}
+  .prompt .lbl{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe);margin-bottom:6px;font-weight:500;}
+  .tool{background:#fff;border:1px solid rgba(201,169,110,.55);border-radius:10px;padding:16px 18px;margin:12px 0 8px;}
+  .tool .tn{font-family:'Playfair Display',serif;font-style:italic;font-weight:600;color:var(--bordeaux);font-size:18px;margin:0 0 4px;}
+  .tool .td{font-size:15px;margin:0 0 8px;line-height:1.5;}
+  .tool .tl{font-size:14px;margin:0;color:var(--soft-bordeaux);}
+  .tool .tl code{word-break:break-all;}
+  .callout{border-left:3px solid var(--gold);padding:4px 0 4px 16px;margin:16px 0;font-family:'Playfair Display',serif;font-style:italic;font-size:19px;color:var(--bordeaux);line-height:1.45;}
+
+  /* блок пруфов (шаблон 15.10.2026) */
+  .pf-h{font-family:'Playfair Display',serif;font-weight:600;font-size:21px;line-height:1.3;color:var(--wine);margin:32px 0 10px;text-wrap:balance;}
+  .pf-p{margin:0 0 16px;}
+  .pf-fig{margin:0 0 12px;border:1px solid var(--gold);border-radius:10px;overflow:hidden;background:#fff;}
+  .pf-fig img{width:100%;height:auto;display:block;}
+  .pf-fig figcaption{font-family:'Playfair Display',serif;font-style:italic;font-size:12.5px;color:var(--taupe);text-align:center;padding:6px;}
+  .pf-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+  .pf-row img{border:1px solid var(--gold);border-radius:8px;width:100%;display:block;}
+  @media (max-width:520px){.pf-row{grid-template-columns:1fr;}}
+  .pf-cap{font-family:'Playfair Display',serif;font-style:italic;font-size:15px;color:var(--bordeaux);margin:0 0 8px;}
+  .pf-stats{display:flex;gap:16px;flex-wrap:wrap;margin:8px 0 8px;}
+  .pf-stat{background:var(--taupe);border-radius:6px;padding:18px 20px;flex:1;min-width:140px;}
+  .pf-stat b{display:block;font-family:'Playfair Display',serif;font-style:italic;font-weight:400;color:var(--wine);font-size:28px;line-height:1.1;margin-bottom:6px;}
+  .pf-stat span{font-size:14px;color:var(--wine);opacity:.85;}
+  .pf-callout{border-left:3px solid var(--gold);padding:4px 0 4px 16px;margin:24px 0;font-family:'Playfair Display',serif;font-style:italic;font-size:19px;color:var(--bordeaux);line-height:1.45;}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <img src="assets/cover.jpg" alt="Катерина Арта" loading="eager">
+  <div class="cover-caption">клиенты на автопилоте</div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Claude находит клиентов, пока ты спишь. Вся схема: от карты до готового сайта-превью в руках клиента</h1>
+    <p class="subtitle">Нейросеть проходит по картам, находит бизнес с сайтом будто из 2008 года, собирает каждому новый сайт на живой ссылке и отдаёт этот редизайн через их же форму. Три шага, проверенные инструменты, со скринами и ссылками</p>
+    <p class="byline">Катерина Арта · @katerinarta_ · октябрь 2026</p>
+  </header>
+  <hr class="divider">
+
+  <section>
+    <h2>Что нейросеть делает за тебя</h2>
+    <p class="lead">Холодная рассылка умерла не потому, что перестала работать, а потому, что все пишут одинаковые письма, которые никто не открывает. Эта схема переворачивает логику: человек получает не письмо-просьбу, а готовый результат - свой собственный новый сайт на живой ссылке</p>
+    <ul class="does">
+      <li><b>Находит</b>проходит по картам и собирает бизнесы с устаревшими сайтами или без сайта вовсе</li>
+      <li><b>Собирает</b>каждому делает новый сайт и выкладывает на живую ссылку-превью</li>
+      <li><b>Отдаёт</b>отправляет редизайн через форму на их же сайте или письмом</li>
+      <li><b>Цепляет</b>первое, что человек видит - его собственный готовый сайт, а не продажа</li>
+    </ul>
+    <p>Весь цикл собирается из открытых инструментов, многие из них бесплатны. Ниже - три шага схемы: найти, собрать превью, отдать. Каждый с проверенными ссылками и готовым промптом для Claude</p>
+    <div class="callout">Ты продаёшь не обещание, а результат. Человек открывает ссылку и уже держит в руках то, за что обычно платят вперёд</div>
+  </section>
+  <hr class="divider">
+
+  <section>
+    <h2>Три шага схемы</h2>
+    <div class="routes">
+      <a class="route" href="#naiti"><span class="rn">1</span><div><h3>Найти бизнес с устаревшим сайтом</h3><p>Claude проходит по картам и собирает список: кто, где, какой сайт, куда писать</p></div></a>
+      <a class="route" href="#sobrat"><span class="rn">2</span><div><h3>Собрать сайт-превью на живой ссылке</h3><p>Нейросеть делает новый сайт и выкладывает его на бесплатную живую ссылку</p></div></a>
+      <a class="route" href="#otdat"><span class="rn">3</span><div><h3>Отдать превью в руки клиента</h3><p>Редизайн уходит через форму на их сайте или письмом из твоего ящика</p></div></a>
+    </div>
+  </section>
+  <hr class="divider">
+
+  <section class="steps" id="naiti">
+    <div class="route-head"><span class="tag">Шаг 1</span></div>
+    <h2>Найти бизнес с устаревшим сайтом</h2>
+    <p>Сначала нужен список: местные бизнесы, у которых сайт старый или его нет совсем. Claude проходит по картам, проверяет каждый бизнес на наличие сайта и собирает таблицу с контактами. Два пути - бесплатный своими руками и готовый набор навыков</p>
+
+    <div class="step">
+      <h3>Бесплатно: свой поиск на Google Places</h3>
+      <p class="tri"><b>Куда нажать.</b> В Google Cloud включи Places API (New) и получи свой ключ. У Google есть бесплатные кредиты на старте: десятки поисков в день в лимит не упираются</p>
+      <p class="tri"><b>Что увидишь.</b> По запросу «город + тип бизнеса» Claude собирает список: кто, адрес, телефон, есть ли сайт, ссылка на карточку. Готовый разбор такого поиска собрал Dylan Haugen - он за 20 минут сделал бесплатный поиск бизнесов без сайта на Claude Code</p>
+      <p class="tri"><b>Что это даёт.</b> Чистый список прогретых адресов под рассылку - без ручного прочёсывания карт</p>
+      <div class="prompt"><span class="lbl">Промпт, скопируй и вставь в Claude Code</span>Собери через Google Places API (New) список бизнесов типа «стоматология» в городе N. Для каждого проверь, есть ли сайт, и оставь только тех, у кого сайта нет или он устаревший. Выгрузи таблицу: название, адрес, телефон, ссылка на карточку, форма обратной связи</div>
+    </div>
+
+    <div class="step">
+      <h3>Готово: набор навыков Google Maps для Claude</h3>
+      <p class="tri"><b>Куда нажать.</b> Поставь набор открытых навыков Claude Code для поиска по картам - внутри уже готовые скиллы: поиск бизнесов, сбор почт, анализ конкурентов, холодные письма</p>
+      <div class="tool">
+        <p class="tn">google-maps-agent-skills</p>
+        <p class="td">8 навыков Claude Code для лидогенерации по картам: local-business-finder, business-email-extractor, competitor-analysis-local, cold-email-local-business и другие. Бесплатный ключ на gmapsscraper.io, 10 кредитов при регистрации</p>
+        <p class="tl"><a href="https://github.com/gmapsscraper/google-maps-agent-skills" target="_blank" rel="noopener"><code>github.com/gmapsscraper/google-maps-agent-skills</code></a> · 132 звезды · MIT-0</p>
+      </div>
+      <p class="tri"><b>Что это даёт.</b> Не нужно писать поиск с нуля - ставишь набор и сразу просишь Claude собрать лидов</p>
+    </div>
+  </section>
+  <hr class="divider">
+
+  <section class="steps" id="sobrat">
+    <div class="route-head"><span class="tag">Шаг 2</span></div>
+    <h2>Собрать сайт-превью на живой ссылке</h2>
+    <p>Теперь на каждый бизнес из списка Claude собирает новый сайт и выкладывает его на живую ссылку. Не макет в картинке, а настоящий сайт, который открывается в браузере. Снова два пути - своими руками через Claude и готовый сервис</p>
+
+    <div class="step">
+      <h3>Своими руками: Claude собирает сайт и кладёт на живую ссылку</h3>
+      <p class="tri"><b>Куда нажать.</b> Дай Claude адрес бизнеса, он разберёт старый сайт, соберёт новый на чистом коде и задеплоит на Vercel - это бесплатный хостинг, который сразу выдаёт живую ссылку</p>
+      <p class="tri"><b>Что увидишь.</b> Ссылку вида <code>biznes-redesign.vercel.app</code>, которая открывается у кого угодно в браузере. Это отдельный проект, настоящий сайт клиента ты не трогаешь</p>
+      <p class="tri"><b>Что это даёт.</b> У тебя на руках готовый результат под конкретный бизнес, собранный за минуты, а не за неделю</p>
+      <div class="prompt"><span class="lbl">Промпт, скопируй и вставь в Claude Code</span>Посмотри сайт этого бизнеса по ссылке. Собери современную версию главной страницы: тот же смысл и контакты, но аккуратная типографика, адаптив под телефон, понятная кнопка заявки. Задеплой на Vercel и дай мне живую ссылку на превью</div>
+    </div>
+
+    <div class="step">
+      <h3>Готово: сервис превью редизайна</h3>
+      <p class="tri"><b>Куда нажать.</b> Вводишь URL бизнеса - сервис собирает макет редизайна с одним конкретным улучшением и даёт живую ссылку, которую можно отправить клиенту</p>
+      <div class="tool">
+        <p class="tn">revamp.dev</p>
+        <p class="td">Превью редизайна под холодную рассылку: живая ссылка в браузере, твой проект отдельно от сайта клиента. Подход честный - сервис сам отговаривает выдумывать проблемы и завышать обещания. Агентские планы платные, базовое превью доступно с формы на главной</p>
+        <p class="tl"><a href="https://revamp.dev/website-redesign-cold-outreach/" target="_blank" rel="noopener"><code>revamp.dev</code></a></p>
+      </div>
+      <p class="tri"><b>Что это даёт.</b> Если не хочешь собирать деплой сам - сервис делает превью и живую ссылку за тебя</p>
+    </div>
+  </section>
+  <hr class="divider">
+
+  <section class="steps" id="otdat">
+    <div class="route-head"><span class="tag">Шаг 3</span></div>
+    <h2>Отдать превью в руки клиента</h2>
+    <p>Последний шаг - доставить готовый сайт человеку так, чтобы он его увидел. Не «посмотрите наше предложение», а «вот ваш новый сайт, ссылка внутри». Два канала: форма на их же сайте и письмо из твоего ящика</p>
+
+    <div class="step">
+      <h3>Через форму на их сайте</h3>
+      <p class="tri"><b>Куда нажать.</b> У большинства бизнесов на сайте есть форма обратной связи. Claude берёт из списка шага 1 эти формы и отправляет короткое сообщение со ссылкой на превью</p>
+      <p class="tri"><b>Что увидишь.</b> Сообщение приходит туда, куда владелец реально смотрит - в свою же заявку, а не в спам-папку почты</p>
+      <p class="tri"><b>Что это даёт.</b> Первое, что человек открывает, - его собственный новый сайт. За счёт этого отклик резко растёт</p>
+    </div>
+
+    <div class="step">
+      <h3>Письмом из своего ящика</h3>
+      <p class="tri"><b>Куда нажать.</b> Поставь открытый набор для рассылки - он пишет персональное письмо под каждый бизнес и отправляет из твоего ящика</p>
+      <div class="tool">
+        <p class="tn">local-lead-outreach</p>
+        <p class="td">Находит местные бизнесы, пишет персональные холодные письма и отправляет из твоего ящика. Работает в Claude Code на твоей подписке - отдельный LLM-ключ не нужен, запускается командой <code>/outreach</code>. Для поиска нужен ключ SerpAPI</p>
+        <p class="tl"><a href="https://github.com/awaispasha7/local-lead-outreach" target="_blank" rel="noopener"><code>github.com/awaispasha7/local-lead-outreach</code></a> · MIT</p>
+      </div>
+      <p class="tri"><b>Что это даёт.</b> Письмо не шаблон, а под конкретный бизнес со ссылкой на его готовый сайт - и уходит от твоего имени, не от робота</p>
+    </div>
+  </section>
+  <hr class="divider">
+
+  <section>
+    <h2>Грабли, о которые спотыкаются</h2>
+    <ol class="grabli-list">
+      <li><b>Одно реальное улучшение, а не выдуманная беда.</b> Не пиши «у вас всё плохо и вы теряете деньги». Покажи один понятный плюс нового сайта - так советует и сам сервис превью</li>
+      <li><b>Форма - не повод спамить.</b> Отправляй редко и по делу, с живой ссылкой и уважением. Массовая рассылка одинаковых сообщений убивает схему и аккаунт</li>
+      <li><b>Проверь превью перед отправкой.</b> Claude собирает быстро, но контакты и смысл проверь глазами: ошибка в телефоне клиента = минус доверие</li>
+      <li><b>Бесплатные лимиты есть у всех API.</b> У Google Places и SerpAPI свои пороги. Для старта хватает, но следи за расходом кредитов</li>
+      <li><b>Устаревший сайт - это гипотеза.</b> Бизнес мог не указать свежий сайт в карточке карт. Перед превью убедись, что старый сайт действительно старый</li>
+    </ol>
+  </section>
+  <hr class="divider">
+
+  <section>
+    <h2>Где смотреть подробности</h2>
+    <div class="altlinks">
+      <ul>
+        <li><a href="https://github.com/gmapsscraper/google-maps-agent-skills" target="_blank" rel="noopener"><code>github.com/gmapsscraper/google-maps-agent-skills</code></a> - 8 навыков Claude Code для поиска бизнесов по картам, 132 звезды, MIT-0</li>
+        <li><a href="https://revamp.dev/website-redesign-cold-outreach/" target="_blank" rel="noopener"><code>revamp.dev/website-redesign-cold-outreach</code></a> - превью редизайна на живой ссылке под холодную рассылку</li>
+        <li><a href="https://github.com/awaispasha7/local-lead-outreach" target="_blank" rel="noopener"><code>github.com/awaispasha7/local-lead-outreach</code></a> - поиск бизнесов и письма из своего ящика в Claude Code, MIT</li>
+        <li><a href="https://developers.google.com/maps/documentation/places/web-service" target="_blank" rel="noopener"><code>Google Places API (New)</code></a> - официальная документация поиска бизнесов по картам</li>
+        <li><a href="https://vercel.com" target="_blank" rel="noopener"><code>vercel.com</code></a> - бесплатный хостинг, живая ссылка на собранный сайт-превью</li>
+      </ul>
+    </div>
+  </section><hr class="divider">
+
+  <section>
+    <h2>Инструмент находит клиента, а систему строишь ты</h2>
+    <p>Я одна, в декрете, без команды собрала этот завод сама. Поиск клиентов нейросетью - один кирпич. Что продавать, кому, как превратить готовое превью в заявку и как соединить поиск, сайты и переписку в одну машину, за тебя никто не решит</p>
+    <div class="stat-block">
+      <span class="stat-num">1.5</span>
+      <span class="stat-text">млн ₽ оборота проектов за год на нейросетях, с нуля, из декрета, без команды</span>
+    </div>
+
+    <h3 class="pf-h">Блог растёт на контент-заводе из ИИ-агентов</h3>
+    <p class="pf-p">Мой блог ведут ИИ-агенты: находят темы, которые уже залетели, пишут сценарии, собирают рилсы с цифровым двойником и выдают материалы по кодовым словам. Я проверяю и принимаю решения</p>
+    <figure class="pf-fig"><img src="assets/panel30.jpg" alt="4,8 млн просмотров за 30 дней"><figcaption>Профессиональная панель: 4,8 млн просмотров за 30 дней</figcaption></figure>
+    <figure class="pf-fig"><img src="assets/insights.jpg" alt="Статистика профиля: просмотры, взаимодействия, новые подписчики"><figcaption>Статистика профиля: 4,3 млн просмотров, 89,4 тыс. взаимодействий, 1 301 новый подписчик</figcaption></figure>
+    <div class="pf-row">
+      <img src="assets/r19.jpg" alt="Рилс">
+      <img src="assets/r1a.jpg" alt="Рилс">
+      <img src="assets/r1b.jpg" alt="Рилс">
+    </div>
+    <p class="pf-cap">Три рилса по миллиону просмотров и больше, без рекламы и без команды</p>
+
+    <h3 class="pf-h">Растут деньги и аудитория клиентов</h3>
+    <p class="pf-p">Ту же систему из нейросетей я собираю для экспертов: контент, автоворонки, боты, сайты и продажи. Дизайнер, монтажёр, таргетолог, копирайтер и менеджер по продажам в проекте не нанимались, их работу закрыли нейросети</p>
+    <div class="pf-stats">
+      <div class="pf-stat"><b>1,2 млн ₽</b><span>оборот проекта клиента за полгода</span></div>
+      <div class="pf-stat"><b>45 → 75 тыс.</b><span>выросла аудитория клиента</span></div>
+    </div>
+
+    <div class="pf-callout">Я понимаю, как привлечь внимание и превратить его в деньги. И делаю это с помощью нейросетей</div>
+
+    <p>Поставить поиск клиентов - вечер работы. Собрать систему, которая приводит клиентов под то, что ты продаёшь, и доводит их до оплаты, - другая задача, и начинается она с разбора, кого и чем ты закрываешь</p>
+    <p>На консультации разбираю, как выстроить такую систему под твой проект</p>
+
+    <p class="say-word">Напиши слово</p>
+    <div class="pill-outline">КОНСУЛЬТАЦИЯ</div>
+
+    <p class="say-word">мне в личку Telegram</p>
+    <a class="pill-gold" href="https://t.me/katerinarta" target="_blank" rel="noopener">Написать</a>
+
+    <p class="eyebrow-label">Мои каналы и страницы</p>
+    <div class="channel-grid">
+      <a class="pill-dark" href="https://t.me/+CNtsc57EWnQzZTk6" target="_blank" rel="noopener">Канал в Telegram</a>
+      <a class="pill-dark" href="https://max.ru/join/7j3M_9BFNWEfFMFmVd6DDz227jGaAVLpVvy3mObA93o" target="_blank" rel="noopener">Канал в MAX</a>
+      <a class="pill-dark" href="https://instagram.com/katerinarta_" target="_blank" rel="noopener">Instagram</a>
+      <a class="pill-dark" href="https://vk.ru/katerinarta" target="_blank" rel="noopener">ВКонтакте</a>
+      <a class="pill-dark" href="https://youtube.com/@katerinarta" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>@katerinarta_ · Claude находит клиентов, пока ты спишь</footer>
+
+</body>
+</html>
