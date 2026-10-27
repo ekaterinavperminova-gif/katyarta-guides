@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<!-- Yandex.Metrika counter -->
+<script>
+(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js?id=113709011","ym");
+ym(113709011,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:false});
+document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(!a)return;var h=a.href,g=null;if(/^https?:\/\/(t|telegram)\.me\//.test(h))g="click_telegram";else if(/^https?:\/\/(wa\.me|api\.whatsapp\.com|chat\.whatsapp\.com)\//.test(h))g="click_whatsapp";if(g&&window.ym)ym(113709011,"reachGoal",g)},true);
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/113709011" style="position:absolute;left:-9999px" alt=""></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D-панель бизнеса на Claude и Three.js: как собрать за три шага - Катерина Арта</title>
+<meta name="description" content="Как собрать интерактивную 3D-панель своего бизнеса на Claude: подключить данные через Shopify или Square, попросить трёхмерный мир и собрать его на Three.js. Пошагово, со скринами, от Катерины Арта.">
+<style>
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-VariableFont_wght.ttf");font-weight:100 900;font-style:normal}
+  @font-face{font-family:"Playfair Display";src:url("assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf");font-weight:100 900;font-style:italic}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Light.otf");font-weight:300}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Regular.otf");font-weight:400}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-Medium.otf");font-weight:500}
+  @font-face{font-family:"Inter";src:url("assets/fonts/Inter-SemiBold.otf");font-weight:600}
+  :root{
+    --cream:#F2E8D9;
+    --wine:#570E1C;
+    --bordeaux:#82091B;
+    --soft-bordeaux:#8A3542;
+    --gold:#C9A96E;
+    --taupe:#B8A995;
+    --graphite:#20201E;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--wine);
+    font-family:'Inter',-apple-system,sans-serif;
+    font-weight:300;
+    line-height:1.65;
+    font-size:18px;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px;}
+  .cover{position:relative;width:100%;overflow:hidden;background:var(--graphite);}
+  .cover img{display:block;width:100%;height:auto;max-height:78vh;object-fit:cover;object-position:center 22%;}
+  .cover-caption{
+    position:absolute;left:24px;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--cream);
+    font-size:14px;
+    letter-spacing:.04em;
+    opacity:.85;
+  }
+  header.hero{padding:40px 0 8px;}
+  h1{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:36px;
+    line-height:1.2;
+    margin:0 0 14px;
+    color:var(--wine);
+  }
+  .subtitle{
+    font-size:18px;
+    color:var(--soft-bordeaux);
+    margin:0 0 6px;
+  }
+  .byline{
+    font-size:14px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin:0 0 32px;
+  }
+  section{padding:8px 0 32px;}
+  h2{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:24px;
+    color:var(--bordeaux);
+    margin:0 0 16px;
+    padding-top:8px;
+  }
+  p{margin:0 0 16px;}
+  .divider{border:none;border-top:1px solid var(--taupe);opacity:.5;margin:0;}
+  .note{
+    font-size:15px;
+    color:var(--soft-bordeaux);
+    font-style:italic;
+    margin-top:10px;
+  }
+  .step{
+    counter-increment:step;
+    position:relative;
+    padding:24px 0 24px 56px;
+    border-bottom:1px solid rgba(87,14,28,.12);
+  }
+  .step:last-of-type{border-bottom:none;}
+  .step::before{
+    content:counter(step);
+    position:absolute;
+    left:0;top:24px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:34px;
+    color:var(--gold);
+    line-height:1;
+  }
+  .steps{counter-reset:step;}
+  .step h3{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:20px;
+    margin:0 0 12px;
+    color:var(--wine);
+  }
+  .tri{margin:0 0 10px;}
+  .tri b{color:var(--bordeaux);}
+  code{
+    background:rgba(87,14,28,.08);
+    padding:2px 7px;
+    border-radius:4px;
+    font-size:.92em;
+    color:var(--wine);
+  }
+  .grabli-list{margin:0;padding-left:22px;}
+  .grabli-list li{margin-bottom:12px;}
+  .altlinks{
+    background:var(--taupe);
+    border-radius:6px;
+    padding:18px 22px;
+    margin-top:8px;
+  }
+  .altlinks a{color:var(--bordeaux);}
+  .altlinks ul{margin:8px 0 0;padding-left:20px;}
+  a{color:var(--bordeaux);}
+  .stat-block{
+    display:flex;align-items:baseline;gap:16px;
+    padding:22px 0;margin:24px 0;
+    border-top:1px solid var(--taupe);
+    border-bottom:1px solid var(--taupe);
+  }
+  .stat-num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:48px;
+    line-height:1;
+    flex:0 0 auto;
+  }
+  .stat-text{font-size:16px;color:var(--wine);line-height:1.4;}
+  .proof-wide{margin:0 0 12px;border:1px solid var(--gold);border-radius:10px;overflow:hidden;background:#fff;}
+  .proof-wide img{width:100%;height:auto;display:block;}
+  .proof-wide figcaption{font-family:"Playfair Display",serif;font-style:italic;font-size:12.5px;color:var(--taupe);text-align:center;padding:6px;}
+  .say-word{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--soft-bordeaux);
+    margin:24px 0 10px;
+  }
+  .pill-outline{
+    display:inline-block;
+    border:2px solid var(--gold);
+    border-radius:999px;
+    padding:14px 32px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:26px;
+    color:var(--bordeaux);
+    letter-spacing:.03em;
+    margin-bottom:8px;
+  }
+  .pill-gold{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--graphite);
+    border-radius:999px;
+    padding:15px 34px;
+    font-weight:600;
+    font-size:16px;
+    text-decoration:none;
+    border:none;
+  }
+  .eyebrow-label{
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--taupe);margin:32px 0 12px;
+  }
+  .channel-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  }
+  .pill-dark{
+    display:flex;align-items:center;justify-content:center;
+    background:var(--wine);color:var(--cream);
+    border-radius:999px;
+    padding:15px 12px;
+    font-size:15px;font-weight:500;
+    text-decoration:none;text-align:center;
+  }
+  @media (max-width:480px){
+    .channel-grid{grid-template-columns:1fr;}
+    .pill-outline{font-size:21px;padding:12px 24px;display:block;text-align:center;}
+  }
+  footer{
+    text-align:center;
+    padding:32px 0 48px;
+    color:var(--taupe);
+    font-size:13px;
+  }
+  @media (max-width:480px){
+    body{font-size:16.5px;}
+    h1{font-size:29px;}
+    .cover img{max-height:62vh;}
+    .step{padding-left:44px;}
+    .step::before{font-size:28px;}
+  }
+
+  .lead{font-size:20px;color:var(--wine);font-weight:400;}
+  .does{list-style:none;margin:8px 0 24px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .does li{background:#fff;border:1px solid rgba(201,169,110,.55);border-radius:10px;padding:14px 16px;font-size:16px;line-height:1.4;}
+  .does li b{display:block;font-family:'Playfair Display',serif;font-style:italic;font-weight:600;color:var(--bordeaux);font-size:18px;margin-bottom:2px;}
+  @media (max-width:520px){.does{grid-template-columns:1fr;}}
+  .routes{display:grid;gap:12px;margin:8px 0 8px;}
+  .route{display:flex;gap:16px;align-items:flex-start;background:var(--wine);color:var(--cream);border-radius:12px;padding:18px 20px;text-decoration:none;}
+  .route .rn{font-family:'Playfair Display',serif;font-style:italic;font-size:34px;line-height:1;color:var(--gold);flex:0 0 28px;}
+  .route h3{margin:0 0 4px;font-family:'Playfair Display',serif;font-weight:600;font-size:19px;color:var(--cream);}
+  .route p{margin:0;font-size:15px;opacity:.85;line-height:1.45;}
+  .route-head{display:flex;align-items:baseline;gap:12px;margin:0 0 6px;}
+  .route-head .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;}
+  .prompt{background:#fff;border:1px solid var(--gold);border-radius:10px;padding:16px 18px;margin:12px 0 16px;font-size:16px;line-height:1.55;color:var(--graphite);}
+  .prompt .lbl{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe);margin-bottom:6px;font-weight:500;}
+  .callout{border-left:3px solid var(--gold);padding:4px 0 4px 16px;margin:16px 0;font-family:'Playfair Display',serif;font-style:italic;font-size:19px;color:var(--bordeaux);line-height:1.45;}
+
+  /* блок пруфов (шаблон 15.10.2026) */
+  .pf-h{font-family:'Playfair Display',serif;font-weight:600;font-size:21px;line-height:1.3;color:var(--wine);margin:32px 0 10px;text-wrap:balance;}
+  .pf-p{margin:0 0 16px;}
+  .pf-fig{margin:0 0 12px;border:1px solid var(--gold);border-radius:10px;overflow:hidden;background:#fff;}
+  .pf-fig img{width:100%;height:auto;display:block;}
+  .pf-fig figcaption{font-family:'Playfair Display',serif;font-style:italic;font-size:12.5px;color:var(--taupe);text-align:center;padding:6px;}
+  .pf-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+  .pf-row img{border:1px solid var(--gold);border-radius:8px;width:100%;display:block;}
+  @media (max-width:520px){.pf-row{grid-template-columns:1fr;}}
+  .pf-cap{font-family:'Playfair Display',serif;font-style:italic;font-size:15px;color:var(--bordeaux);margin:0 0 8px;}
+  .pf-stats{display:flex;gap:16px;flex-wrap:wrap;margin:8px 0 8px;}
+  .pf-stat{background:var(--taupe);border-radius:6px;padding:18px 20px;flex:1;min-width:140px;}
+  .pf-stat b{display:block;font-family:'Playfair Display',serif;font-style:italic;font-weight:400;color:var(--wine);font-size:28px;line-height:1.1;margin-bottom:6px;}
+  .pf-stat span{font-size:14px;color:var(--wine);opacity:.85;}
+  .pf-callout{border-left:3px solid var(--gold);padding:4px 0 4px 16px;margin:24px 0;font-family:'Playfair Display',serif;font-style:italic;font-size:19px;color:var(--bordeaux);line-height:1.45;}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <img src="assets/cover.jpg" alt="Катерина Арта" loading="eager">
+  <div class="cover-caption">3D-панель</div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>3D-панель бизнеса на Claude. Та, что выглядит на тысячи долларов, собирается за три шага</h1>
+    <p class="subtitle">Подключаешь свои данные, и Claude превращает бизнес в трёхмерный мир: товары и фургоны доставки кликабельны, по клику открывается живая статистика. Пошагово, со скринами и промптами, которые можно вставить</p>
+    <p class="byline">Катерина Арта · @katerinarta_ · октябрь 2026</p>
+  </header>
+  <hr class="divider">
+
+  <section>
+    <h2>Что это такое и зачем</h2>
+    <p class="lead">Скучная таблица с цифрами никого не держит. 3D-панель - это тот же отчёт, но в виде пространства, по которому ходишь как по игре: кликаешь на товар или фургон и видишь, что за ним</p>
+    <ul class="does">
+      <li><b>Товар кликабелен</b>нажал на позицию - открылись продажи и остаток по ней</li>
+      <li><b>Доставка на карте</b>фургоны видно как точки в городе, а не строки в выгрузке</li>
+      <li><b>Склад как мир</b>бизнес разложен в трёхмерную сцену, а не в столбцы</li>
+      <li><b>Цифры живые</b>статистика подтягивается прямо на объекты сцены</li>
+    </ul>
+    <p>Главное - собрать это правильно. Третий шаг проваливает большинство, и ниже я разбираю, в чём именно он</p>
+  </section>
+  <hr class="divider">
+
+  <section>
+    <h2>Три шага</h2>
+    <div class="routes">
+      <a class="route" href="#dannye"><span class="rn">1</span><div><h3>Подключить данные</h3><p>Свои цифры в Claude через коннектор Shopify или Square. Панель рисуется по настоящим данным</p></div></a>
+      <a class="route" href="#mir"><span class="rn">2</span><div><h3>Попросить 3D-мир</h3><p>Claude раскладывает бизнес в трёхмерную сцену, где каждый товар и фургон - кликабельный объект</p></div></a>
+      <a class="route" href="#threejs"><span class="rn">3</span><div><h3>Собрать на Three.js</h3><p>Тот самый шаг, где спотыкаются. Объекты оживают, по клику открывается статистика за ними</p></div></a>
+    </div>
+  </section>
+  <hr class="divider">
+
+  <section class="steps" id="dannye">
+    <div class="route-head"><span class="tag">Шаг 1</span></div>
+    <h2>Подключи свои данные к Claude</h2>
+    <p>Коннектор - это мост между Claude и сервисом, где уже лежат твои цифры. Для интернет-магазина это Shopify, для кофейни, точки или услуг - Square. Оба коннектора официальные, лежат в каталоге Claude</p>
+    <figure class="proof-wide"><img src="assets/shot-shopify.png" alt="Коннектор Shopify в каталоге Claude"><figcaption>Каталог Claude: коннектор Shopify от самой Shopify, с галочкой проверки. «Build, manage, and analyze your Shopify store» - заводи, веди и анализируй магазин прямо в чате</figcaption></figure>
+    <figure class="proof-wide"><img src="assets/shot-square.png" alt="Коннектор Square в каталоге Claude"><figcaption>Коннектор Square от Square, Inc. «Search and manage transaction, merchant, and payment data» - поиск и работа с транзакциями, продавцом и платежами</figcaption></figure>
+    <div class="step">
+      <h3>Открой коннекторы в Claude</h3>
+      <p class="tri"><b>Куда нажать.</b> В Claude зайди в Настройки → Коннекторы и найди нужный: <code>Shopify</code> для интернет-магазина или <code>Square</code> для офлайн-точки</p>
+      <p class="tri"><b>Что увидишь.</b> Карточку коннектора с кнопкой «Add to Claude» и пометкой, кто его сделал</p>
+      <p class="tri"><b>Что это даёт.</b> Это одноразовая настройка, дальше коннектор работает для каждой новой панели</p>
+    </div>
+    <div class="step">
+      <h3>Подключи свой аккаунт</h3>
+      <p class="tri"><b>Куда нажать.</b> Нажми «Add to Claude», войди своим аккаунтом Shopify или Square и подтверди доступ</p>
+      <p class="tri"><b>Что увидишь.</b> Claude получит доступ к твоим заказам, товарам, остаткам и продажам</p>
+      <p class="tri"><b>Что это даёт.</b> Панель строится на твоих настоящих цифрах, а не на выдуманном примере</p>
+    </div>
+  </section>
+  <hr class="divider">
+
+  <section class="steps" id="mir">
+    <div class="route-head"><span class="tag">Шаг 2</span></div>
+    <h2>Попроси Claude собрать трёхмерный мир</h2>
+    <p>Данные подключены - теперь описываешь словами, что хочешь увидеть. Claude разложит бизнес на сцену, где у каждого товара и каждого фургона своё место</p>
+    <div class="step">
+      <h3>Опиши сцену обычными словами</h3>
+      <p class="tri"><b>Куда нажать.</b> Напиши задачу в чат. Вот промпт, с которого можно начать:</p>
+      <div class="prompt"><span class="lbl">Промпт, скопируй и вставь</span>Собери из моих данных трёхмерный мир бизнеса. Товары - объекты на витрине, фургоны доставки - точки на карте города. Сделай каждый объект кликабельным</div>
+      <p class="tri"><b>Что увидишь.</b> Claude соберёт сцену, где бизнес виден целиком, как пространство</p>
+      <p class="tri"><b>Что это даёт.</b> Ты смотришь на бизнес сверху, а не листаешь выгрузку строк</p>
+    </div>
+  </section>
+  <hr class="divider">
+
+  <section class="steps" id="threejs">
+    <div class="route-head"><span class="tag">Шаг 3</span></div>
+    <h2>Скажи собрать на Three.js - здесь спотыкаются почти все</h2>
+    <p>Three.js - бесплатная открытая библиотека 3D-графики для браузера. Именно на ней сцена перестаёт быть плоской картинкой и начинает двигаться. Если про неё не сказать, Claude соберёт обычный график - это и есть ошибка, на которой проваливается большинство</p>
+    <figure class="proof-wide"><img src="assets/shot-threejs.png" alt="Коннектор Three.js 3D Viewer в каталоге Claude"><figcaption>Каталог Claude: Three.js 3D Viewer. «Demo 3D viewer that renders interactive 3D scenes and models using Three.js» - показывает интерактивные 3D-сцены и модели прямо в разговоре</figcaption></figure>
+    <div class="step">
+      <h3>Назови библиотеку прямо в промпте</h3>
+      <p class="tri"><b>Куда нажать.</b> Попроси собрать сцену именно на Three.js и сразу - кликабельность. Промпт:</p>
+      <div class="prompt"><span class="lbl">Промпт, скопируй и вставь</span>Собери эту панель на Three.js. Пусть каждый объект анимируется, а по клику на товар или фургон открывается живая статистика за ним</div>
+      <p class="tri"><b>Что увидишь.</b> Claude напишет сцену на Three.js и покажет её прямо в чате: объекты вращаются и реагируют на клик</p>
+      <p class="tri"><b>Что это даёт.</b> Панель ведёт себя как видеоигра - по любому объекту кликаешь и видишь статистику за ним</p>
+    </div>
+    <div class="callout">Дашборд ощущается не таблицей, а видеоигрой: кликаешь на объект и видишь живые цифры за ним</div>
+  </section>
+  <hr class="divider">
+
+  <section>
+    <h2>Грабли, о которые спотыкаются</h2>
+    <ol class="grabli-list">
+      <li><b>Забыть про Three.js.</b> Это главная ошибка. Без этого слова в промпте Claude соберёт плоский график вместо живой сцены</li>
+      <li><b>Сначала данные, потом картинка.</b> Подключи Shopify или Square до того, как просить панель, иначе она нарисуется на пустых цифрах</li>
+      <li><b>Проси кликабельность сразу.</b> «Сделай каждый объект кликабельным, по клику - статистика» в первом же промпте, а не отдельной правкой потом</li>
+      <li><b>Коннектор под свой бизнес.</b> Shopify - для интернет-магазина, Square - для офлайн-точки, кофейни, услуг. Бери тот, где у тебя уже лежат данные</li>
+    </ol>
+  </section>
+  <hr class="divider">
+
+  <section>
+    <h2>Где смотреть подробности</h2>
+    <div class="altlinks">
+      <ul>
+        <li><a href="https://claude.com/marketplace/connectors/shopify" target="_blank" rel="noopener"><code>claude.com/marketplace/connectors/shopify</code></a> - официальный коннектор Shopify для Claude</li>
+        <li><a href="https://claude.com/marketplace/connectors/square" target="_blank" rel="noopener"><code>claude.com/marketplace/connectors/square</code></a> - коннектор Square от Square, Inc.</li>
+        <li><a href="https://claude.com/marketplace/connectors/threejs-3d-viewer" target="_blank" rel="noopener"><code>claude.com/marketplace/connectors/threejs-3d-viewer</code></a> - Three.js 3D Viewer, показывает сцены в чате</li>
+        <li><a href="https://threejs.org" target="_blank" rel="noopener"><code>threejs.org</code></a> - сама библиотека Three.js: открытая, бесплатная, 3D в браузере</li>
+      </ul>
+    </div>
+  </section><hr class="divider">
+
+  <section>
+    <h2>Панель - это витрина, а не система</h2>
+    <p>3D-панель - один инструмент. Я одна, в декрете, без команды собрала на нейросетях целый завод: контент, воронки, продажи. Красивая панель показывает цифры, но что с ними делать, какие решения принимать и как превратить данные в заявки и деньги - за тебя никто не решит</p>
+    <div class="stat-block">
+      <span class="stat-num">1.5</span>
+      <span class="stat-text">млн ₽ оборота проектов за год на нейросетях, с нуля, из декрета, без команды</span>
+    </div>
+
+    <h3 class="pf-h">Блог растёт на контент-заводе из ИИ-агентов</h3>
+    <p class="pf-p">Мой блог ведут ИИ-агенты: находят темы, которые уже залетели, пишут сценарии, собирают рилсы с цифровым двойником и выдают материалы по кодовым словам. Я проверяю и принимаю решения</p>
+    <figure class="pf-fig"><img src="assets/panel30.jpg" alt="4,8 млн просмотров за 30 дней"><figcaption>Профессиональная панель: 4,8 млн просмотров за 30 дней</figcaption></figure>
+    <figure class="pf-fig"><img src="assets/insights.jpg" alt="Статистика профиля: просмотры, взаимодействия, новые подписчики"><figcaption>Статистика профиля: 4,3 млн просмотров, 89,4 тыс. взаимодействий, 1 301 новый подписчик</figcaption></figure>
+    <div class="pf-row">
+      <img src="assets/r19.jpg" alt="Рилс">
+      <img src="assets/r1a.jpg" alt="Рилс">
+      <img src="assets/r1b.jpg" alt="Рилс">
+    </div>
+    <p class="pf-cap">Три рилса по миллиону просмотров и больше, без рекламы и без команды</p>
+
+    <h3 class="pf-h">Растут деньги и аудитория клиентов</h3>
+    <p class="pf-p">Ту же систему из нейросетей я собираю для экспертов: контент, автоворонки, боты, сайты и продажи. Дизайнер, монтажёр, таргетолог, копирайтер и менеджер по продажам в проекте не нанимались, их работу закрыли нейросети</p>
+    <div class="pf-stats">
+      <div class="pf-stat"><b>1,2 млн ₽</b><span>оборот проекта клиента за полгода</span></div>
+      <div class="pf-stat"><b>45 → 75 тыс.</b><span>выросла аудитория клиента</span></div>
+    </div>
+
+    <div class="pf-callout">Я понимаю, как привлечь внимание и превратить его в деньги. И делаю это с помощью нейросетей</div>
+
+    <p>Собрать 3D-панель - красиво, но это витрина. Превратить данные бизнеса в систему, которая сама подсказывает, что продавать, где теряются деньги и куда расти, - другая работа, и начинается она с разбора твоих задач</p>
+    <p>На консультации разбираю, как выстроить такую систему у тебя</p>
+
+    <p class="say-word">Напиши слово</p>
+    <div class="pill-outline">КОНСУЛЬТАЦИЯ</div>
+
+    <p class="say-word">мне в личку Telegram</p>
+    <a class="pill-gold" href="https://t.me/katerinarta" target="_blank" rel="noopener">Написать</a>
+
+    <p class="eyebrow-label">Мои каналы и страницы</p>
+    <div class="channel-grid">
+      <a class="pill-dark" href="https://t.me/+CNtsc57EWnQzZTk6" target="_blank" rel="noopener">Канал в Telegram</a>
+      <a class="pill-dark" href="https://max.ru/join/7j3M_9BFNWEfFMFmVd6DDz227jGaAVLpVvy3mObA93o" target="_blank" rel="noopener">Канал в MAX</a>
+      <a class="pill-dark" href="https://instagram.com/katerinarta_" target="_blank" rel="noopener">Instagram</a>
+      <a class="pill-dark" href="https://vk.ru/katerinarta" target="_blank" rel="noopener">ВКонтакте</a>
+      <a class="pill-dark" href="https://youtube.com/@katerinarta" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>@katerinarta_ · 3D-панель бизнеса на Claude и Three.js</footer>
+
+</body>
+</html>
